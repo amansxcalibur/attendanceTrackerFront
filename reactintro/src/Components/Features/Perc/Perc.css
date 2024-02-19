@@ -1,0 +1,17 @@
+.test {
+    position: relative;  
+}
+
+.test:after {
+  position: absolute;
+  left: 0;
+  top: 25%;
+  height: 1px;
+  background: #c00;
+  content: "";
+  width: 100%;
+  display: block;
+  background-color: transparent; /* Transparent background */
+  border-top:  2px dashed rgb(65, 66, 71);
+   
+}
