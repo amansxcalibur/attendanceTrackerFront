@@ -28,7 +28,7 @@ export default function App() {
   const [errorMessage, updateErrorMessage]=useState(null);
 
   return (
-    <div>
+    <div style={{}}>
       <BrowserRouter>
         <Homer/>
       </BrowserRouter>

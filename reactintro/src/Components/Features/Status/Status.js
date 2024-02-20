@@ -63,7 +63,7 @@ export default function Status(){
                 <ButtonField/>
             </div>
             </div>
-        <table style={{padding:"10px", width:"100%", borderCollapse:"separate", borderSpacing:"0px 4px", }}>
+        <table style={{padding:"10px", width:"100%", borderCollapse:"separate", borderSpacing:"0px 4px"}}>
             <thead>
                 <tr>
                     <th>Sub</th>
@@ -75,17 +75,31 @@ export default function Status(){
             <tbody>
                 {Object.keys(statState).map((key, index) => (
                     <>
-                    <tr style={{backgroundColor:"blue", }} key={index}>
-                        <td style={{textAlign:"center"}}>P{key}</td>
-                        <td style={{}}>{statState[key].name}</td>
-                        <td>
+                    {statState[key].status==='cancelled'?
+                    <tr style={{backgroundColor:"transparent", color:"#BFBFBF"}} key={index}> 
+                        <td style={{backgroundColor:'#F1F1F1', textAlign:"center", borderTopLeftRadius:"20px", borderBottomLeftRadius:"20px"}}>P{key}</td>
+                        <td style={{backgroundColor:'#F1F1F1'}}>{statState[key].name}</td>
+                        <td style={{backgroundColor:"#F1F1F1", borderTopRightRadius:"20px", borderBottomRightRadius:"20px"}}>
                             <div style={{display:"flex", flexDirection:"column"}}>
-                                <button style={{backgroundColor:statState[key].status==='present'?'grey':'transparent', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>setStatState({...statState,[key]:{...statState[key], status:'present'}})}>Present</button>
-                                <button style={{backgroundColor:statState[key].status==='absent'?'grey':'transparent', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>setStatState({...statState,[key]:{...statState[key], status:'absent'}})}>Absent</button>
+                                <button style={{backgroundColor:'transparent', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>setStatState({...statState,[key]:{...statState[key], status:'present'}})}>Present</button>
+                                <button style={{backgroundColor:'transparent', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>setStatState({...statState,[key]:{...statState[key], status:'absent'}})}>Absent</button>
+                                <button style={{backgroundColor:'#DDDDDD', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>setStatState({...statState,[key]:{...statState[key], status:'cancelled'}})}>Canceled</button>
+                            </div>
+                        </td>
+                    </tr>
+                    :
+                    <tr style={{backgroundColor:"transparent"}} key={index}> 
+                        <td style={{backgroundColor:'#DDDDDD', textAlign:"center", borderTopLeftRadius:"20px", borderBottomLeftRadius:"20px"}}>P{key}</td>
+                        <td style={{backgroundColor:'#DDDDDD'}}>{statState[key].name}</td>
+                        <td style={{backgroundColor:'#DDDDDD', borderTopRightRadius:"20px", borderBottomRightRadius:"20px"}}>
+                            <div style={{display:"flex", flexDirection:"column"}}>
+                                <button style={{backgroundColor:statState[key].status==='present'?'rgb(100,255,10   )':'transparent', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>setStatState({...statState,[key]:{...statState[key], status:'present'}})}>Present</button>
+                                <button style={{backgroundColor:statState[key].status==='absent'?'red':'transparent', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>setStatState({...statState,[key]:{...statState[key], status:'absent'}})}>Absent</button>
                                 <button style={{backgroundColor:statState[key].status==='cancelled'?'grey':'transparent', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>setStatState({...statState,[key]:{...statState[key], status:'cancelled'}})}>Canceled</button>
                             </div>
                         </td>
                     </tr>
+                    }
                     </>
                 ))}
             </tbody>

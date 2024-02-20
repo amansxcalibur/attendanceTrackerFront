@@ -82,10 +82,10 @@ export default function Leaves({statdata}){
         <>
         <h2>Bunks Left</h2>
         <div style={{justifyContent:"center",}}>
-        <div style={{backgroundColor:"grey", display:"flex", flexWrap:"wrap", overflow:"auto", height:"300px", }}>
+        <div style={{backgroundColor:"#DDDDDD", display:"flex", flexWrap:"wrap", overflow:"auto", height:"300px", }}>
             {statdata.map((key, value)=>(
-                <div key={value} style={{backgroundColor:"blue", margin:"1px", width:"162px", height:"182px", display:"flex", flexDirection:"column"}}>
-                    <div style={{marginLeft:"8px"}}>
+                <div key={value} style={{backgroundColor:"white", marginLeft:"7px", marginTop:"7px", width:"162px", height:"182px", display:"flex", flexDirection:"column", borderRadius:"20px"}}>
+                    <div style={{marginLeft:"8px", marginTop:"0px"}}>
                         {key.name}
                     </div>
                     <div style={{borderRadius:"50%", border:"5px solid", borderColor:"black", flex:"1", margin:"8px", justifyContent:"center", display:"flex", alignItems:"center", fontSize:"50px"}}>

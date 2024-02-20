@@ -155,7 +155,7 @@ export default function Home(){
             </div>
           </div>
           { destState[0]==='home'?
-            <div style={{backgroundColor:"white", flex:"1", padding:"20px", borderRadius:"20px", marginRight:"20px"}}>
+            <div style={{backgroundColor:"white", flex:"1", padding:"20px", borderRadius:"20px", marginRight:"20px", marginBottom:"20px"}}>
               <Status/>
             </div>:<SeeTable
                   tableData={a.courses}/>

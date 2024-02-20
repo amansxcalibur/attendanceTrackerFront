@@ -55,7 +55,7 @@ function Leftpanel(){
         <img src={logo} width={60} height={60}></img>
         <div style={{backgroundColor:"transparent", display:"flex",flexDirection:"column", flex:"30"}}>
             <div onClick={()=>{navigate('/')}} style={{backgroundColor:"brown", textAlign:"center", justifyContent:"center",horizontalAlign:"center", marginTop:"5px", padding:"17px", borderRadius:"10px"}}>T!</div>
-            <div style={{backgroundColor:"brown", textAlign:"center", justifyContent:"center",horizontalAlign:"center", marginTop:"5px", padding:"17px", borderRadius:"10px"}}>T$</div>
+            {/* <div style={{backgroundColor:"brown", textAlign:"center", justifyContent:"center",horizontalAlign:"center", marginTop:"5px", padding:"17px", borderRadius:"10px"}}>T$</div> */}
             <button onClick={()=>{navigate('/add')}} style={{backgroundColor:"red", textAlign:"center", justifyContent:"center",horizontalAlign:"center", marginTop:"5px", padding:"15px", margin:"5px", borderRadius:"100px"}}>
               <img src={add} width={14}/>
             </button>
