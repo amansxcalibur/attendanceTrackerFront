@@ -1,7 +1,7 @@
 import chroma from 'chroma-js';
 import './Perc.css'
 
-export default function Perc({statdata}){
+export default function Perc({statData}){
     // const statdata=[
     //     {
     //         "name": "maths",
@@ -13,78 +13,14 @@ export default function Perc({statdata}){
     //         "percentage": 94 ,
     //         "bunks_available": 10
     //     },
-    //     {
-    //         "name": "history",
-    //         "percentage": 100,
-    //         "bunks_available": 4
-    //     },
-    //     {
-    //         "name": "chemistry",
-    //         "percentage": 66,
-    //         "bunks_available": 10
-    //     },
-    //     {
-    //         "name": "physics",
-    //         "percentage": 30,
-    //         "bunks_available": 15
-    //     },
-    //     {
-    //         "name": "algebra",
-    //         "percentage": 83,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "literature",
-    //         "percentage": 75,
-    //         "bunks_available": 10
-    //     },
-    //     {
-    //         "name": "geography",
-    //         "percentage": 9,
-    //         "bunks_available": 4
-    //     },
-    //     {
-    //         "name": "biology",
-    //         "percentage": 100,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "computer science",
-    //         "percentage": 100,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "geometry",
-    //         "percentage": 100,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "world history",
-    //         "percentage": 100,
-    //         "bunks_available": 4
-    //     },
-    //     {
-    //         "name": "art",
-    //         "percentage": 100,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "calculus",
-    //         "percentage": 100,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "US history",
-    //         "percentage": 100,
-    //         "bunks_available": 4
-    //     }
     // ]
+    console.log("in Perc")
     const f = chroma.scale(['red','yellow','green']);
     
     return(
         <>
             <div style={{backgroundColor:"", display:"flex", overflow:"auto", height:"100%", width:"100%"}}>
-                {statdata.map((key, value)=>(
+                {statData.map((key, value)=>(
                     <div key={value} style={{display:"flex", flexDirection:"column", flex:"1"}}>
                         <div style={{textAlign:"center"}}>{key.percentage}%</div>
                         <div className='test' style={{height:"85%", }}>

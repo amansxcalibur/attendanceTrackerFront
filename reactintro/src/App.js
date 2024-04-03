@@ -12,11 +12,12 @@ import logout from './icons/logout-1.svg'
 import add from './icons/add-1.svg'
 import pfp from './icons/uWu.jpg'
 import Homer from './Homepage.js'
-// import PrivateRoute from './utils/PrivateRoute';  
-// import RegistrationForm from './Components/comp/RegistrationForm.js';
-// import LoginForm from './Components/comp/LoginForm.js';
-// import Header from './Components/comp/Header.js';
-// import AlertComponent from './Components/comp/AlertComponent.js';
+import PrivateRoute from './utils/PrivateRoute';  
+import RegistrationForm from './Components/comp/RegistrationForm.js';
+import LoginForm from './Components/comp/LoginForm.js';
+import Header from './Components/comp/Header.js';
+import AlertComponent from './Components/comp/AlertComponent.js';
+
 
 export default function App() {
   // const [token, setToken]=useToken();
@@ -28,28 +29,22 @@ export default function App() {
   const [errorMessage, updateErrorMessage]=useState(null);
 
   return (
-    <div style={{}}>
-      <BrowserRouter>
+    <div style={{backgroundImage:"url(/wall.png)"}}>
+      {/* <BrowserRouter>
         <Homer/>
-      </BrowserRouter>
-      {/* <h1>Application</h1>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" exact={true}>
-                <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
-              </Route>
-              <Route path="/register">
-                <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
-              </Route>
-              <Route path="/login">
-                <LoginForm showError={updateErrorMessage} updateTitle={updateTitle}/>
-              </Route>
-              <PrivateRoute path="/home">
-                <Homer/>
-              </PrivateRoute>
-        </Routes>
-        <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>
       </BrowserRouter> */}
+      
+      <BrowserRouter>
+      <Header title={title}/>
+        <Routes>
+          <Route path="/" element={<RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>}/>
+          <Route path="/register" element={<RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>}/>
+          <Route path="/login" element={<LoginForm showError={updateErrorMessage} updateTitle={updateTitle}/>}/>
+          {/* <PrivateRoute path="/home" element={<Homer/>}/> */}
+          <Route path='/home/*' element={<PrivateRoute><Homer/></PrivateRoute>}/>
+        </Routes>
+        {/* <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/> */}
+      </BrowserRouter>
     </div>
   );
 }

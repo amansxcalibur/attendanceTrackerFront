@@ -3,7 +3,7 @@ import './Settings.css'
 export default function Settings(){
     return(
         <div style={{display:"flex", flex:1 }}>
-            <div class="settings" style={{backgroundColor:"gray"}}>
+            <div className="settings" style={{backgroundColor:"gray"}}>
                 Settings
                 <div>
                     <div>Theme</div>

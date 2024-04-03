@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { API_BASE_URL, ACCESS_TOKEN_NAME} from '../../constants/apiConstants';
 import { useNavigate } from "react-router-dom";
-import { response } from "express";
+//axios.defaults.headers.common['Access-Control-Allow-Origin']= '*'
 
 export default function RegistrationForm(props){
     const [state, setState]=useState({
@@ -11,6 +11,14 @@ export default function RegistrationForm(props){
         confirmpassword:"",
         successMessage:null
     });
+    const header={
+        'Content-Type':'application/json',
+        'Access-Control-Allow-Origin': '*',
+        // 'Authorization':'Bearer '+localStorage.getItem(ACCESS_TOKEN_NAME),
+        // 'Access-Control-Allow-Origin':'*',
+    }
+    
+    //console.log(header)
     const navigate=useNavigate();
 
     const handleChange=(e)=>{
@@ -22,35 +30,59 @@ export default function RegistrationForm(props){
     }
 
     const sendDetailsToServer=()=>{
+        console.log("im here");
         if(state.username.length&&state.password.length){
+            console.log('maybe here');
             props.showError(null);
             const payload={
-                "name":state.username,
+                "username":state.username,
                 "password":state.password
             }
-            axios.post(API_BASE_URL+'/user/register', payload)
-            .then(function(repsonse){
-                if(response.status===200){
+            // axios.defaults.headers.common['Access-Control-Allow-Origin']= '*'
+
+            axios.post(API_BASE_URL + '/register', payload)
+            .then((response)=>{
+                if(response.status===201){
+                    console.log(response.body);
                     setState(prevState=>({
                         ...prevState,
-                        'succesMessage':'Registration successful. Redirecting to hmepage'
+                        'succesMessage':'Registration successful. Redirecting to homepage'
                     }))
-                    localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
-                    redirectToHome();
+                    console.log("about to pass")
+                    localStorage.setItem(ACCESS_TOKEN_NAME, JSON.stringify(response.data.token));
+                    // redirectToHome();
                     props.showError(null)
-                }else{
-                    props.showError("Some error occured");
+                    console.log("created")
                 }
             })
-            .catch(function(error){
-                console.log(error);
-            })
+            .catch((error)=>{
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    console.log('yo got a response but not 200');
+                    console.log(error.response.data);
+                    console.log(error.response.status)
+                //   } else if (error.request) {
+                //     // The request was made but no response was received
+                //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                //     // http.ClientRequest in node.js
+                //     console.log("no server response");
+                //     console.log(error.request);
+                //   } else {
+                //     // Something happened in setting up the request that triggered an Error
+                //     console.log("error while setting up request");
+                //     console.log('Error', error.message);
+                //   }
+                //   console.log("error config");
+                //   console.log(error.config);
+            }})
         }else{
             props.showError("Please enter valid credentials")
         }
     }
 
     const redirectToHome=()=>{
+        console.log("home")
         props.updateTitle("Home");
         navigate('/home');
     }
@@ -74,7 +106,7 @@ export default function RegistrationForm(props){
                 <div>
                     <div>
                         <label>UserName</label>
-                        <input type="text" id="userName" placeholder="Username add" value={state.username} onChange={handleChange}/>
+                        <input type="text" id="username" placeholder="Username add" value={state.username} onChange={handleChange}/>
                     </div>
                     <div>
                         <label>Password</label>
@@ -82,7 +114,7 @@ export default function RegistrationForm(props){
                     </div>
                     <div>
                         <label>Confirm Password</label>
-                        <input type="password" id="confirmPassword" placeholder="Confirm Password add" value={state.confirmpassword} onChange={handleChange}/>
+                        <input type="password" id="confirmpassword" placeholder="Confirm Password add" value={state.confirmpassword} onChange={handleChange}/>
                     </div>
                     <button type="submit" onClick={handleSubmitClick}>Register</button>
                 </div>

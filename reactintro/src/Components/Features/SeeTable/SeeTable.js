@@ -17,7 +17,9 @@ export default function SeeTable({tableData}){
                     {/* <th>Sat</th>
                     <th>Sun</th> */}
                 </tr>
-                <td colSpan="1" style={{backgroundColor:"black", }}></td>
+                <tr>
+                    <td colSpan="1" style={{backgroundColor:"black", }}></td>
+                </tr>
             </thead>
             <tbody style={{backgroundColor:"", padding:"20px", }}>
                 {tableData.map((rowVal, rowId)=>(

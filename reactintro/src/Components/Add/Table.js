@@ -37,7 +37,9 @@ const Table=()=>{
                     <th>Saturday</th>
                     <th>Sunday</th>
                 </tr>
-                <td colSpan="1" style={{backgroundColor:"black", }}></td>
+                <tr>
+                  <td colSpan="1" style={{backgroundColor:"black", }}></td>
+                </tr>
             </thead>
             <tbody style={{backgroundColor:"", padding:"20px", }}>
                 {stater.map((rowVal, rowId)=>(

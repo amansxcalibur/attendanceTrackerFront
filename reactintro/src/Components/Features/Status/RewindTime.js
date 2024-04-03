@@ -1,11 +1,12 @@
 import * as React from 'react';
-
+import {queryForDate} from './queryForDate';
 import Button from '@mui/material/Button';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { type } from '@testing-library/user-event/dist/type';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 
 function ButtonField(props) {
   const {
@@ -16,9 +17,9 @@ function ButtonField(props) {
     InputProps: { ref } = {},
     inputProps: { 'aria-label': ariaLabel } = {},
   } = props;
-
+console.log();
   return (
-    <Button style={{backgroundColor:"wheat", color:"black"}}
+    <Button style={{backgroundColor:"#DDDDDD", color:"black"}}
       variant="outlined"
       id={id}
       disabled={disabled}
@@ -32,15 +33,20 @@ function ButtonField(props) {
 }
 
 function ButtonDatePicker(props) {
+  const [date, setDate] = useState()
   const [open, setOpen] = React.useState(false);
-
+  const dater=()=>{
+    console.log(props.value.format('YYYY-MM-DD'));
+    setOpen(false);
+    queryForDate(props.value.format('YYYY-MM-DD'));
+  }
   return (
     <DatePicker
       slots={{ field: ButtonField, ...props.slots }}
       slotProps={{ field: { setOpen } }}
       {...props}
       open={open}
-      onClose={() => setOpen(false)}
+      onClose={() => dater()}
       onOpen={() => setOpen(true)}
     />
   );
@@ -48,7 +54,6 @@ function ButtonDatePicker(props) {
 
 export default function PickerWithButtonField() {
   const [value, setValue] = React.useState(dayjs());
-
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <ButtonDatePicker

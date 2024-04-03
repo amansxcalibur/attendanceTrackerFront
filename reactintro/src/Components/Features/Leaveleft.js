@@ -1,6 +1,6 @@
 
 
-export default function Leaves({statdata}){
+export default function Leaves({statData}){
     // const statdata=[
     //     {
     //         "name": "maths",
@@ -12,78 +12,14 @@ export default function Leaves({statdata}){
     //         "percentage": 94 ,
     //         "bunks_available": 10
     //     },
-    //     {
-    //         "name": "history",
-    //         "percentage": 100,
-    //         "bunks_available": 4
-    //     },
-    //     {
-    //         "name": "chemistry",
-    //         "percentage": 66,
-    //         "bunks_available": 10
-    //     },
-    //     {
-    //         "name": "physics",
-    //         "percentage": 30,
-    //         "bunks_available": 15
-    //     },
-    //     {
-    //         "name": "algebra",
-    //         "percentage": 83,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "literature",
-    //         "percentage": 75,
-    //         "bunks_available": 10
-    //     },
-    //     {
-    //         "name": "geography",
-    //         "percentage": 9,
-    //         "bunks_available": 4
-    //     },
-    //     {
-    //         "name": "biology",
-    //         "percentage": 100,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "computer science",
-    //         "percentage": 100,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "geometry",
-    //         "percentage": 100,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "world history",
-    //         "percentage": 100,
-    //         "bunks_available": 4
-    //     },
-    //     {
-    //         "name": "art",
-    //         "percentage": 100,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "calculus",
-    //         "percentage": 100,
-    //         "bunks_available": 5
-    //     },
-    //     {
-    //         "name": "US history",
-    //         "percentage": 100,
-    //         "bunks_available": 4
-    //     }
     // ]
+    console.log("in LeavesLeft")
     return(
         <>
         <h2>Bunks Left</h2>
         <div style={{justifyContent:"center",}}>
         <div style={{backgroundColor:"#DDDDDD", display:"flex", flexWrap:"wrap", overflow:"auto", height:"300px", }}>
-            {statdata.map((key, value)=>(
+            {statData.map((key, value)=>(
                 <div key={value} style={{backgroundColor:"white", marginLeft:"7px", marginTop:"7px", width:"162px", height:"182px", display:"flex", flexDirection:"column", borderRadius:"20px"}}>
                     <div style={{marginLeft:"8px", marginTop:"0px"}}>
                         {key.name}
