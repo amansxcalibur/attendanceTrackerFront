@@ -8,51 +8,52 @@ import axios from 'axios';
 import { ACCESS_TOKEN_NAME, API_BASE_URL } from '../../../constants/apiConstants.js';
 import BasicDatePicker from './RewindTime.js';
 
-export default function Status({dateQuer, setDateQuer, rendCont, setRendCont, dateCurr}){
-    console.log(dateQuer, 'hi from statusman', rendCont);
+export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, rendCont, setRendCont}){
+    console.log("in Status",dateQuer);
+    // console.log(dateQuer, 'hi from statusman', rendCont);
     const firstrend=useRef(false);
-    const data=[
-    {
-        "name": "history",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63171"
-    },
-    {
-        "name": "geography",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63172"
-    },
-    {
-        "name": "world history",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63173"
-    },
-    {
-        "name": "US history",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63174"
-    },
-    {
-        "name": "USn't history",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63174"
-    },
-    {
-        "name": "UShis tory",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63174"
-    },
-    {
-        "name": "UShertory",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63174"
-    },
-    {
-        "name": "history",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63174"
-    }
-]
+//     const data=[
+//     {
+//         "name": "history",
+//         "status": "present",
+//         "session_url": "http://127.0.0.1:8000/session/63171"
+//     },
+//     {
+//         "name": "geography",
+//         "status": "present",
+//         "session_url": "http://127.0.0.1:8000/session/63172"
+//     },
+//     {
+//         "name": "world history",
+//         "status": "present",
+//         "session_url": "http://127.0.0.1:8000/session/63173"
+//     },
+//     {
+//         "name": "US history",
+//         "status": "present",
+//         "session_url": "http://127.0.0.1:8000/session/63174"
+//     },
+//     {
+//         "name": "USn't history",
+//         "status": "present",
+//         "session_url": "http://127.0.0.1:8000/session/63174"
+//     },
+//     {
+//         "name": "UShis tory",
+//         "status": "present",
+//         "session_url": "http://127.0.0.1:8000/session/63174"
+//     },
+//     {
+//         "name": "UShertory",
+//         "status": "present",
+//         "session_url": "http://127.0.0.1:8000/session/63174"
+//     },
+//     {
+//         "name": "history",
+//         "status": "present",
+//         "session_url": "http://127.0.0.1:8000/session/63174"
+//     }
+// ]
     const color={
         present:["#DDDDDD","black"],
         absent:["#DDDDDD","black","red"],

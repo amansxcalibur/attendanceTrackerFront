@@ -119,7 +119,7 @@ function Rightpanel(){
             <h2>Emu Otori</h2>
           </div>
       </div>
-      <div style={{overflow:"auto", flex:"1"}}>
+      <div style={{overflow:"auto", flex:"1"}}>w
       <Routes>
           <Route exact path="/"
             element={<Home/>}/>
@@ -127,9 +127,7 @@ function Rightpanel(){
             element={<Settings/>}/>
           <Route path="home/add"
             element={<Add/>}/>
-          <Route path="/status"
-            element={<Status/>}/>
-          <Route path="/edit"
+          <Route path="home/edit"
           element={<EditAdd/>}/>
         </Routes>
         </div>

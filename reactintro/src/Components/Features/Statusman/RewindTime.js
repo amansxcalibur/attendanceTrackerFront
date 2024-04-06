@@ -10,10 +10,10 @@ export default function BasicDatePicker({dateCurr, setDateCurr}) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DatePicker']}>
-        <DatePicker 
-          label="Basic date picker"
-          value={dateCurr}
-          onChange={(newValue)=>setDateCurr(newValue)} 
+       <DatePicker 
+          label="REWIND TIME"
+          value={dateCurr.format("DD-MM-YYYY")===dayjs().format("DD-MM-YYYY")?null:dateCurr}
+          onChange={(newValue)=>setDateCurr(newValue)}
        />
       </DemoContainer>
     </LocalizationProvider>

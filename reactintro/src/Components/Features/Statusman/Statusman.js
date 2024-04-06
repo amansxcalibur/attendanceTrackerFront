@@ -4,16 +4,18 @@ import dayjs from "dayjs";
 import axios from "axios";
 import React from "react";
 import BasicDatePicker from "./RewindTime";
-import Status from "./Status";
+import Status from "./Status"
+import Button from '@mui/material/Button';
 
 export default function Statusman({rendCont,setRendCont}){
+    console.log("in statusman");
     const [dateCurr, setDateCurr]=React.useState(dayjs())
     const [dateQuer, setDateQuer]=useState(null);
     const header={
         'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
       }
     useEffect(()=>{
-        console.log("Useeffect ub statusman for datequerr init val")
+        console.log("Useeffect in statusman for dateQuer via dateCurr")
         axios.get(API_BASE_URL + '/datequery?date='+dateCurr.format("YYYY-MM-DD"), {headers:header})
         .then(function (response) {
             if(response.status === 200){
@@ -32,22 +34,33 @@ export default function Statusman({rendCont,setRendCont}){
             console.log("catchme in datequery")
             console.log(JSON.stringify(error));
         });
+        console.log("after useEffect",dateQuer)
     },[dateCurr])
-    useEffect(()=>{
-        Statusmanner(dateCurr, setDateCurr, dateQuer, setDateQuer, rendCont, setRendCont)
-    },[dateQuer])
-    console.log("after useEffect")
+
+    // useEffect(()=>{
+    //     console.log('useEffect for passing datQuer to statusmanner', dateQuer)
+    //     Statusmanner(dateCurr, setDateCurr, dateQuer, setDateQuer, rendCont, setRendCont)
+    // },[dateQuer])
+    console.log("end of func statusman", dateQuer)
     return(
         <>
-            <BasicDatePicker dateCurr={dateCurr} setDateCurr={setDateCurr}/>
+        <div style={{display:"flex"}}>
+            <div style={{flex:"1"}}>Today's Courses</div>
+            <div style={{flex:"1"}}>
+                <BasicDatePicker dateCurr={dateCurr} setDateCurr={setDateCurr}/>
+            </div>
+        </div>
+            {dateQuer===null || dateQuer==[]?<></>: 
+            // dateQuer[0].status===null?<></>:
+            <Status dateQuer={dateQuer} setDateQuer={setDateQuer} dateCurr={dateCurr} setDateCurr={setDateCurr} rendCont={rendCont} setRendCont={setRendCont}/>}
         </>
     )
 }
-function Statusmanner(dateCurr, setDateCurr, dateQuer, setDateQuer, rendCont, setRendCont){
-    console.log("in statusmanner")
-    return(
-        <>
-            <Status dateQuer={dateQuer} setDateQuer={setDateQuer} rendCont={rendCont} setRendCont={setRendCont} dateCurr={dateCurr}/>
-        </>
-    )
-}
+// function Statusmanner(dateCurr, setDateCurr, dateQuer, setDateQuer, rendCont, setRendCont){
+//     console.log("in statusmanner",dateQuer)
+//     return(
+//         <>
+//             <Status/>
+//         </>
+//     )
+// }

@@ -2,7 +2,7 @@ import { BrowserRouter, Router, useNavigate, Routes, Route} from 'react-router-d
 
 export default function SeeTable({tableData}){
     const navigate = useNavigate();
-    
+    console.log(tableData,"this is table Data in seetable")
     return(
         <div style={{flex:"5"}}>
             <div style={{height:"0px"}}></div>
@@ -36,7 +36,7 @@ export default function SeeTable({tableData}){
                 ))}
             </tbody>
         </table>
-        <button onClick={()=>{navigate('/edit')}}>Edit Table</button>
+        <button onClick={()=>{navigate('home/edit', {state:{tableData}})}}>Edit Table</button>
         </div>
     )
 }

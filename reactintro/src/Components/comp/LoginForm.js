@@ -70,7 +70,7 @@ function LoginForm(props) {
                         <label htmlFor="Username1">Username</label>
                         <input type="text" 
                             id="username"
-                            placeholder="Enter eusername" 
+                            placeholder="Enter username" 
                             value={state.username}
                             onChange={handleChange}
                         />

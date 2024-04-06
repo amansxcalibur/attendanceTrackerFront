@@ -1,31 +1,78 @@
 import { useState } from 'react';
-import  Select from "react-select";
+import  CreatableSelect from "react-select/creatable";
 import { BrowserRouter, Router, useNavigate, Routes, Route} from 'react-router-dom';
+import axios from 'axios';
+import { ACCESS_TOKEN_NAME, API_BASE_URL } from '../../constants/apiConstants';
 
 
 const Table=()=>{
   const navigate=useNavigate();
-    var tableData=[
-        ["m0",'t0',"w0","th0",'f0',"sa0","su0"],
-        ["m1",'t1',"w1","th1",'f1',"sa1","su1"],
-        ["m2",'t2',"w2","th2",'f2',"sa2","su2"],
-        ["m3",'t3',"w3","th3",'f3',"sa3","su3"],
-    ]
+    // var tableData=[
+    //     ["m0",'t0',"w0","th0",'f0',"sa0","su0"],
+    //     ["m1",'t1',"w1","th1",'f1',"sa1","su1"],
+    //     ["m2",'t2',"w2","th2",'f2',"sa2","su2"],
+    //     ["m3",'t3',"w3","th3",'f3',"sa3","su3"],
+    // ]
+    var tableData=[[null,null,null,null,null]]
     const [stater, setStater] = useState(tableData)
+    const [allDet,setAllDet]=useState(
+      { "name":null,
+        "shared":"False",
+        "start_date":null,
+        "end_date":null,
+        "courses_data":tableData,
+    })
     const handleFR=({data, row,col})=>{
       tableData=stater
       console.log("I SEE THE LIGHT")
       tableData[row][col]=data.label
       setStater(tableData)
       console.log(data.label, row, col, tableData[row][col], stater[row][col])
+      setAllDet(prevState=>({
+        ...prevState,
+        "courses_data":stater,
+      }))
+      console.log("here is alldet", allDet)
       
+    }
+    function saveTable(){
+      console.log("saved", stater)
+      console.log('all data',allDet)
+      const header={
+        'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
+      }
+      axios.post(API_BASE_URL+'/collection',
+          allDet
+          ,{headers:header})
+      .then((response)=>{
+          console.log(response.status, response.data)
+      })
+      .catch((error)=>{
+          console.log("caught an error in post\n",error)
+      })
     }
     function Add(){
       setStater([...stater, ["null", "null", "null"," null", "null", "null", "null"],])
       console.log(stater.length)
     }
+    function handleChange(e){
+      const { id, value } = e.target;
+      setAllDet(prevState => ({
+          ...prevState,
+          [id]: value 
+      }));
+  }
     return(
       <>
+      {/* <form> */}
+        <div>
+          <label htmlFor='name'>Name</label>
+          <input id='name' type='text' placeholder='Name' value={allDet.name} onChange={handleChange} required></input>
+          <label htmlFor='start_date'>Start Date</label>
+          <input type='date' id='start_date' value={allDet.start_date} onChange={handleChange} required></input>
+          <label htmlFor='end_date'>End Date</label>
+          <input type='date' id='end_date' value={allDet.end_date} onChange={handleChange} required></input>
+        </div>
         <table style={{backgroundColor:"red", borderRadius:"20px", border:"1px solid rgb(0,0,0)", width:"100%", }}>
             <thead>
                 <tr>
@@ -59,12 +106,13 @@ const Table=()=>{
         </table>
 
         <div style={{backgroundColor:"blue", display:"flex", padding:"5px"}}>
-                  <button style={{flex:0, minWidth:100}} onClick={Add}>Add row</button></div>
-                  <div>
-                  <button style={{flex:0, minWidth:100}} >Add table</button>
-                  <button style={{minWidth:100}} onClick={()=>{navigate('/')}}>Cancel</button>
-                  </div>
-        </>
+        <button style={{flex:0, minWidth:100}} onClick={Add}>Add row</button></div>
+        <div>
+        <button style={{flex:0, minWidth:100}} onClick={saveTable}>Add table</button>
+        <button style={{minWidth:100}} onClick={()=>{navigate('/')}}>Cancel</button>
+        </div>
+      {/* </form> */}
+      </>
     )
 }
 
@@ -80,14 +128,14 @@ const Drop=({handleFR, row, col})=>{
       
       function handleSelect(data){
         setSelectedOptions(data);
-        console.log(data.label, row, col);
+        console.log(data.label, row, col, "in handleSelect");
         handleFR({data, row, col});
       }
 
       return (
         <div className="App" style={{display:"flex", flexDirection:"column", justifyContent:"center", alignitems:"center",}}>
           <div className="dropdown-container" style={{}}>
-            <Select
+            <CreatableSelect
               options={optionList}
               placeholder="Select subject"
               value={selectedOptions}

@@ -13,7 +13,7 @@ export default function Drop(){
       
       function handleSelect(data){
         setSelectedOptions(data);
-        console.log(data);
+        console.log(data[0],"here you go");
       }
 
       return (

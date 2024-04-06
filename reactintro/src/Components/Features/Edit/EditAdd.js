@@ -1,5 +1,12 @@
 import Table from './Edit.js'
+import { useLocation } from 'react-router-dom'
+import { useState } from 'react';
+
 export default function EditAdd(){
+    const location = useLocation();
+    console.log(location.state,"yhis is in edutadd() ")
+    const [tableData, setTableData] =useState(location.state);
+    console.log(tableData, 'this is table data in edutadd')
     const data=[
         "maths", "eng", "phy", "chem",
     ]
@@ -10,7 +17,7 @@ export default function EditAdd(){
                 <div style={{backgroundColor:"",display:"flex", flex:"1", gap:"10px"}}>
                     <div style={{backgroundColor:"cyan",flex:"4",}}>
                         Table
-                        <Table/>
+                        <Table tableData={tableData}/>
                         </div>
                     <div style={{backgroundColor:"cyan",flex:"1", }}>
                         Add subs
