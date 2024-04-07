@@ -78,23 +78,33 @@ export default function Home(){
 
       //displays bunks available and perc. RendCont so to make sure this gets updated when present status changes.
       useEffect(()=>{
-        const fetchData = async () => {
-          try {
-            console.log("in useEffect")
-            const statResponse = await axios.get(API_BASE_URL + '/statquery', { headers: header });
-          if (statResponse.status === 200) {
-              setStatData(statResponse.data);
-              console.log("statdata", statResponse.data)
-            }
-          } catch (error) {
-            console.error("Error fetching data:", error);
+      //   const fetchData = async () => {
+      //     try {
+      //       console.log("in useEffect")
+      //       const statResponse = await axios.get(API_BASE_URL + '/statquery', { headers: header });
+      //     if (statResponse.status === 200) {
+      //         setStatData(statResponse.data);
+      //         console.log("statdata", statResponse.data)
+      //       }
+      //     } catch (error) {
+      //       console.error("Error fetching data:", error);
+      //     }
+      //  };
+      // fetchData();
+      axios.get(API_BASE_URL + '/statquery', { headers: header })
+      .then(function(response){
+        if (response.status === 200) {
+            setStatData(response.data);
+            console.log("statdata", response.data)
           }
-       };
-      fetchData();
+        })
+        .catch(function(error) {
+          console.error("Error fetching data:", error);
+        }
+     );
       },[rendCont])
 
       useEffect(()=>{
-        const fetchData=()=>{
       axios.get(API_BASE_URL+'/collection', {headers: header})
       .then(function(response){
         console.log(response.data,"destState changed, setting response to tableData")
@@ -103,8 +113,6 @@ export default function Home(){
       .catch(function(error){
         console.log(error.response,)
       })
-    }
-    fetchData();
     },[destState])
       
     return(

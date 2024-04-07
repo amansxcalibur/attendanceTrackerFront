@@ -33,46 +33,21 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
 //         "status": "present",
 //         "session_url": "http://127.0.0.1:8000/session/63174"
 //     },
-//     {
-//         "name": "USn't history",
-//         "status": "present",
-//         "session_url": "http://127.0.0.1:8000/session/63174"
-//     },
-//     {
-//         "name": "UShis tory",
-//         "status": "present",
-//         "session_url": "http://127.0.0.1:8000/session/63174"
-//     },
-//     {
-//         "name": "UShertory",
-//         "status": "present",
-//         "session_url": "http://127.0.0.1:8000/session/63174"
-//     },
-//     {
-//         "name": "history",
-//         "status": "present",
-//         "session_url": "http://127.0.0.1:8000/session/63174"
-//     }
+//     
 // ]
     const color={
-        present:["#DDDDDD","black"],
-        absent:["#DDDDDD","black","red"],
-            
-            
+        present:["#DDDDDD","black","green"],
+        bunked:["#DDDDDD","black","red"],
         cancelled:["#F1F1F1","#BFBFBF"]
     }
     useEffect(()=>{
-        if(firstrend.current && rendCont) update(rendCont, dateCurr, dateQuer);
+        if(firstrend.current && rendCont) {
+            update(rendCont, dateCurr, dateQuer, setRendCont)
+        }
         else firstrend.current=true
-    },[rendCont])
+    },[dateQuer])
     return(
         <>
-        {/* <div style={{display:"flex"}}>
-            <h2 style={{paddingLeft:"10px", flex:"1"}}>Today's Courses</h2>
-            <div style={{backgroundColor:"transparent", display:"flex", flex:"", alignItems:"center", justifyContent:"center"}}>
-                <BasicDatePicker statData={statData} setStatState={setStatData}/>
-            </div>
-            </div> */}
         <table style={{padding:"10px", width:"100%", borderCollapse:"separate", borderSpacing:"0px 4px"}}>
             <thead>
                 <tr>
@@ -106,7 +81,7 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
                         <td style={{backgroundColor:color[dateQuer[key].status][0], color:color[dateQuer[key].status][1], borderTopRightRadius:"20px", borderBottomRightRadius:"20px"}}>
                             <div style={{display:"flex", flexDirection:"column"}}>
                                 <button style={{backgroundColor:dateQuer[key].status==='present'?'rgb(100,255,10)':'transparent', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>{setRendCont(["present",key]); setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'present'}}); }}>Present</button>
-                                <button style={{backgroundColor:dateQuer[key].status==='absent'?'red':'transparent', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>{setRendCont(["bunked",key]); setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'absent'}});}}>Absent</button>
+                                <button style={{backgroundColor:dateQuer[key].status==='bunked'?'red':'transparent', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>{setRendCont(["bunked",key]); setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'bunked'}});}}>Absent</button>
                                 <button style={{backgroundColor:dateQuer[key].status==='cancelled'?'#DDDDDD':'transparent', border:"none", borderRadius:"20px", padding:"4px"}} onClick={()=>{setRendCont(["cancelled",key]); setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'cancelled'}});}}>Canceled</button>
                             </div>
                         </td>
@@ -120,7 +95,7 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     )
 }
 
-function update(rendCont, dateCurr, dateQuer){
+function update(rendCont, dateCurr, dateQuer, setRendCont){
     console.log("this is update", rendCont)
     console.log(dateQuer[rendCont[1]].session_url, rendCont[1])
     const header={
@@ -131,14 +106,13 @@ function update(rendCont, dateCurr, dateQuer){
     },{headers:header})
     .then((response)=>{
         console.log(response.status, response.data)
+
+    console.log("gonna set rend again")
+    setRendCont([]);
     })
     .catch((error)=>{
         console.log("caught an error in post\n",error)
-        console.log({
-            "url": "http://127.0.0.1:8000/session/22000",
-            "date": dateCurr.format("YYYY-MM-DD"),
-            "status": rendCont[0]
-        })
     })
+
 }
 // update(rendCont=rendCont, dateCurr=dateCurr)
