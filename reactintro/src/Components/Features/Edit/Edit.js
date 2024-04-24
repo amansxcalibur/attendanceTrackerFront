@@ -4,7 +4,7 @@ import { BrowserRouter, Router, useNavigate, Routes, Route} from 'react-router-d
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../../constants/apiConstants';
 import axios from 'axios';
 
-const Table=(tableData)=>{
+function Table(tableData){
     const navigate= useNavigate();
     // var tableData=[
     //     ["m0",'t0',"w0","th0",'f0',"sa0","su0"],
@@ -17,6 +17,7 @@ const Table=(tableData)=>{
     const [stater, setStater] = useState(tableData)
     var thirdparty=[]
     console.log(stater, 'this is stater in Table in edit')
+    
     const handleFR=({data, row,col})=>{
       thirdparty=stater
       console.log("I SEE THE LIGHT")
@@ -35,24 +36,24 @@ const Table=(tableData)=>{
   // }
 
     function Add(){
-      setStater([...stater, ["null", "null", "null"," null", "null", "null", "null"],])
+      setStater([...stater, [null,null,null,null,null,null,null],])
       console.log(stater.length)
     }
 
     function handlClick(){
       console.log('axios posting',stater.tableData.tableData)
-      const header={
-        'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
-      }
-      axios.patch(API_BASE_URL+'/collection', {
-          "courses_data": stater.tableData.tableData
-      },{headers:header})
-      .then((response)=>{
-          console.log(response.status, response.data)
-      })
-      .catch((error)=>{
-          console.log("caught an error in post\n",error)
-      })
+      // const header={
+      //   'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
+      // }
+      // axios.patch(API_BASE_URL+'/collection', {
+      //     "courses_data": stater.tableData.tableData
+      // },{headers:header})
+      // .then((response)=>{
+      //     console.log(response.status, response.data)
+      // })
+      // .catch((error)=>{
+      //     console.log("caught an error in post\n",error)
+      // })
     }
     return(
       <>

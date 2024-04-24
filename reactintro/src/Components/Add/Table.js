@@ -25,7 +25,10 @@ const Table=()=>{
     const handleFR=({data, row,col})=>{
       tableData=stater
       console.log("I SEE THE LIGHT")
-      tableData[row][col]=data.label
+      if (data==null)
+        tableData[row][col]=data.label
+      else
+        tableData[row][col]=null;
       setStater(tableData)
       console.log(data.label, row, col, tableData[row][col], stater[row][col])
       setAllDet(prevState=>({
@@ -38,7 +41,21 @@ const Table=()=>{
     function saveTable(){
       console.log("saved", stater)
       console.log('all data',allDet)
-      const header={
+
+    //   //removing empty
+    //   let thirdparty=allDet.courses_data;
+    //   //removing null from each row
+    //   function clearing(value, index, thirdparty){
+    //       thirdparty[index]=value.filter(n=>n);
+    //   }
+    // thirdparty.forEach(clearing);
+    // //removing empty arrays and setState
+    // setAllDet(prevState=>({
+    //   ...prevState,
+    //   "courses_data":thirdparty.filter(n=>n.length>0) 
+    // }))
+      
+    const header={
         'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
       }
       axios.post(API_BASE_URL+'/collection',
@@ -52,8 +69,8 @@ const Table=()=>{
       })
     }
     function Add(){
-      setStater([...stater, ["null", "null", "null"," null", "null", "null", "null"],])
-      console.log(stater.length)
+      setStater([...stater, [null, null, null, null, null, null, null],])
+      console.log(stater.length, stater)
     }
     function handleChange(e){
       const { id, value } = e.target;
@@ -108,8 +125,8 @@ const Table=()=>{
         <div style={{backgroundColor:"blue", display:"flex", padding:"5px"}}>
         <button style={{flex:0, minWidth:100}} onClick={Add}>Add row</button></div>
         <div>
-        <button style={{flex:0, minWidth:100}} onClick={saveTable}>Add table</button>
-        <button style={{minWidth:100}} onClick={()=>{navigate('/')}}>Cancel</button>
+        <button type='submit' style={{flex:0, minWidth:100}} onClick={()=>{saveTable(); navigate('/home')}}>Add table</button>
+        <button type='submit' style={{minWidth:100}} onClick={()=>{navigate('/home')}}>Cancel</button>
         </div>
       {/* </form> */}
       </>
@@ -141,6 +158,7 @@ const Drop=({handleFR, row, col})=>{
               value={selectedOptions}
               onChange={handleSelect}
               isSearchable={true}
+              isClearable={true}
             />
           </div>
         </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../constants/apiConstants';
 import { useNavigate } from 'react-router-dom';
+import ModernArt from '../../assets/modernartcropped.png'
 
 function LoginForm(props) {
     const [state, setState] = useState({
@@ -62,43 +63,50 @@ function LoginForm(props) {
     }
 
     return(
-        <div style={{}}>
-            <div></div>
-            <div>
+        <div style={{display:"flex", backgroundColor:"green", flex:"1"}}>
+            <div style={{flex:"1", justifyContent:"center", alignItems:"center", display:"flex", backgroundColor:"red"}}>
+                <img src={ModernArt} style={{height:"800px"}}/>
+            </div>
+            <div style={{flex:"1", backgroundColor:"cyan"}}>
+                <div style={{padding:"140px"}}>
+                <p style={{fontSize:"40px"}}>Welcome</p>
+                <div className="registerMessage">
+                    <span className="loginText" onClick={() => redirectToRegister()}><b><u>Create a free account</u></b></span>
+                    <span> or log in to get started</span> 
+                </div>
                 <form>
-                    <div>
+                    <div style={{display:"flex", flexDirection:"column"}}>
                         <label htmlFor="Username1">Username</label>
-                        <input type="text" 
+                        <input type="text"
                             id="username"
                             placeholder="Enter username" 
                             value={state.username}
                             onChange={handleChange}
+                            style={{paddingLeft:"20px", borderRadius:"30px", minHeight:"40px", border:"2px solid black"}}
                         />
                     </div>
-                    <div>
-                    <label htmlFor="exampleInputPassword1">Password</label>
+                    <div style={{display:"flex", flexDirection:"column"}}>
+                    <label style={{marginTop:"20px"}} htmlFor="exampleInputPassword1">Password</label>
                     <input type="password"
                         id="password" 
                         placeholder="Password"
                         value={state.password}
-                        onChange={handleChange} 
+                        onChange={handleChange}
+                        style={{paddingLeft:"20px", borderRadius:"30px", minHeight:"40px", border:"2px solid black"}}
                     />
                     </div>
-                    <div>
+                    <div style={{textAlign:"right"}}>
+                        <p><u><b>Forgot password?</b></u></p>
                     </div>
                     <button 
                         type="submit" 
                         onClick={handleSubmitClick}
-                    >Submit</button>
+                        style={{width:"100%", minHeight:"46px", borderRadius:"30px", border:"2px solid black", color:"white", backgroundColor:"black"}}>Login</button>
                 </form>
                 <div style={{display: state.successMessage ? 'block' : 'none' }} role="alert">
                     {state.successMessage}
                 </div>
-                <div className="registerMessage">
-                    <span>Dont have an account? </span>
-                    <span className="loginText" onClick={() => redirectToRegister()}>Register</span> 
-                </div>
-            </div>
+            </div></div>
         </div>
     )
 }

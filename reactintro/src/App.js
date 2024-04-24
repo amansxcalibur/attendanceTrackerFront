@@ -29,17 +29,17 @@ export default function App() {
   const [errorMessage, updateErrorMessage]=useState(null);
 
   return (
-    <div style={{backgroundImage:"url(/wall.png)"}}>
+    <div style={{ height:"100vh", backgroundColor:"blue", display:"flex"}}>
       {/* <BrowserRouter>
         <Homer/>
       </BrowserRouter> */}
       
       <BrowserRouter>
-      <Header title={title}/>
+      {/* <Header title={title}/> */}
         <Routes>
-          <Route path="/" element={<RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>}/>
+          {/* <Route path="/" element={<RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>}/> */}
           <Route path="/register" element={<RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>}/>
-          <Route path="/login" element={<LoginForm showError={updateErrorMessage} updateTitle={updateTitle}/>}/>
+          <Route path="/" element={<LoginForm showError={updateErrorMessage} updateTitle={updateTitle}/>}/>
           {/* <PrivateRoute path="/home" element={<Homer/>}/> */}
           <Route path='/home/*' element={<PrivateRoute><Homer/></PrivateRoute>}/>
         </Routes>

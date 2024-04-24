@@ -89,7 +89,7 @@ export default function RegistrationForm(props){
 
     const redirectToLogin=()=>{
         props.updateTitle('Login');
-        navigate('/login');
+        navigate('/');
     }
 
     const handleSubmitClick=(e)=>{
