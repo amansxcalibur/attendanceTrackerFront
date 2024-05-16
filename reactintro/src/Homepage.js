@@ -1,5 +1,5 @@
 import Home from './Components/Home/Home.js';
-import './App.css';
+
 import React, { useState, useEffect } from 'react';
 import Settings from './Components/Settings/Settings.js'
 import { BrowserRouter, Router, useNavigate, Routes, Route} from 'react-router-dom';
@@ -13,7 +13,7 @@ import add from './icons/add-1.svg'
 import pfp from './icons/uWu.jpg'
 import { ACCESS_TOKEN_NAME, API_BASE_URL } from './constants/apiConstants';
 import axios from 'axios';
-import './Homepage.css';
+// import './Homepage.css';
 
 export default function Homer(props) {
   const navigate=useNavigate();
@@ -111,7 +111,7 @@ function Leftpanel(){
 
 function Rightpanel(){
   return(
-    <div className="Rightpanel" style={{backgroundColor:'hsla(239,57%,9%,1)', backgroundImage:"radial-gradient",padding:"10px", flexDirection:"column"}}>
+    <div className="Rightpanel" style={{padding:"10px", flexDirection:"column"}}>
       <div style={{backgroundColor:"transparent", flex:"", display:"flex"}}>
           <div style={{backgroundColor:"transparent", borderRadius:"200px", width:"67px", height:"67px", overflow:"hidden"}}>
             <img src={pfp} style={{display:"inline", margin:"0 auto", height:"100%", width:"100%", height:"100%"}}/>
@@ -120,7 +120,7 @@ function Rightpanel(){
             <h2>Emu Otori</h2>
           </div>
       </div>
-      <div style={{overflow:"auto", flex:"1"}}>w
+      <div style={{overflow:"auto", flex:"1"}}>
       <Routes>
           <Route exact path="/"
             element={<Home/>}/>

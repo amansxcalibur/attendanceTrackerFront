@@ -148,7 +148,7 @@ export default function Home(){
             </div>
           </div>
           { destState[0]==='home'?
-            <div style={{backgroundColor:"white", flex:"1", padding:"20px", borderRadius:"20px", marginRight:"20px", marginBottom:"20px"}}>
+            <div style={{backgroundColor:"transperent", flex:"1", padding:"20px", borderRadius:"20px", marginRight:"20px", marginBottom:"20px"}}>
               <Statusman rendCont={rendCont} setRendCont={setRendCont}/>
             </div>:<SeeTable
                   tableData={tableData.courses}/>

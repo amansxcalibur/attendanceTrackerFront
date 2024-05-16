@@ -11,7 +11,13 @@
   margin:0px;
   flex:4;
   display: flex;
+  color:white;
   border-radius: 0px;
+  background-color:hsla(239,57%,9%,1);
+    background-image:
+    radial-gradient(at 46% 31%, hsla(164,84%,66%,1) 0px, transparent 50%),
+    radial-gradient(at 54% 23%, hsla(28,94%,70%,1) 0px, transparent 50%),
+    radial-gradient(at 59% 47%, hsla(18,96%,66%,1) 0px, transparent 50%);
 }
 .leftpanel{
   margin-top: 0px;
