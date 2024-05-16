@@ -147,12 +147,16 @@ export default function Home(){
                 statData={statData}/>
             </div>
           </div>
+          <div style={{position:"relative", display:"flex", flexDirection:"column"}}>
+            <div style={{position:"absolute", zIndex:"0", border:"white solid 1px", height:"100%", width:"100%", opacity:"80%", borderRadius:"20px"}}></div>
+            <div style={{position:"absolute", zIndex:"0", filter:"blur(1px)", opacity:"10%", backgroundColor:"white", width:"100%", height:"100%", borderRadius:"20px"}}></div>
           { destState[0]==='home'?
             <div style={{backgroundColor:"transperent", flex:"1", padding:"20px", borderRadius:"20px", marginRight:"20px", marginBottom:"20px"}}>
               <Statusman rendCont={rendCont} setRendCont={setRendCont}/>
             </div>:<SeeTable
                   tableData={tableData.courses}/>
           }
+          </div>
         </div>
       </div>
       </div>
