@@ -105,6 +105,7 @@ export default function Home(){
       },[rendCont])
 
       useEffect(()=>{
+        console.log(header);
       axios.get(API_BASE_URL+'/collection', {headers: header})
       .then(function(response){
         console.log(response.data,"destState changed, setting response to tableData")

@@ -13,7 +13,7 @@ import add from './icons/add-1.svg'
 import pfp from './icons/uWu.jpg'
 import { ACCESS_TOKEN_NAME, API_BASE_URL } from './constants/apiConstants';
 import axios from 'axios';
-
+import './Homepage.css';
 
 export default function Homer(props) {
   const navigate=useNavigate();
@@ -36,7 +36,7 @@ export default function Homer(props) {
   // }
 
   return (
-    <div className='Main'>
+    <div className='Main' style={{flex:"1"}}>
         <Leftpanel/>
         <Rightpanel/>
     </div>
@@ -111,7 +111,7 @@ function Leftpanel(){
 
 function Rightpanel(){
   return(
-    <div className="Rightpanel" style={{backgroundColor:'#DDDDDD',padding:"10px", flexDirection:"column"}}>
+    <div className="Rightpanel" style={{backgroundColor:'hsla(239,57%,9%,1)', backgroundImage:"radial-gradient",padding:"10px", flexDirection:"column"}}>
       <div style={{backgroundColor:"transparent", flex:"", display:"flex"}}>
           <div style={{backgroundColor:"transparent", borderRadius:"200px", width:"67px", height:"67px", overflow:"hidden"}}>
             <img src={pfp} style={{display:"inline", margin:"0 auto", height:"100%", width:"100%", height:"100%"}}/>

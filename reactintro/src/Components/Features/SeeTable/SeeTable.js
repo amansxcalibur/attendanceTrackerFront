@@ -21,7 +21,7 @@ export default function SeeTable({tableData}){
                     <td colSpan="1" style={{backgroundColor:"black", }}></td>
                 </tr>
             </thead>
-            <tbody style={{backgroundColor:"", padding:"20px", }}>
+            {/* <tbody style={{backgroundColor:"", padding:"20px", }}>
                 {tableData.map((rowVal, rowId)=>(
                     <tr key={rowId}>
                         {Object.values(rowVal).map((cellValue, colIndex) => (
@@ -34,7 +34,7 @@ export default function SeeTable({tableData}){
                     </tr>
 
                 ))}
-            </tbody>
+            </tbody> */}
         </table>
         <button onClick={()=>{navigate('home/edit', {state:{tableData}})}}>Edit Table</button>
         </div>

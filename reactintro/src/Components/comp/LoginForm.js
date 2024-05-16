@@ -3,6 +3,7 @@ import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../constants/apiConstants';
 import { useNavigate } from 'react-router-dom';
 import ModernArt from '../../assets/modernartcropped.png'
+import Google from '../../assets/kisspng-google-logo-logo-logo-5ade7dc784e2a0.4068700815245306315443.png'
 
 function LoginForm(props) {
     const [state, setState] = useState({
@@ -63,16 +64,15 @@ function LoginForm(props) {
     }
 
     return(
-        <div style={{display:"flex", backgroundColor:"green", flex:"1"}}>
-            <div style={{flex:"1", justifyContent:"center", alignItems:"center", display:"flex", backgroundColor:"red"}}>
-                <img src={ModernArt} style={{height:"800px"}}/>
+        <div style={{display:"flex", flex:"1"}}>
+            <div style={{marginLeft:"150px", flex:"1", justifyContent:"center", alignItems:"center", display:"flex"}}>
+                <img src={ModernArt} style={{height:"1000px", transform:"rotate(270deg)"}}/>
             </div>
-            <div style={{flex:"1", backgroundColor:"cyan"}}>
-                <div style={{padding:"140px"}}>
+            <div style={{flex:"1",display:"flex", justifyContent:"center", alignItems:"center"}}>
+                <div style={{padding:"140px", flex:"1"}}>
                 <p style={{fontSize:"40px"}}>Welcome</p>
-                <div className="registerMessage">
-                    <span className="loginText" onClick={() => redirectToRegister()}><b><u>Create a free account</u></b></span>
-                    <span> or log in to get started</span> 
+                <div className="registerMessage" style={{marginBottom:"50px"}}>
+                    <p className="loginText" onClick={() => redirectToRegister()}><span><b><u>Create a free account</u></b></span> or log in to get started</p> 
                 </div>
                 <form>
                     <div style={{display:"flex", flexDirection:"column"}}>
@@ -82,7 +82,7 @@ function LoginForm(props) {
                             placeholder="Enter username" 
                             value={state.username}
                             onChange={handleChange}
-                            style={{paddingLeft:"20px", borderRadius:"30px", minHeight:"40px", border:"2px solid black"}}
+                            style={{paddingLeft:"20px", borderRadius:"30px", minHeight:"50px", border:"2px solid black"}}
                         />
                     </div>
                     <div style={{display:"flex", flexDirection:"column"}}>
@@ -92,7 +92,7 @@ function LoginForm(props) {
                         placeholder="Password"
                         value={state.password}
                         onChange={handleChange}
-                        style={{paddingLeft:"20px", borderRadius:"30px", minHeight:"40px", border:"2px solid black"}}
+                        style={{paddingLeft:"20px", borderRadius:"30px", minHeight:"50px", border:"2px solid black"}}
                     />
                     </div>
                     <div style={{textAlign:"right"}}>
@@ -101,13 +101,18 @@ function LoginForm(props) {
                     <button 
                         type="submit" 
                         onClick={handleSubmitClick}
-                        style={{width:"100%", minHeight:"46px", borderRadius:"30px", border:"2px solid black", color:"white", backgroundColor:"black"}}>Login</button>
+                        style={{width:"100%", minHeight:"56px", borderRadius:"30px", border:"2px solid black", color:"white", backgroundColor:"black"}}>Login</button>
+                    <button 
+                        type="submit"
+                        style={{width:"100%", minHeight:"56px", borderRadius:"30px", border:"2px solid black", backgroundColor:"white", marginTop:"30px", display:"flex", justifyContent:"center", alignItems:"center"}}>
+                            <img src={Google} style={{height:'20px', paddingRight:"20px"}}/><span style={{lineHeight:"8px"}}>Login with Google</span></button>
                 </form>
-                <div style={{display: state.successMessage ? 'block' : 'none' }} role="alert">
+                {/* <div style={{display: state.successMessage ? 'block' : 'none' }} role="alert">
                     {state.successMessage}
-                </div>
-            </div></div>
+                </div> */}
+            </div>
         </div>
+    </div>
     )
 }
 
