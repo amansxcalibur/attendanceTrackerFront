@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
 .S1{
   background-color: #61dafb;
 }
@@ -45,4 +46,7 @@
 }
 .settings{
   flex:1
+}
+body {
+  font-family: "Manrope", sans-serif;
 }

@@ -1,5 +1,5 @@
 import Home from './Components/Home/Home.js';
-
+import { light } from './constants/colors.js';
 import React, { useState, useEffect } from 'react';
 import Settings from './Components/Settings/Settings.js'
 import { BrowserRouter, Router, useNavigate, Routes, Route} from 'react-router-dom';
@@ -36,7 +36,7 @@ export default function Homer(props) {
   // }
 
   return (
-    <div className='Main' style={{flex:"1"}}>
+    <div className='Main' style={{flex:"1", backgroundColor:"hsla(239,57%,9%,1)"}}>
         <Leftpanel/>
         <Rightpanel/>
     </div>
@@ -89,7 +89,7 @@ function Leftpanel(){
   // }
   return(
     <>
-    <div className='leftpanel' style={{backgroundColor:'white'}}>
+    <div className='leftpanel' style={{backgroundColor:light, borderTopRightRadius:"20px", borderBottomRightRadius:"20px"}}>
       <div style={{backgroundColor:"transparent", height:"100%", display:"flex", flexDirection:"column"}}>
         <img src={logo} width={60} height={60}></img>
         <div style={{backgroundColor:"transparent", display:"flex",flexDirection:"column", flex:"30"}}>
@@ -120,7 +120,7 @@ function Rightpanel(){
             <h2>Emu Otori</h2>
           </div>
       </div>
-      <div style={{overflow:"auto", flex:"1"}}>
+      <div style={{overflow:"auto", flex:"1", display:"flex"}}>
       <Routes>
           <Route exact path="/"
             element={<Home/>}/>

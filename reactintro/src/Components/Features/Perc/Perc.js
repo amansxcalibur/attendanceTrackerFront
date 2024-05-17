@@ -19,7 +19,7 @@ export default function Perc({statData}){
     
     return(
         <>
-            <div style={{backgroundColor:"", display:"flex", overflow:"auto", height:"100%", width:"100%"}}>
+            <div style={{backgroundColor:"", color:"black", display:"flex", overflow:"auto", height:"100%", width:"100%"}}>
                 {statData.map((key, value)=>(
                     <div key={value} style={{display:"flex", flexDirection:"column", flex:"1"}}>
                         <div style={{textAlign:"center"}}>{key.percentage}%</div>

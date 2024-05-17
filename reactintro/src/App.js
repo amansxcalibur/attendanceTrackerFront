@@ -18,7 +18,6 @@ import LoginForm from './Components/comp/LoginForm.js';
 import Header from './Components/comp/Header.js';
 import AlertComponent from './Components/comp/AlertComponent.js';
 
-
 export default function App() {
   // const [token, setToken]=useToken();
   
@@ -29,7 +28,7 @@ export default function App() {
   const [errorMessage, updateErrorMessage]=useState(null);
 
   return (
-    <div style={{ height:"100vh", display:"flex"}}>
+    <div style={{ height:"100vh", display:"flex",}}>
       {/* <BrowserRouter>
         <Homer/>
       </BrowserRouter> */}

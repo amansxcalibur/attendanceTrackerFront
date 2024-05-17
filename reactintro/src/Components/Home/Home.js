@@ -110,6 +110,7 @@ export default function Home(){
       .then(function(response){
         console.log(response.data,"destState changed, setting response to tableData")
         setTableData(response.data)
+        console.log("this is tabledata after setstate ", tableData)
       })
       .catch(function(error){
         console.log(error.response,)
@@ -117,11 +118,11 @@ export default function Home(){
     },[destState])
       
     return(
-      <div style={{height:"100%"}}>
+      <div style={{flex:"1", display:"flex"}}>
       <div className='home' style={{backgroundColor:'transparent', borderRadius:"20px", height:"100%"}}>
         
-        <div style={{backgroundColor:"transparent", flex:"13", display:"flex", flexWrap:"wrap"}}>
-          <div style={{backgroundColor:"transparent", flex:"3", display:"flex", flexDirection:"column"}}>
+        <div style={{backgroundColor:"transparent", flex:"1", display:"flex", flexWrap:"wrap"}}>
+          <div style={{backgroundColor:"transparent", flex:"2.5", display:"flex", flexDirection:"column"}}>
             <div style={{backgroundColor:"transparent", flex:"2", display:"flex", flexDirection:"column"}}>
               <h1>{tableData.name}</h1>
               <div style={{display:"flex", height:"100%"}}>
@@ -142,21 +143,17 @@ export default function Home(){
                 </div>:<></>}
               </div>
             </div>
-            <div style={{backgroundColor:"white", flex:"1", display:"grid", padding:"20px", margin:"20px", borderRadius:"20px"}}>
+            <div style={{backgroundColor:"transparent", flex:"2", display:"flex", flexDirection:"column", marginBottom:"20px", marginLeft:"20px", marginRight:"20px ", borderRadius:"20px"}}>
               <Leaves
                 statData={statData}/>
             </div>
           </div>
-          <div style={{position:"relative", display:"flex", flexDirection:"column"}}>
-            <div style={{position:"absolute", zIndex:"0", border:"white solid 1px", height:"100%", width:"100%", opacity:"80%", borderRadius:"20px"}}></div>
-            <div style={{position:"absolute", zIndex:"0", filter:"blur(1px)", opacity:"10%", backgroundColor:"white", width:"100%", height:"100%", borderRadius:"20px"}}></div>
           { destState[0]==='home'?
-            <div style={{backgroundColor:"transperent", flex:"1", padding:"20px", borderRadius:"20px", marginRight:"20px", marginBottom:"20px"}}>
+            <div style={{backgroundColor:"transperent", flex:"1", borderRadius:"20px", marginRight:"20px", marginBottom:"20px"}}>
               <Statusman rendCont={rendCont} setRendCont={setRendCont}/>
-            </div>:<SeeTable
-                  tableData={tableData.courses}/>
+            </div>:tableData=={}?<></>:<SeeTable
+                  tableData={tableData.courses_data}/>
           }
-          </div>
         </div>
       </div>
       </div>

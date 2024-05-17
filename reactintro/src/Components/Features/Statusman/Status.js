@@ -37,8 +37,8 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
 //     
 // ]
     const color={
-        present:["#DDDDDD","black","green"],
-        bunked:["#DDDDDD","black","red"],
+        present:["white","black","green"],
+        bunked:["white","black","red"],
         cancelled:["#F1F1F1","#BFBFBF"]
     }
     
@@ -56,19 +56,19 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
         <>
         <table style={{padding:"10px", width:"100%", borderCollapse:"separate", borderSpacing:"0px 4px"}}>
             <thead>
-                <tr>
+                {/* <tr>
                     <th>Sub</th>
                     <th>Value</th>
                     <th>Helpme</th>
                 </tr>
                 <tr>
                     <td colSpan="3" style={{backgroundColor:"black",}}></td>
-                </tr>
+                </tr> */}
             </thead>
             <tbody>
                 {Object.keys(dateQuer).map((key, index) => (
                     <>
-                    <tr style={{backgroundColor:"transparent"}} key={index}> 
+                    <tr style={{backgroundColor:"transparent", height:"10vh"}} key={index}> 
                         <td style={{backgroundColor:color[dateQuer[key].status][0], color:color[dateQuer[key].status][1], textAlign:"center", borderLeft:"1px", borderTopLeftRadius:"20px", borderBottomLeftRadius:"20px"}}>P{key}</td>
                         <td style={{backgroundColor:color[dateQuer[key].status][0], color:color[dateQuer[key].status][1],}}>{dateQuer[key].name}</td>
                         <td style={{backgroundColor:color[dateQuer[key].status][0], color:color[dateQuer[key].status][1], borderTopRightRadius:"20px", borderBottomRightRadius:"20px"}}>
