@@ -68,7 +68,7 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
             <tbody>
                 {Object.keys(dateQuer).map((key, index) => (
                     <>
-                    <tr style={{backgroundColor:"transparent", height:"10vh"}} key={index}> 
+                    <tr style={{backgroundColor:"transparent", height:"13vh"}} key={index}> 
                         <td style={{backgroundColor:color[dateQuer[key].status][0], color:color[dateQuer[key].status][1], textAlign:"center", borderLeft:"1px", borderTopLeftRadius:"20px", borderBottomLeftRadius:"20px"}}>P{key}</td>
                         <td style={{backgroundColor:color[dateQuer[key].status][0], color:color[dateQuer[key].status][1],}}>{dateQuer[key].name}</td>
                         <td style={{backgroundColor:color[dateQuer[key].status][0], color:color[dateQuer[key].status][1], borderTopRightRadius:"20px", borderBottomRightRadius:"20px"}}>

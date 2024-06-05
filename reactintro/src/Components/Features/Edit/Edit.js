@@ -65,7 +65,7 @@ function Table(tableData){
           <label htmlFor='end_date'>End Date</label>
           <input type='date' id='end_date' value={allDet.end_date} onChange={handleChange} required></input> */}
         </div>
-        <table style={{backgroundColor:"red", borderRadius:"20px", border:"1px solid rgb(0,0,0)", width:"100%", padding:"10px"}}>
+        <table style={{backgroundColor:"transparent", borderRadius:"20px", width:"100%", padding:"10px", tableLayout:"fixed"}}>
             <thead>
                 <tr>
                     <th>Monday</th>
@@ -73,21 +73,21 @@ function Table(tableData){
                     <th>Wednesday</th>
                     <th>Thursday</th>
                     <th>Friday</th>
-                    <th>Saturday</th>
-                    <th>Sunday</th>
+                    {/* <th>Saturday</th>
+                    <th>Sunday</th> */}
                 </tr>
-                <tr>
-                  <td colSpan="1" style={{backgroundColor:"black", }}></td>
-                </tr>
+                {/* <tr>
+                  <td colSpan="5" style={{backgroundColor:"rgba(50,50,50,0.5)", }}></td>
+                </tr> */}
             </thead>
             <tbody style={{backgroundColor:"", padding:"20px", }}>
                 {stater.tableData.tableData.map((rowVal, rowId)=>(
                     <tr key={rowId}>
                         {Object.values(rowVal).map((cellValue, colIndex) => (
-                            <td key={colIndex}>
-                                {colIndex}
+                            <td key={colIndex} style={{}}>
+                                {/* {colIndex}
                                 {rowId}
-                                {stater.tableData.tableData[rowId][colIndex]}
+                                {stater.tableData.tableData[rowId][colIndex]} */}
                                 <Drop placer={stater.tableData.tableData} handleFR={handleFR} row={rowId} col={colIndex}/>
                             </td>
                             ))}
@@ -97,12 +97,12 @@ function Table(tableData){
             </tbody>
         </table>
 
-        <div style={{backgroundColor:"blue", display:"flex", padding:"5px"}}>
-                  <button style={{flex:0, minWidth:100}} onClick={Add}>Add row</button>
+        <div style={{backgroundColor:"transparent", display:"flex", padding:"5px"}}>
+                  <button style={{backgroundColor:"#6eb898", border:"none", borderRadius:"20px", padding:"2vh"}} onClick={Add}>Add row</button>
                   </div>
         <div>
             <button onClick={()=>handlClick()}>Save</button>
-            <button onClick={()=>{navigate('/')}}>Cancel</button>
+            <button onClick={()=>{navigate('/home')}}>Cancel</button>
         </div>
         </>
     )
@@ -127,12 +127,21 @@ const Drop=({placer, handleFR, row, col})=>{
       return (
         <div className="App" style={{display:"flex", flexDirection:"column", justifyContent:"center", alignitems:"center",}}>
           <div className="dropdown-container" style={{}}>
-            <Select
+            <Select 
               options={optionList}
               placeholder={placer[row][col]}
               value={selectedOptions}
               onChange={handleSelect}
               isSearchable={true}
+              styles={{
+                control: (baseStyles, state)=>({
+                  ...baseStyles,
+                  borderColor: state.isFocused?"white":"transparent",
+                  height:"10vh",
+                  backgroundColor:"rgba(50,50,50,0.6)",
+                  color:""
+                })
+              }}
             />
           </div>
         </div>

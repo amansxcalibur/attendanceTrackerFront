@@ -123,8 +123,8 @@ export default function Home(){
         
         <div style={{backgroundColor:"transparent", flex:"1", display:"flex", flexWrap:"wrap"}}>
           <div style={{backgroundColor:"transparent", flex:"2.5", display:"flex", flexDirection:"column"}}>
-            <div style={{backgroundColor:"transparent", flex:"2", display:"flex", flexDirection:"column"}}>
-              <h1>{tableData.name}</h1>
+            <div style={{backgroundColor:"transparent", flex:"2", display:"flex", flexDirection:"column", marginTop:"20px", marginLeft:"20px"}}>
+              <p style={{fontSize:"50px", fontWeight:"light", margin:"0px"}}>{tableData.name}</p>
               <div style={{display:"flex", height:"100%"}}>
                 <div style={{backgroundColor:"transparent", flex:"6", height:"100%"}}>
                   <div style={{height:"100%", padding:"10px"}}>

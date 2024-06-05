@@ -45,7 +45,7 @@ export default function Statusman({rendCont,setRendCont}){
     return(
         <>
         <div style={{display:"flex"}}>
-            <div style={{flex:"1"}}>Today's Courses</div>
+            <div style={{flex:"1"}}><span style={{fontSize:"50px", fontWeight:"light"}}>Today's Courses</span></div>
             <div style={{flex:"1"}}>
                 <BasicDatePicker dateCurr={dateCurr} setDateCurr={setDateCurr}/>
             </div>

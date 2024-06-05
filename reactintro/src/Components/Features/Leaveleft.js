@@ -16,7 +16,7 @@ export default function Leaves({statData}){
     console.log("in LeavesLeft")
     return(
         <>
-        <h2>Bunks Left</h2>
+        <p style={{fontSize:"50px", margin:"0px", fontWeight:"light"}}>Bunks Left</p>
         <div style={{justifyContent:"center", display:"flex"}}>
         <div style={{backgroundColor:"transparent",color:"black", display:"flex", flexWrap:"wrap", overflow:"auto", height:"37.4vh"}}>
             {statData.map((key, value)=>(
