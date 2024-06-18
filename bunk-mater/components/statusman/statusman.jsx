@@ -1,7 +1,7 @@
 'use client'
 
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from "@/app/_utils/apiConstants"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { getCurrentDate } from "@/app/_utils/currDate";
 import dayjs from "dayjs";
 import BasicDatePicker from "./rewind_time";
@@ -52,19 +52,30 @@ export default function Statusman(){
     //     console.log("after useEffect",dateQuer)
     // },[dateCurr])
     const [rendCont, setRendCont]=useState(null);
-
+    const [hw,setHw]=useState("50vh");
+    useEffect(()=>{
+        const elem=document.getElementById('victim');
+        const rect=elem.getBoundingClientRect();
+        console.log(rect['height']);
+        const thirdparty=(Math.round(rect["height"]-4)).toString()+"px"
+        setHw(thirdparty);
+        console.log((thirdparty));
+        console.log("in useEffect")
+        
+        console.log(hw)
+    },[])
     return(
-        <div className="h-full flex flex-col p-2">
-            <div className="flex">
+        <div className="h-full flex flex-col">
+            <div className="flex justify-center items-center">
                 <div className="flex-1"><span className="text-[4vw] font-light">Today</span></div>
                 <div className="flex-1">
                     <BasicDatePicker dateCurr={dateCurr} setDateCurr={setDateCurr}/>
                 </div>
             </div>
-            <div className="flex flex-1">
+            <div className="flex flex-1" id='victim'>
             {dateQuer===null || dateQuer==[]?<></>:
             // dateQuer[0].status===null?<></>:
-                <Status dateQuer={dateQuer} setDateQuer={setDateQuer} dateCurr={dateCurr} setDateCurr={setDateCurr} rendCont={rendCont} setRendCont={setRendCont}/>
+                <Status dateQuer={dateQuer} setDateQuer={setDateQuer} dateCurr={dateCurr} setDateCurr={setDateCurr} rendCont={rendCont} setRendCont={setRendCont} hw={hw}/>
             }
             </div>
         </div>

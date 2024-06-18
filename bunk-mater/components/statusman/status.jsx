@@ -9,7 +9,7 @@ import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '@/app/_utils/apiConstants.js';
 import BasicDatePicker from './rewind_time';
 
-export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, rendCont, setRendCont}){
+export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, rendCont, setRendCont, hw}){
     // console.log("in Status here is dateQuery",dateQuer, JSON.stringify(dateQuer)!=JSON.stringify([]));
     // console.log(dateQuer, 'hi from statusman', rendCont);
     const firstrend=useRef(false);
@@ -61,8 +61,8 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     },[])
 
     const color={
-        present:["bg-white","text-black","bg-[#5aad70]"],
-        bunked:["bg-white","text-black","bg-[#cc4e4e]"],
+        present:["bg-black","text-white","bg-[#5aad70]"],
+        bunked:["bg-black","text-white","bg-[#cc4e4e]"],
         cancelled:["bg-[#F1F1F1]","text-[#BFBFBF]"]
     }
     
@@ -102,30 +102,17 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     //     }
     // },[]);
 
-    const [hw,setHw]=useState("h-[69vh]");
-    useEffect(()=>{
-        const elem=document.getElementById('victim');
-        const rect=elem.getBoundingClientRect();
-        console.log(rect['height']);
-        const thirdparty="h-["+(rect["height"]-4).toString()+"px]"
-        setHw(thirdparty);
-        console.log(hw)
-        console.log("in useEffect")
-        return()=>{
-            console.log("end")
-        }
-    },[])
+   
 
     return(
-        <div className={`flex-1 flex ${hw} flex-col`} id='victim'>
+        <div className={`flex-1 flex flex-col overflow-hidden`} style={{height:hw}} id='victim'>
             <div className='flex-1 overflow-auto no-scrollbar'>
                 {Object.keys(dateQuer).map((key, index) => (
                     <div className='h-[9vw] flex mb-1' key={index}> 
-                        {/* <td className={`${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-l-[20px]`}>P{key}</td> */}
-                        <div className={`flex-1 flex items-center ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-l-[20px] pl-[3vw]`}>
+                        <div className={`flex-1 flex items-center ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-l-lg pl-[3vw]`}>
                             {dateQuer[key].name}
                         </div>
-                        <div className={`h-full flex ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-r-[20px]`} >
+                        <div className={`h-full flex ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-r-lg`} >
                             <div className='m-[1px]'>
                                 <button className={`h-full w-[12vw] ${color[dateQuer[key].status][2]} rounded-lg`} onClick={()=>{handleStatusChange(key)}}>
                                     <span className='uppercase text-[5vw] p-0 m-0'>{dateQuer[key].status[0]}</span>

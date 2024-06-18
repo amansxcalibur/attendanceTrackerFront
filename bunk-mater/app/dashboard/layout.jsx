@@ -56,7 +56,7 @@ export default function Layout({children}){
                     </div>
                 </nav>
             </div>
-            <div className="h-full p-[2vw]">{children}</div>
+            <div className="h-full p-[1vw]">{children}</div>
         </div>
     )
 }
