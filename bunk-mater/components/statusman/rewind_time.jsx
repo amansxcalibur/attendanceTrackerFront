@@ -11,39 +11,43 @@ export default function BasicDatePicker({dateCurr, setDateCurr}) {
   // console.log(typeof (dateCurr), dateCurr.format("DD-MM-YYYY"), "in basicdatepicker")
   const color="white";
   const newTheme = (theme) => createTheme({
-    ...theme,
-    components: {
-      MuiIconButton: {
-        styleOverrides: {
-          sizeMedium: {
-            color
-          }
+  ...theme,
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          color: '#1c1c1c',
+          borderRadius: '2px',
+          borderWidth: '1px',
+          borderColor: '#1c1c1c',
+          border: '1px solid',
+          backgroundColor: '#1c1c1c',
         }
-      },
-      MuiOutlinedInput: {
-        styleOverrides: {
-          root: {
-            color
-          }
+      }
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color
         }
-      },
-      MuiInputLabel: {
-        styleOverrides: {
-          root: {
-            color
-          }
+      }
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color
         }
-      },
-      MuiDate:{
-        styleOverrides:{
-          root:{
-            color
-            
-          }
+      }
+    },
+    MuiOutlinedInput:{
+      styleOverrides:{
+        root:{
+          color
         }
       }
     }
-  })
+  }
+})
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DatePicker']}>

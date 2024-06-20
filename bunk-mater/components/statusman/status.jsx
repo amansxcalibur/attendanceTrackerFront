@@ -61,9 +61,9 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     },[])
 
     const color={
-        present:["bg-black","text-white","bg-[#5aad70]"],
-        bunked:["bg-black","text-white","bg-[#cc4e4e]"],
-        cancelled:["bg-[#F1F1F1]","text-[#BFBFBF]"]
+        present:["bg-black","text-white","bg-[#5aad70]","text-black"],
+        bunked:["bg-black","text-white","bg-[#cc4e4e]","text-black"],
+        cancelled:["bg-[#272727]","text-[#9e9e9e]",'',"text-[#9e9e9e]"]
     }
     
     // useEffect(()=>{
@@ -105,17 +105,17 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
    
 
     return(
-        <div className={`flex-1 flex flex-col overflow-hidden`} style={{height:hw}} id='victim'>
+        <div className={`flex-1 flex flex-col overflow-hidden`} style={{height:hw}}>
             <div className='flex-1 overflow-auto no-scrollbar'>
                 {Object.keys(dateQuer).map((key, index) => (
-                    <div className='h-[9vw] flex mb-1' key={index}> 
-                        <div className={`flex-1 flex items-center ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-l-lg pl-[3vw]`}>
+                    <div className='h-[8.9vw] flex mt-1' key={index}> 
+                        <div className={`flex-1 flex text-[1.5vw] items-center ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-l-lg pl-[3vw]`}>
                             {dateQuer[key].name}
                         </div>
                         <div className={`h-full flex ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-r-lg`} >
                             <div className='m-[1px]'>
-                                <button className={`h-full w-[12vw] ${color[dateQuer[key].status][2]} rounded-lg`} onClick={()=>{handleStatusChange(key)}}>
-                                    <span className='uppercase text-[5vw] p-0 m-0'>{dateQuer[key].status[0]}</span>
+                                <button className={`h-full w-[12vw] flex items-center justify-center ${color[dateQuer[key].status][2]} rounded-lg`} onClick={()=>{handleStatusChange(key)}}>
+                                    <span className={`uppercase text-[9vw] font-light ${color[dateQuer[key].status][3]}`}>{dateQuer[key].status[0]}</span>
                                 </button>
                             </div>
                         </div>
