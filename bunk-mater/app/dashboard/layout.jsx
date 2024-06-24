@@ -11,7 +11,7 @@ export default function Layout({children}){
             <div className="bg-[#1c1c1c]">
                 <nav className="flex h-[5vw] overflow-hidden">
                     <div className="text-[2vw] flex justify-center items-center p-[1vw]">
-                        <div className="rounded-full min-h-16 min-w-16 bg-white"></div>
+                        <div className="rounded-full min-h-[3.5vw] min-w-[3.5vw] bg-white"></div>
                         <p className="ml-4">Bunk-Mater</p>
                     </div>
                     <div className="flex-1 flex justify-center">
@@ -66,7 +66,7 @@ export default function Layout({children}){
                             </li>
                         </ul>
                     </div>
-                    <div className="text-[2vw] flex justify-center items-center p-[1vw]">
+                    <div className="text-[2vw] flex justify-center items-center p-[1vw] invisible">
                         <div className="rounded-full min-h-16 min-w-16 bg-white"></div>
                         <p className="ml-4">Bunk-Mater</p>
                     </div>

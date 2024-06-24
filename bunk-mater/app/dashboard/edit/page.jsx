@@ -1,10 +1,11 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import EditSvg from '../../../components/svg/edit.jsx'
+import XSvg from '../../../components/svg/x.jsx'
+import CheckSvg from '../../../components/svg/check.jsx'
 import Link from "next/link.js";
 
-export default function Table(){
+export default function EditTable(){
     const tableData=[
         [
             "maths",
@@ -82,9 +83,14 @@ export default function Table(){
                         </tbody>
                     </table>
                 </div>
-                <Link href={"/dashboard/edit"} className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                    <EditSvg/>
-                </Link>
+                <div>
+                    <Link href={"/dashboard/table"} className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                        <CheckSvg/>
+                    </Link>
+                    <Link href={"/dashboard/table"} className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                        <XSvg/>
+                    </Link>
+                </div>
             </div>
         </div>
     );
