@@ -36,7 +36,7 @@ export default function Layout({children}){
                                 {slant=="Table"?
                                 <div className="mb-[-0.5vw]">
                                     <NavSelect props={
-                                        <Link className="px-[2vw] mt-[-0.5vw]" href="/dashboard/Table">
+                                        <Link className="px-[2vw] mt-[-0.5vw]" href="/dashboard/table">
                                             <button type="submit" onClick={()=>{useSlant("Table")}}>Table</button>
                                         </Link>
                                     }/>
@@ -44,6 +44,22 @@ export default function Layout({children}){
                                 <div className="p-[1vw] bg-[#232222] rounded-3xl ml-2">
                                     <Link href="/dashboard/table">
                                         <button type="submit" onClick={()=>{useSlant("Table")}}>Table</button>
+                                    </Link>
+                                </div>
+                                }
+                            </li>
+                            <li>
+                                {slant=="Ranked"?
+                                <div className="mb-[-0.5vw]">
+                                    <NavSelect props={
+                                        <Link className="px-[2vw] mt-[-0.5vw]" href="/dashboard/ranked">
+                                            <button type="submit" onClick={()=>{useSlant("Ranked")}}>Ranked</button>
+                                        </Link>
+                                    }/>
+                                </div>:
+                                <div className="p-[1vw] bg-[#232222] rounded-3xl ml-2">
+                                    <Link href="/dashboard/ranked">
+                                        <button type="submit" onClick={()=>{useSlant("Ranked")}}>Ranked</button>
                                     </Link>
                                 </div>
                                 }
@@ -56,7 +72,7 @@ export default function Layout({children}){
                     </div>
                 </nav>
             </div>
-            <div className="h-full p-[1vw]">{children}</div>
+            <div className="h-full">{children}</div>
         </div>
     )
 }

@@ -1,5 +1,7 @@
 'use client'
+
 import { useState, useEffect } from "react";
+import EditSvg from '../../../components/svg/edit.jsx'
 
 export default function Table(){
     const tableData=[
@@ -14,22 +16,22 @@ export default function Table(){
             "algebra",
             "literature",
             "geography",
-            "biology",
+            null,
             "computer science"
         ],
         [
-            "geometry",
+            null,
             "English",
             "world history",
             "physics",
             "art"
         ],
         [
-            "calculus",
-            "literature",
+            null,
+            null,
             "US history",
             "chemistry",
-            "physics"
+            null
         ]
     ];
     const [hw,setHw]=useState("50vh");
@@ -37,7 +39,7 @@ export default function Table(){
         const elem=document.getElementById('victim');
         const rect=elem.getBoundingClientRect();
         console.log(rect['height']);
-        const thirdparty=(Math.round(rect["height"])).toString()+"px"
+        const thirdparty=(Math.floor(rect["height"])).toString()+"px"
         setHw(thirdparty);
         console.log((thirdparty));
         console.log("in useEffect")
@@ -46,36 +48,43 @@ export default function Table(){
 
     return(
         <div className="flex flex-col h-full">
-        <div className="flex justify-center">
-            <table>
-                <thead>
-                    <tr className="text-[4vw] text-[#737373]">
-                        <th className="font-light w-[13vw]">Mon</th>
-                        <th className="font-light w-[13vw]">Tue</th>
-                        <th className="font-light w-[13vw]">Wed</th>
-                        <th className="font-light w-[13vw]">Thu</th>
-                        <th className="font-light w-[13vw]">Fri</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-        <div className="flex flex-1 justify-center overflow-auto" style={{maxHeight:`${hw}`}} id="victim">
-            <table className="border-separate">
-                <tbody>
-                    {tableData.map((rowVal, rowId)=>(
-                        <tr key={rowId} className="text-[1.5vw] font-light">
-                            {Object.values(rowVal).map((cellValue, colIndex) => (
-                                <td key={colIndex} className="h-[13vw] w-[13vw] text-center bg-[#202224] border border-black">
-                                    <div>{colIndex}
-                                    {rowId}
-                                    {tableData[rowId][colIndex]}</div>
-                                </td>
-                            ))}
+            <div className="flex-1"></div>
+            <div className="flex justify-center">
+                <table>
+                    <thead>
+                        <tr className="text-[4vw] text-[#737373]">
+                            <th className="font-light w-[13vw]">Mon</th>
+                            <th className="font-light w-[13vw]">Tue</th>
+                            <th className="font-light w-[13vw]">Wed</th>
+                            <th className="font-light w-[13vw]">Thu</th>
+                            <th className="font-light w-[13vw]">Fri</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                </table>
+            </div>
+            <div className="flex flex-[9] justify-center " id="victim">
+            <button className="h-16 w-16"></button>
+                <div className="overflow-auto no-scrollbar" style={{maxHeight:`${hw}`}}>
+                    <table className="border-separate">
+                        <tbody>
+                            {tableData.map((rowVal, rowId)=>(
+                                <tr key={rowId} className="text-[1.5vw] font-light">
+                                    {Object.values(rowVal).map((cellValue, colIndex) => (
+                                        <td key={colIndex} className={`h-[13vw] w-[13vw] text-center ${tableData[rowId][colIndex]==null?'':'hover:bg-[#292b2e] bg-[#202224]'} border border-black`}>
+                                            <div>{colIndex}
+                                            {rowId}
+                                            {tableData[rowId][colIndex]}</div>
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <button className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                    <EditSvg/>
+                </button>
+            </div>
         </div>
     );
 }
