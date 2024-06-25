@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import XSvg from '../../../components/svg/x.jsx'
 import CheckSvg from '../../../components/svg/check.jsx'
 import Link from "next/link.js";
+import Drop from '../../../components/drop_select/drop_select.jsx'
 
 export default function EditTable(){
-    const tableData=[
+    const [tableData, setTableData]=useState([
         [
             "maths",
             "English",
@@ -35,7 +36,7 @@ export default function EditTable(){
             "chemistry",
             null
         ]
-    ];
+    ]);
     const [hw,setHw]=useState("50vh");
     useEffect(()=>{
         const elem=document.getElementById('victim');
@@ -47,6 +48,12 @@ export default function EditTable(){
         console.log("in useEffect")
         console.log(hw)
     },[])
+
+    const handleUpdate=({data,row,col})=>{
+        var thirdparty=tableData;
+        thirdparty[row][col]=data.label;
+        setTableData(thirdparty);
+    }
 
     return(
         <div className="flex flex-col h-full">
@@ -72,10 +79,10 @@ export default function EditTable(){
                             {tableData.map((rowVal, rowId)=>(
                                 <tr key={rowId} className="text-[1.5vw] font-light">
                                     {Object.values(rowVal).map((cellValue, colIndex) => (
-                                        <td key={colIndex} className={`h-[13vw] w-[13vw] text-center ${tableData[rowId][colIndex]==null?'':'hover:bg-[#292b2e] bg-[#202224]'} border border-black`}>
-                                            <div>{colIndex}
-                                            {rowId}
-                                            {tableData[rowId][colIndex]}</div>
+                                        <td key={colIndex} className={`h-[13vw] w-[13vw] text-center ${tableData[rowId][colIndex]==null?'hover:bg-[#202224] bg-[#0d0e0f]':'hover:bg-[#292b2e] bg-[#202224]'} border border-black`}>
+                                            <div>
+                                                <Drop tableData={tableData} handleUpdate={handleUpdate} row={rowId} col={colIndex}/>
+                                            </div>
                                         </td>
                                     ))}
                                 </tr>
