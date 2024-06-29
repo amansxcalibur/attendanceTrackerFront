@@ -2,55 +2,7 @@
 
 import chroma from 'chroma-js';
 
-export default function Graph(){
-    const statData=[
-        {
-            "name": "Maths",
-            "percentage": 44,
-            "bunks_available": 5
-        },
-        {
-            "name": "English",
-            "percentage": 94 ,
-            "bunks_available": 10
-        },
-        {
-            "name": "Phys",
-            "percentage": 30 ,
-            "bunks_available": 10
-        },
-        {
-            "name": "Maths",
-            "percentage": 44,
-            "bunks_available": 5
-        },
-        {
-            "name": "English",
-            "percentage": 94 ,
-            "bunks_available": 10
-        },
-        {
-            "name": "Phys",
-            "percentage": 30 ,
-            "bunks_available": 10
-        },
-
-        {
-            "name": "Maths",
-            "percentage": 44,
-            "bunks_available": 5
-        },
-        {
-            "name": "English",
-            "percentage": 94 ,
-            "bunks_available": 10
-        },
-        {
-            "name": "Phys",
-            "percentage": 30 ,
-            "bunks_available": 10
-        },
-    ]
+export default function Graph({statData}){
     console.log("in Perc")
     const f = chroma.scale(['red','yellow','green']);
     

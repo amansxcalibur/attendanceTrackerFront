@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import EditSvg from '../../../components/svg/edit.jsx'
+import TrashSvg from '../../../components/svg/trash.jsx'
 import Link from "next/link.js";
 
 export default function Table(){
@@ -47,6 +48,10 @@ export default function Table(){
         console.log(hw)
     },[])
 
+    const handleDelete=()=>{
+        alert("you sure?");
+    }
+
     return(
         <div className="flex flex-col h-full">
             <div className="flex-1"></div>
@@ -82,9 +87,14 @@ export default function Table(){
                         </tbody>
                     </table>
                 </div>
-                <Link href={"/dashboard/edit"} className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                    <EditSvg/>
-                </Link>
+                <div>
+                    <Link href={"/dashboard/edit"} className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                        <EditSvg/>
+                    </Link>
+                    <button onClick={()=>{handleDelete()}} className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                        <TrashSvg/>
+                    </button>
+                </div>
             </div>
         </div>
     );

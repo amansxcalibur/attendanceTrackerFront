@@ -1,0 +1,1 @@
+export const ACCESS_TAB_NAME="currTab";

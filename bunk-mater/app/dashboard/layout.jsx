@@ -1,11 +1,21 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import NavSelect from "@/components/nav_select/nav_select";
+import { ACCESS_TAB_NAME } from "../_utils/navbarConstans";
 
 export default function Layout({children}){
-    const [slant, useSlant]=useState("Home");
+    const [slant, setSlant]=useState("Home");
+    useEffect(()=>{
+        if (JSON.parse(localStorage.getItem(ACCESS_TAB_NAME))!=null){
+            setSlant(JSON.parse(localStorage.getItem(ACCESS_TAB_NAME)));
+        }
+    },[]);
+    const tabUpdate=(param)=>{
+        setSlant(param);
+        localStorage.setItem(ACCESS_TAB_NAME,JSON.stringify(param));
+    }
     return(
         <div className="flex flex-col h-screen">
             <div className="bg-[#1c1c1c]">
@@ -21,13 +31,13 @@ export default function Layout({children}){
                                 <div className="mb-[-0.5vw]">
                                     <NavSelect props={
                                         <Link className="px-[2vw] mt-[-0.5vw]" href="/dashboard/home">
-                                            <button type="submit" onClick={()=>{useSlant("Home")}}>Home</button>
+                                            <button type="submit" onClick={()=>{tabUpdate("Home")}}>Home</button>
                                         </Link>
                                     }/> 
                                 </div>:
                                 <div className="p-[1vw] bg-[#232222] rounded-3xl ml-2">
                                     <Link href="/dashboard/home">
-                                        <button type="submit" onClick={()=>{useSlant("Home")}}>Home</button>
+                                        <button type="submit" onClick={()=>{tabUpdate("Home")}}>Home</button>
                                     </Link>
                                 </div>
                                 }
@@ -37,13 +47,13 @@ export default function Layout({children}){
                                 <div className="mb-[-0.5vw]">
                                     <NavSelect props={
                                         <Link className="px-[2vw] mt-[-0.5vw]" href="/dashboard/table">
-                                            <button type="submit" onClick={()=>{useSlant("Table")}}>Table</button>
+                                            <button type="submit" onClick={()=>{tabUpdate("Table")}}>Table</button>
                                         </Link>
                                     }/>
                                 </div>:
                                 <div className="p-[1vw] bg-[#232222] rounded-3xl ml-2">
                                     <Link href="/dashboard/table">
-                                        <button type="submit" onClick={()=>{useSlant("Table")}}>Table</button>
+                                        <button type="submit" onClick={()=>{tabUpdate("Table")}}>Table</button>
                                     </Link>
                                 </div>
                                 }
@@ -53,13 +63,13 @@ export default function Layout({children}){
                                 <div className="mb-[-0.5vw]">
                                     <NavSelect props={
                                         <Link className="px-[2vw] mt-[-0.5vw]" href="/dashboard/ranked">
-                                            <button type="submit" onClick={()=>{useSlant("Ranked")}}>Ranked</button>
+                                            <button type="submit" onClick={()=>{tabUpdate("Ranked")}}>Ranked</button>
                                         </Link>
                                     }/>
                                 </div>:
                                 <div className="p-[1vw] bg-[#232222] rounded-3xl ml-2">
                                     <Link href="/dashboard/ranked">
-                                        <button type="submit" onClick={()=>{useSlant("Ranked")}}>Ranked</button>
+                                        <button type="submit" onClick={()=>{tabUpdate("Ranked")}}>Ranked</button>
                                     </Link>
                                 </div>
                                 }
