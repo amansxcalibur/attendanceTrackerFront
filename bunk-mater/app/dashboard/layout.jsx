@@ -3,19 +3,20 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import NavSelect from "@/components/nav_select/nav_select";
-import { ACCESS_TAB_NAME } from "../_utils/navbarConstans";
+import { ACCESS_TAB_NAME } from "../_utils/navbarConstants";
 
 export default function Layout({children}){
     const [slant, setSlant]=useState("Home");
     useEffect(()=>{
-        if (JSON.parse(localStorage.getItem(ACCESS_TAB_NAME))!=null){
-            setSlant(JSON.parse(localStorage.getItem(ACCESS_TAB_NAME)));
+        if (JSON.parse(sessionStorage.getItem(ACCESS_TAB_NAME))!=null){
+            setSlant(JSON.parse(sessionStorage.getItem(ACCESS_TAB_NAME)));
         }
     },[]);
     const tabUpdate=(param)=>{
         setSlant(param);
-        localStorage.setItem(ACCESS_TAB_NAME,JSON.stringify(param));
+        sessionStorage.setItem(ACCESS_TAB_NAME,JSON.stringify(param));
     }
+
     return(
         <div className="flex flex-col h-screen">
             <div className="bg-[#1c1c1c]">

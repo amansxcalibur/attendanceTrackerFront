@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import EditSvg from '../../../components/svg/edit.jsx'
 import TrashSvg from '../../../components/svg/trash.jsx'
 import Link from "next/link.js";
+import Popup from '../../../components/popup/popup.jsx'
 
 export default function Table(){
     const tableData=[
@@ -36,7 +37,10 @@ export default function Table(){
             null
         ]
     ];
+
+    const [delCheck, setDelCheck]=useState(null);
     const [hw,setHw]=useState("50vh");
+
     useEffect(()=>{
         const elem=document.getElementById('victim');
         const rect=elem.getBoundingClientRect();
@@ -48,9 +52,11 @@ export default function Table(){
         console.log(hw)
     },[])
 
-    const handleDelete=()=>{
-        alert("you sure?");
-    }
+    useEffect(()=>{
+        if (delCheck=="Delete"){
+            alert("deleted");
+        }
+    },[delCheck])
 
     return(
         <div className="flex flex-col h-full">
@@ -69,7 +75,7 @@ export default function Table(){
                 </table>
             </div>
             <div className="flex flex-[9] justify-center " id="victim">
-            <button className="h-16 w-16"></button>
+            <div id="fake-buttons" className="h-16 w-16"></div>
                 <div className="overflow-auto no-scrollbar" style={{maxHeight:`${hw}`}}>
                     <table className="border-separate">
                         <tbody>
@@ -91,8 +97,8 @@ export default function Table(){
                     <Link href={"/dashboard/edit"} className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
                         <EditSvg/>
                     </Link>
-                    <button onClick={()=>{handleDelete()}} className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                        <TrashSvg/>
+                    <button className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                        <Popup compToPass={<TrashSvg/>} setDesCheck={setDelCheck} message={{message:"Are you sure you want to delete the timetable?", opt:["Cancel", "Delete"]}}/>
                     </button>
                 </div>
             </div>

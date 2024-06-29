@@ -5,6 +5,8 @@ import XSvg from '../../../components/svg/x.jsx'
 import CheckSvg from '../../../components/svg/check.jsx'
 import Link from "next/link.js";
 import Drop from '../../../components/drop_select/drop_select.jsx'
+import Popup from "@/components/popup/popup.jsx";
+import { useRouter } from "next/navigation";
 
 export default function EditTable(){
     const [tableData, setTableData]=useState([
@@ -37,7 +39,11 @@ export default function EditTable(){
             null
         ]
     ]);
+
+    const router=useRouter()
+    const [saveCheck, setSaveCheck]=useState(null);
     const [hw,setHw]=useState("50vh");
+
     useEffect(()=>{
         const elem=document.getElementById('victim');
         const rect=elem.getBoundingClientRect();
@@ -48,6 +54,16 @@ export default function EditTable(){
         console.log("in useEffect")
         console.log(hw)
     },[])
+
+    useEffect(()=>{
+        if (saveCheck=="Save"){
+            alert("saved");
+            router.push('/dashboard/table')
+        }else if(saveCheck=="Discard"){
+            alert("discarded");
+            router.push('/dashboard/table')
+        }
+    })
 
     const handleUpdate=({data,row,col})=>{
         var thirdparty=tableData;
@@ -72,7 +88,7 @@ export default function EditTable(){
                 </table>
             </div>
             <div className="flex flex-[9] justify-center " id="victim">
-            <button className="h-16 w-16"></button>
+            <div className="h-16 w-16"></div>
                 <div className="overflow-auto no-scrollbar" style={{maxHeight:`${hw}`}}>
                     <table className="border-separate">
                         <tbody>
@@ -91,12 +107,12 @@ export default function EditTable(){
                     </table>
                 </div>
                 <div>
-                    <Link href={"/dashboard/table"} className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                        <CheckSvg/>
-                    </Link>
-                    <Link href={"/dashboard/table"} className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                        <XSvg/>
-                    </Link>
+                    <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                        <Popup compToPass={<CheckSvg/>} setDesCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
+                    </div>
+                    <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                        <Popup compToPass={<XSvg/>} setDesCheck={setSaveCheck} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
+                    </div>
                 </div>
             </div>
         </div>

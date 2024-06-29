@@ -33,8 +33,24 @@ export default function Drop({tableData, handleUpdate, row, col}){
                   ...baseStyles,
                   borderColor: state.isFocused?"white":"transparent",
                   height:"12vw",
-                  backgroundColor:"",
+                  backgroundColor:tableData[row][col]==null?"":"#202224",
                   color:""
+                }),
+                menu: (baseStyles, state)=>({
+                  ...baseStyles,
+                  backgroundColor:"black",
+                }),
+                option: (baseStyles, { isFocused, isSelected }) => ({
+                  ...baseStyles,
+                    backgroundColor: isSelected ? "green" : isFocused ? "#00AA4A" : undefined
+                }),
+                placeholder: (baseStyles, state)=>({
+                  ...baseStyles,
+                  color:"white"
+                }),
+                singleValue: (baseStyles, state)=>({
+                  ...baseStyles,
+                  color:"#99FF9B"
                 })
               }}
             />
