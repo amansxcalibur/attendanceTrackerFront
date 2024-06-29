@@ -7,7 +7,7 @@ export default function Data(){
     const statData=[
         {
             "name": "Maths",
-            "percentage": 44,
+            "percentage": 86,
             "bunks_available": 5
         },
         {
@@ -17,12 +17,12 @@ export default function Data(){
         },
         {
             "name": "Phys",
-            "percentage": 30 ,
+            "percentage": 52 ,
             "bunks_available": 10
         },
         {
             "name": "Maths",
-            "percentage": 44,
+            "percentage": 77,
             "bunks_available": 5
         },
         {
@@ -32,13 +32,13 @@ export default function Data(){
         },
         {
             "name": "Phys",
-            "percentage": 30 ,
+            "percentage": 77 ,
             "bunks_available": 10
         },
 
         {
             "name": "Maths",
-            "percentage": 44,
+            "percentage": 86,
             "bunks_available": 5
         },
         {
@@ -48,7 +48,7 @@ export default function Data(){
         },
         {
             "name": "Phys",
-            "percentage": 30 ,
+            "percentage": 77 ,
             "bunks_available": 10
         },
     ]
@@ -71,7 +71,7 @@ export default function Data(){
         statData.forEach((sub)=>{
             sum+=sub[key];
         })
-        return key=='percentage'?sum/statData.length: sum;
+        return key=='percentage'?(sum/statData.length).toFixed(0): sum;
     }
 
     return(
