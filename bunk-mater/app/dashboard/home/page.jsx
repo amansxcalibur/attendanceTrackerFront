@@ -1,8 +1,5 @@
-'use client'
-
 import Statusman from "@/components/statusman/statusman";
 import Data from "@/components/statistics/data";
-import { useState, useEffect } from "react";
 
 export default function Home(){
     

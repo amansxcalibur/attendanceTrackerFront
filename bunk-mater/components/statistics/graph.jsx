@@ -3,7 +3,6 @@
 import chroma from 'chroma-js';
 
 export default function Graph({statData}){
-    console.log("in Perc")
     const f = chroma.scale(['red','yellow','green']);
 
     const handleGraphWidth=(key)=>{

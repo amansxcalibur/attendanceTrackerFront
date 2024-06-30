@@ -57,13 +57,13 @@ export default function Data(){
     useEffect(()=>{
         const elem=document.getElementById('victimer');
         const rect=elem.getBoundingClientRect();
-        console.log(rect['height']);
+        // console.log(rect['height']);
         const thirdparty=(Math.round(rect["height"])).toString()+"px"
         setHLim2(thirdparty);
-        console.log((thirdparty));
-        console.log("in data")
+        // console.log((thirdparty));
+        // console.log("in data")
         
-        console.log(hLim2)
+        // console.log(hLim2)
     },[])
 
     const avg=(key)=>{
@@ -89,6 +89,9 @@ export default function Data(){
                 <div className="flex flex-[3] items-center">
                     <p className="text-[4.3vw] leading-[1]">{avg("bunks_available")}<span className="text-[3vw]">d</span></p>
                     <p className="text-[1.5vw] leading-[2vw] ml-4">Overall<br/>bunks left</p>
+                </div>
+                <div className="flex text-right items-end">
+                    <p className="text-[1.5vw] leading-[2vw] ml-4">Bunks</p>
                 </div>
             </div>
             <div className="flex-1 flex h-full" id="victimer">

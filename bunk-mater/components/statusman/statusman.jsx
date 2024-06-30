@@ -57,12 +57,12 @@ export default function Statusman(){
     useEffect(()=>{
         const elem=document.getElementById('victim');
         const rect=elem.getBoundingClientRect();
-        console.log(rect['height']);
+        // console.log(rect['height']);
         const thirdparty=(Math.round(rect["height"])).toString()+"px"
         setHw(thirdparty);
-        console.log((thirdparty));
-        console.log("in useEffect")
-        console.log(hw)
+        // console.log((thirdparty));
+        // console.log("in useEffect")
+        // console.log(hw)
     },[])
 
     function renderSwitch(param) {

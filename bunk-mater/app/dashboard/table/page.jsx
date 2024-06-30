@@ -40,23 +40,75 @@ export default function Table(){
 
     const [delCheck, setDelCheck]=useState(null);
     const [hw,setHw]=useState("50vh");
+    const [check, setCheck]=useState(false);
 
     useEffect(()=>{
         const elem=document.getElementById('victim');
         const rect=elem.getBoundingClientRect();
-        console.log(rect['height']);
-        const thirdparty=(Math.floor(rect["height"])).toString()+"px"
+        // console.log(rect['height']);
+        const thirdparty=(Math.floor(rect["height"])).toString()+"px";
         setHw(thirdparty);
-        console.log((thirdparty));
-        console.log("in useEffect")
-        console.log(hw)
+        // console.log((thirdparty));
+        // console.log("in useEffect")
+        // console.log("This is hw Old",hw)
     },[])
+
+    useEffect(()=>{
+        console.log("This is hw ",hw);
+        if(check){}else{setCheck(true);}
+    },[hw])
 
     useEffect(()=>{
         if (delCheck=="Delete"){
             alert("deleted");
         }
     },[delCheck])
+
+    let last=0;
+
+    // useEffect(()=>{
+    //     let previous=window.innerHeight;
+    //     let testH=hw;
+    //     window.addEventListener("resize",()=>{
+    //         setTimeout(()=>{
+    //             if ((previous<window.innerHeight)&&hw!="50vh"){
+    //                 console.log("Increasing by ",(previous-window.innerHeight), "hw:", hw);
+    //             }else if((previous>window.innerHeight)&&hw!="50vh"){
+    //                 console.log("Decreasing by ",(previous-window.innerHeight), "hw:", hw);
+    //             }else{
+    //                 console.log("no change")
+    //             }
+    //             const thirdparty=parseInt(testH.slice(0,-2))-(previous-window.innerHeight)+"px";
+    //             console.log("thirdparty:",thirdparty)
+    //             setHw(thirdparty);
+    //             testH=thirdparty
+    //             previous=window.innerHeight;
+    //         },100)
+    //         last=Date.now();
+    //     })
+    // },[check])
+
+    useEffect(()=>{
+        let previous=window.innerHeight;
+        let testH=hw;
+        window.addEventListener("resize",()=>{
+            setTimeout(()=>{
+                if ((previous<window.innerHeight)&&hw!="50vh"){
+                    console.log("Increasing by ",(previous-window.innerHeight), "hw:", hw);
+                }else if((previous>window.innerHeight)&&hw!="50vh"){
+                    console.log("Decreasing by ",(previous-window.innerHeight), "hw:", hw);
+                }else{
+                    console.log("no change")
+                }
+                const thirdparty=parseInt(testH.slice(0,-2))-(previous-window.innerHeight)+"px";
+                console.log("thirdparty:",thirdparty)
+                setHw(thirdparty);
+                testH=thirdparty
+                previous=window.innerHeight;
+            },1000)
+            last=Date.now();
+        })
+    },[check])
 
     return(
         <div className="flex flex-col h-full">
