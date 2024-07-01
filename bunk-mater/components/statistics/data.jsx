@@ -54,16 +54,34 @@ export default function Data(){
     ]
 
     const [hLim2,setHLim2]=useState("50vh");
+    // useEffect(()=>{
+    //     const elem=document.getElementById('victimer');
+    //     const rect=elem.getBoundingClientRect();
+    //     // console.log(rect['height']);
+    //     const thirdparty=(Math.round(rect["height"])).toString()+"px"
+    //     setHLim2(thirdparty);
+    //     // console.log((thirdparty));
+    //     // console.log("in data")
+        
+    //     // console.log(hLim2)
+    // },[])
+
     useEffect(()=>{
         const elem=document.getElementById('victimer');
         const rect=elem.getBoundingClientRect();
-        // console.log(rect['height']);
-        const thirdparty=(Math.round(rect["height"])).toString()+"px"
+        const thirdparty=(Math.floor(rect["height"])).toString()+"px";
+        console.log(thirdparty)
         setHLim2(thirdparty);
-        // console.log((thirdparty));
-        // console.log("in data")
-        
-        // console.log(hLim2)
+
+        window.addEventListener("resize",()=>{
+            setTimeout(()=>{
+                console.log(window.innerHeight-0.11*window.innerWidth, "hw:",hLim2);
+                setHLim2((parseInt(window.innerHeight-0.216*window.innerWidth-2)).toString()+"px");
+            },10)
+        });
+        return()=>{
+            window.removeEventListener("resize",{});
+        }
     },[])
 
     const avg=(key)=>{

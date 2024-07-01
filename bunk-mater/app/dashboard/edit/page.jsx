@@ -49,12 +49,18 @@ export default function EditTable(){
     useEffect(()=>{
         const elem=document.getElementById('victim');
         const rect=elem.getBoundingClientRect();
-        console.log(rect['height']);
-        const thirdparty=(Math.floor(rect["height"])).toString()+"px"
+        const thirdparty=(Math.floor(rect["height"])).toString()+"px";
         setHw(thirdparty);
-        console.log((thirdparty));
-        console.log("in useEffect")
-        console.log(hw)
+
+        window.addEventListener("resize",()=>{
+            setTimeout(()=>{
+                // console.log(window.innerHeight-0.1*window.innerWidth, "hw:",hw);
+                setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
+            },10)
+        });
+        return()=>{
+            window.removeEventListener("resize",{});
+        }
     },[])
 
     useEffect(()=>{
@@ -84,8 +90,8 @@ export default function EditTable(){
     }
 
     return(
-        <div className="flex flex-col h-full">
-            <div className="flex-1"></div>
+        <div className="flex flex-col h-full pt-[3vw]">
+            {/* <div className="flex-1"></div> */}
             <div className="flex justify-center">
                 <table>
                     <thead>
