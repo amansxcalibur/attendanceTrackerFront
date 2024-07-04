@@ -53,7 +53,7 @@ export default function Data(){
         },
     ]
 
-    const [hLim2,setHLim2]=useState("50vh");
+    const [hLim2,setHLim2]=useState('50vh');
     // useEffect(()=>{
     //     const elem=document.getElementById('victimer');
     //     const rect=elem.getBoundingClientRect();
@@ -67,16 +67,16 @@ export default function Data(){
     // },[])
 
     useEffect(()=>{
-        const elem=document.getElementById('victimer');
-        const rect=elem.getBoundingClientRect();
-        const thirdparty=(Math.floor(rect["height"])).toString()+"px";
-        console.log(thirdparty)
-        setHLim2(thirdparty);
-
+        // const elem=document.getElementById('victimer');
+        // const rect=elem.getBoundingClientRect();
+        // const thirdparty=(Math.floor(rect["height"])).toString()+"px";
+        // console.log(thirdparty)
+        // setHLim2(thirdparty);
+        setHLim2((parseInt(window.innerHeight-0.216*window.innerWidth-3)).toString()+"px")
         window.addEventListener("resize",()=>{
             setTimeout(()=>{
-                console.log(window.innerHeight-0.11*window.innerWidth, "hw:",hLim2);
-                setHLim2((parseInt(window.innerHeight-0.216*window.innerWidth-2)).toString()+"px");
+                //console.log(window.innerHeight-0.11*window.innerWidth, "hw:",hLim2);
+                setHLim2((parseInt(window.innerHeight-0.216*window.innerWidth-3)).toString()+"px");
             },10)
         });
         return()=>{
@@ -93,23 +93,23 @@ export default function Data(){
     }
 
     return(
-        <div className="flex flex-1 h-full flex-col mx-[3vw] font-light" 
+        <div className="flex flex-1 h-full flex-col mx-[3vw] font-light max-sm:m-5" 
         //style={{height:hw}}
         >
             <div className="mb-[1.5vw]">
-                <p className="text-[6vw]">S2 <span className="font-thin">CSE</span></p>
+                <p className="text-[6vw] max-sm:text-6xl">S2 <span className="font-thin">CSE</span></p>
             </div>
             <div className="flex">
                 <div className="flex flex-[2] items-center">
-                    <p className="text-[4.3vw] leading-[1]">{avg("percentage")}<span className="text-[3vw]">%</span></p>
-                    <p className="text-[1.4vw] leading-[1.8vw] ml-4">Overall<br/>attendance</p>
+                    <p className="text-[4.3vw] leading-[1] max-sm:text-5xl">{avg("percentage")}<span className="text-[3vw] max-sm:text-4xl">%</span></p>
+                    <p className="text-[1.4vw] leading-[1.8vw] ml-4 max-sm:text-sm max-sm:leading-4 max-sm:ml-1">Overall<br/>attendance</p>
                 </div>
-                <div className="flex flex-[3] items-center">
-                    <p className="text-[4.3vw] leading-[1]">{avg("bunks_available")}<span className="text-[3vw]">d</span></p>
-                    <p className="text-[1.5vw] leading-[2vw] ml-4">Overall<br/>bunks left</p>
+                <div className="flex flex-[3] items-center justify-center">
+                    <p className="text-[4.3vw] leading-[1] max-sm:text-5xl">{avg("bunks_available")}<span className="text-[3vw] max-sm:text-4xl">d</span></p>
+                    <p className="text-[1.5vw] leading-[2vw] ml-4 max-sm:text-sm max-sm:leading-4 max-sm:ml-1">Overall<br/>bunks left</p>
                 </div>
-                <div className="flex text-right items-end">
-                    <p className="text-[1.5vw] leading-[2vw] ml-4">Bunks</p>
+                <div className="flex text-center items-center">
+                    <p className="text-[1.5vw] leading-[2vw] ml-4 max-sm:text-sm max-sm:leading-4 max-sm:ml-1">Bunks<br/>left</p>
                 </div>
             </div>
             <div className="flex-1 flex h-full" id="victimer">

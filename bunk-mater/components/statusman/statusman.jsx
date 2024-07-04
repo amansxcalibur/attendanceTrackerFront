@@ -53,17 +53,17 @@ export default function Statusman(){
     //     console.log("after useEffect",dateQuer)
     // },[dateCurr])
     const [rendCont, setRendCont]=useState(null);
-    const [hw,setHw]=useState("50vh");
+    const [hw,setHw]=useState('50vh');
     useEffect(()=>{
-        const elem=document.getElementById('victim');
-        const rect=elem.getBoundingClientRect();
-        const thirdparty=(Math.floor(rect["height"])).toString()+"px";
-        setHw(thirdparty);
-
+        // const elem=document.getElementById('victim');
+        // const rect=elem.getBoundingClientRect();
+        // const thirdparty=(Math.floor(rect["height"])).toString()+"px";
+        // setHw(thirdparty);
+        setHw((parseInt(window.innerHeight-0.128*window.innerWidth-3.3)).toString()+"px");
         window.addEventListener("resize",()=>{
             setTimeout(()=>{
-                console.log(window.innerHeight-0.1*window.innerWidth, "hw:",hw);
-                setHw((parseInt(window.innerHeight-0.128*window.innerWidth-2)).toString()+"px");
+                //console.log(window.innerHeight-0.1*window.innerWidth, "hw:",hw);
+                setHw((parseInt(window.innerHeight-0.128*window.innerWidth-3.3)).toString()+"px");
             },10)
         });
         return()=>{
@@ -102,9 +102,9 @@ export default function Statusman(){
     }
     return(
         <div className="h-full flex flex-col">
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center max-sm:mb-3">
                 <div className="flex-1">
-                    <span className="text-[4vw] font-light">
+                    <span className="text-[4vw] font-light max-sm:text-6xl">
                         {handleCond()}
                     </span>
                 </div>
@@ -112,9 +112,8 @@ export default function Statusman(){
                     <BasicDatePicker dateCurr={dateCurr} setDateCurr={setDateCurr}/>
                 </div>
             </div>
-            <div className="flex flex-1" id='victim'>
+            <div className="flex flex-1 pt-[0.5px]" id='victim'>
             {dateQuer===null || dateQuer==[]?<></>:
-            // dateQuer[0].status===null?<></>:
                 <Status dateQuer={dateQuer} setDateQuer={setDateQuer} dateCurr={dateCurr} setDateCurr={setDateCurr} rendCont={rendCont} setRendCont={setRendCont} hw={hw}/>
             }
             </div>

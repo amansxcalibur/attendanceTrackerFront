@@ -1,5 +1,4 @@
-import * as React from 'react';
-
+import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -7,6 +6,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import Calender from "../../app/_assets/calender-light.png";
 import Image from 'next/image';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 function ButtonField(props) {
   const {
@@ -26,13 +27,13 @@ function ButtonField(props) {
       aria-label={ariaLabel}
       onClick={() => setOpen?.((prev) => !prev)}
     >
-      <Image src={Calender} className='w-[3.8vw]'></Image>
+      <Image src={Calender} className='w-[3.8vw] max-sm:w-[7vh]'></Image>
     </Button>
   );
 }
 
 function ButtonDatePicker(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <DatePicker
@@ -47,17 +48,28 @@ function ButtonDatePicker(props) {
 }
 
 export default function PickerWithButtonField({dateCurr, setDateCurr}) {
-  const [value, setValue] = React.useState(dayjs());
-  React.useEffect(()=>{
+  const [value, setValue] = useState(dayjs());
+  useEffect(()=>{
     setDateCurr(value);
   },[value])
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <ButtonDatePicker
-        label={value == null ? null : value}
-        value={value}
-        onChange={(newValue) => setValue(newValue)}
-      />
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline>
+          <ButtonDatePicker
+            label={value == null ? null : value}
+            value={value}
+            onChange={(newValue) => setValue(newValue)}
+          />
+        </CssBaseline>
+      </ThemeProvider>
     </LocalizationProvider>
   );
 }

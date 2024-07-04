@@ -1,6 +1,11 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="flex min-h-screen text-black">
+      <div className="h-[10vh] w-[10vw] flex justify-center items-center bg-[#1c1c1c] text-white rounded-3xl">
+        <Link href='/dashboard/home'>Click to go home</Link>
+      </div>
        <div className="flex flex-col h-screen">
         <header className="h-12 bg-gray-700 text-white flex items-center justify-center">Header</header>
         <div className="flex flex-grow overflow-hidden">

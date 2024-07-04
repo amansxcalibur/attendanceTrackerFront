@@ -1,89 +1,43 @@
 'use client'
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import NavSelect from "@/components/nav_select/nav_select";
-import { ACCESS_TAB_NAME } from "../_utils/navbarConstants";
+import { options } from "../_utils/navbarConstants";
+import NavMapped from "@/components/nav_select/nav_mapped";
+import { usePathname } from "next/navigation";
+import SideMenu from "@/components/nav_select/side_menu";
 
 export default function Layout({children}){
-    const [slant, setSlant]=useState("Home");
-    useEffect(()=>{
-        if (JSON.parse(sessionStorage.getItem(ACCESS_TAB_NAME))!=null){
-            setSlant(JSON.parse(sessionStorage.getItem(ACCESS_TAB_NAME)));
-        }
-    },[]);
-    const tabUpdate=(param)=>{
-        setSlant(param);
-        sessionStorage.setItem(ACCESS_TAB_NAME,JSON.stringify(param));
-    }
-
+    const pathname=usePathname();
     return(
         <div className="flex flex-col h-screen">
-            <div className="bg-[#1c1c1c]">
-                <nav className="flex h-[5vw] overflow-hidden">
-                    <div className="text-[2vw] flex justify-center items-center p-[1vw]">
-                        <div className="rounded-full min-h-[3.5vw] min-w-[3.5vw] bg-white"></div>
-                        <p className="ml-4">Bunk-Mater</p>
+            <div className="bg-[#1c1c1c] max-sm:bg-black">
+                <nav className="flex h-[5vw] overflow-hidden max-md:h-[72px]">
+                    <div className="text-[2vw] flex items-center p-[1vw] max-sm:text-3xl max-sm:flex-1 max-sm:mt-3 ml-2 mb-2">
+                        <div className="rounded-full min-h-[3.5vw] min-w-[3.5vw] bg-white max-sm:w-[54px] h-[54px] max-sm:hidden"></div>
+                        <p className="ml-4 max-sm:flex-1 max-sm:text-4xl max-sm:ml-2">Bunk-Mater</p>
                     </div>
-                    <div className="flex-1 flex justify-center">
+                    <div className="flex-1 flex justify-center max-sm:hidden">
                         <ul className="flex justify-center items-center text-[1.5vw]">
-                            <li>
-                                {slant=="Home"?
-                                <div className="mb-[-0.5vw]">
-                                    <NavSelect props={
-                                        <Link className="px-[2vw] mt-[-0.5vw]" href="/dashboard/home">
-                                            <button type="submit" onClick={()=>{tabUpdate("Home")}}>Home</button>
-                                        </Link>
-                                    }/> 
-                                </div>:
-                                <div className="p-[1vw] bg-[#232222] rounded-3xl ml-2">
-                                    <Link href="/dashboard/home">
-                                        <button type="submit" onClick={()=>{tabUpdate("Home")}}>Home</button>
-                                    </Link>
-                                </div>
-                                }
-                            </li>
-                            <li>
-                                {slant=="Table"?
-                                <div className="mb-[-0.5vw]">
-                                    <NavSelect props={
-                                        <Link className="px-[2vw] mt-[-0.5vw]" href="/dashboard/table">
-                                            <button type="submit" onClick={()=>{tabUpdate("Table")}}>Table</button>
-                                        </Link>
-                                    }/>
-                                </div>:
-                                <div className="p-[1vw] bg-[#232222] rounded-3xl ml-2">
-                                    <Link href="/dashboard/table">
-                                        <button type="submit" onClick={()=>{tabUpdate("Table")}}>Table</button>
-                                    </Link>
-                                </div>
-                                }
-                            </li>
-                            <li>
-                                {slant=="Ranked"?
-                                <div className="mb-[-0.5vw]">
-                                    <NavSelect props={
-                                        <Link className="px-[2vw] mt-[-0.5vw]" href="/dashboard/ranked">
-                                            <button type="submit" onClick={()=>{tabUpdate("Ranked")}}>Ranked</button>
-                                        </Link>
-                                    }/>
-                                </div>:
-                                <div className="p-[1vw] bg-[#232222] rounded-3xl ml-2">
-                                    <Link href="/dashboard/ranked">
-                                        <button type="submit" onClick={()=>{tabUpdate("Ranked")}}>Ranked</button>
-                                    </Link>
-                                </div>
-                                }
-                            </li>
+                            {options.map(option=>
+                                <li key={option.id}>
+                                    <NavMapped option={option.option}
+                                                href={option.href}
+                                                pathname={pathname}
+                                                />
+                                </li>
+                            )}
                         </ul>
                     </div>
-                    <div className="text-[2vw] flex justify-center items-center p-[1vw] invisible">
+                    <div className="flex justify-center items-center text-5xl px-5 sm:hidden">
+                        <SideMenu options={options}
+                                  pathname={pathname}/>
+                    </div>
+                    <div className="text-[2vw] flex justify-center items-center p-[1vw] invisible max-sm:hidden">
                         <div className="rounded-full min-h-16 min-w-16 bg-white"></div>
                         <p className="ml-4">Bunk-Mater</p>
                     </div>
                 </nav>
             </div>
-            <div className="h-full">{children}</div>
+            <div className="h-full bg-black">{children}</div>
         </div>
     )
 }

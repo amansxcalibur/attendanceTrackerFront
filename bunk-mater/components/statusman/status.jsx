@@ -108,14 +108,14 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
         <div className={`flex-1 flex flex-col overflow-hidden`} style={{height:hw}}>
             <div className='flex-1 overflow-auto no-scrollbar'>
                 {Object.keys(dateQuer).map((key, index) => (
-                    <div className='h-[8.9vw] flex mt-1' key={index}> 
-                        <div className={`flex-1 flex text-[1.5vw] items-center ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-l-lg pl-[3vw]`}>
+                    <div className='h-[8.9vw] flex mt-1 max-sm:h-[15vh]' key={index}> 
+                        <div className={`flex-1 flex text-[1.5vw] items-center ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-l-lg pl-[3vw] max-sm:text-3xl max-sm:font-light`}>
                             {dateQuer[key].name}
                         </div>
                         <div className={`h-full flex ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-r-lg`} >
                             <div className='m-[1px]'>
-                                <button className={`h-full w-[12vw] flex items-center justify-center ${color[dateQuer[key].status][2]} rounded-lg`} onClick={()=>{handleStatusChange(key)}}>
-                                    <span className={`uppercase text-[9vw] font-light ${color[dateQuer[key].status][3]}`}>{dateQuer[key].status[0]}</span>
+                                <button className={`h-full w-[12vw] flex items-center justify-center ${color[dateQuer[key].status][2]} rounded-lg max-sm:w-[15vh]`} onClick={()=>{handleStatusChange(key)}}>
+                                    <span className={`uppercase text-[9vw] font-light ${color[dateQuer[key].status][3]} max-sm:text-[17vh]`}>{dateQuer[key].status[0]}</span>
                                 </button>
                             </div>
                         </div>
