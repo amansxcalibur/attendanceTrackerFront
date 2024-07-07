@@ -59,11 +59,19 @@ export default function Statusman(){
         // const rect=elem.getBoundingClientRect();
         // const thirdparty=(Math.floor(rect["height"])).toString()+"px";
         // setHw(thirdparty);
-        setHw((parseInt(window.innerHeight-0.128*window.innerWidth-3.3)).toString()+"px");
+        if (window.innerWidth>640){
+            setHw((parseInt(window.innerHeight-0.128*window.innerWidth-3.3)).toString()+"px");
+        }else{
+            setHw((parseInt(window.innerHeight-258.1)).toString()+"px");
+        }
         window.addEventListener("resize",()=>{
             setTimeout(()=>{
                 //console.log(window.innerHeight-0.1*window.innerWidth, "hw:",hw);
-                setHw((parseInt(window.innerHeight-0.128*window.innerWidth-3.3)).toString()+"px");
+                if (window.innerWidth>640){
+                    setHw((parseInt(window.innerHeight-0.128*window.innerWidth-3.3)).toString()+"px");
+                }else{
+                    setHw((parseInt(window.innerHeight-258.1)).toString()+"px");
+                }
             },10)
         });
         return()=>{

@@ -29,12 +29,31 @@ export default function Drop({tableData, handleUpdate, row, col}){
               onChange={handleSelect}
               isSearchable={true}
               styles={{
-                control: (baseStyles, state)=>({
+                control: (baseStyles, state)=>(window.innerWidth<640)?({
                   ...baseStyles,
                   borderColor: state.isFocused?"white":"transparent",
-                  height:"12vw",
+                  height:"12vh",
                   backgroundColor:tableData[row][col]==null?"":"#202224",
-                  color:""
+                  color:"",
+                  display:"flex",
+                  flexDirection:"column",
+                  overflow:"scroll"
+                  //wordBreak:"break-all"
+                }):
+                ({
+                  ...baseStyles,
+                  borderColor: state.isFocused?"white":"transparent",
+                  height:"13vw",
+                  backgroundColor:tableData[row][col]==null?"":"#202224",
+                  display:"flex"
+                }),
+                valueContainer: (baseStyles, state)=>(window.innerWidth<640)?({
+                  ...baseStyles,
+                  overflow:"scroll",
+                }):
+                ({
+                  ...baseStyles,
+                  overflow:"auto"
                 }),
                 menu: (baseStyles, state)=>({
                   ...baseStyles,

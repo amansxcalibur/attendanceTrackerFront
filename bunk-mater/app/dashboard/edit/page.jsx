@@ -52,10 +52,22 @@ export default function EditTable(){
         // const thirdparty=(Math.floor(rect["height"])).toString()+"px";
         // setHw(thirdparty);
 
+        if (window.innerWidth>640){
+            setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
+        }else{
+            setHw((parseInt(window.innerHeight-212)).toString()+"px");
+        }
         window.addEventListener("resize",()=>{
             setTimeout(()=>{
                 // console.log(window.innerHeight-0.1*window.innerWidth, "hw:",hw);
-                setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
+                console.log(window.innerWidth)
+                if (window.innerWidth>640){
+                    setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
+                }else{
+                    setHw((parseInt(window.innerHeight-212)).toString()+"px");
+                }
+                //reciever.style.height=(parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px";
+                //ref.current.style.height=(parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px";
             },10)
         });
         return()=>{
@@ -124,9 +136,9 @@ export default function EditTable(){
                                         <td className="rounded-full sm:h-16 sm:w-16 flex flex-1 justify-center h-10 items-end overflow-hidden">
                                             <button onClick={()=>{addRow(rowId)}}><PlusSvg/></button>
                                         </td>
-                                        <td className="w-[19,5vw]"></td>
-                                        <td className="w-[19,5vw]"></td>
-                                        <td className="w-[19,5vw]"></td>
+                                        <td className="w-[19.5vw]"></td>
+                                        <td className="w-[19.5vw]"></td>
+                                        <td className="w-[19.5vw]"></td>
                                         <td className="rounded-full sm:h-16 sm:w-16 flex flex-1 justify-center h-10 items-end overflow-hidden">
                                             <button onClick={()=>{delRow(rowId)}}><TrashSvg/></button>
                                         </td>
@@ -153,9 +165,10 @@ export default function EditTable(){
                             <tr className="text-[1.5vw] font-light">
                                 <td className="max-sm:hidden"></td>
                                 <td className='h-[13vw] w-[13vw] max-sm:h-[19.5vw] max-sm:w-[19.5vw] text-center border border-black flex'>
-                                    <button className="hover:bg-[#202224] bg-[#0d0e0f] flex-1 max-sm:text-3xl" onClick={()=>{addRow(tableData.length)}}>+</button>
+                                    <button className="hover:bg-[#202224] bg-[#0d0e0f] flex-1 max-sm:text-3xl max-sm:bg-[#202224]" onClick={()=>{addRow(tableData.length)}}>+</button>
                                 </td>
                             </tr>
+                            <tr className="h-[50vh]"></tr>
                         </tbody>
                     </table>
                 </div>

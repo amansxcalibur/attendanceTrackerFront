@@ -72,11 +72,19 @@ export default function Data(){
         // const thirdparty=(Math.floor(rect["height"])).toString()+"px";
         // console.log(thirdparty)
         // setHLim2(thirdparty);
-        setHLim2((parseInt(window.innerHeight-0.216*window.innerWidth-3)).toString()+"px")
+        if (window.innerWidth>640){
+            setHLim2((parseInt(window.innerHeight-0.216*window.innerWidth-3)).toString()+"px");
+        }else{
+            setHLim2((parseInt(window.innerHeight-297)).toString()+'px');
+        }
         window.addEventListener("resize",()=>{
             setTimeout(()=>{
                 //console.log(window.innerHeight-0.11*window.innerWidth, "hw:",hLim2);
-                setHLim2((parseInt(window.innerHeight-0.216*window.innerWidth-3)).toString()+"px");
+                if (window.innerWidth>640){
+                    setHLim2((parseInt(window.innerHeight-0.216*window.innerWidth-3)).toString()+"px");
+                }else{
+                    setHLim2((parseInt(window.innerHeight-297)).toString()+'px');
+                }
             },10)
         });
         return()=>{
@@ -93,10 +101,10 @@ export default function Data(){
     }
 
     return(
-        <div className="flex flex-1 h-full flex-col mx-[3vw] font-light max-sm:m-5" 
+        <div className="flex flex-1 h-full flex-col mx-[3vw] font-light max-sm:m-5 max-sm:mb-0" 
         //style={{height:hw}}
         >
-            <div className="mb-[1.5vw]">
+            <div className="mb-[1.5vw] max-sm:mb-2">
                 <p className="text-[6vw] max-sm:text-6xl">S2 <span className="font-thin">CSE</span></p>
             </div>
             <div className="flex">

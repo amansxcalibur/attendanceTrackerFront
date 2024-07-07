@@ -133,11 +133,19 @@ export default function Table(){
         // const thirdparty=(Math.floor(rect["height"])).toString()+"px";
         // setHw(thirdparty);
         // const rcvr=document.getElementById("reciever")
-        setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
+        if (window.innerWidth>640){
+            setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
+        }else{
+            setHw((parseInt(window.innerHeight-170)).toString()+"px");
+        }
         window.addEventListener("resize",()=>{
             setTimeout(()=>{
                 // console.log(window.innerHeight-0.1*window.innerWidth, "hw:",hw);
-                setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
+                if (window.innerWidth>640){
+                    setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
+                }else{
+                    setHw((parseInt(window.innerHeight-170)).toString()+"px");
+                }
                 //reciever.style.height=(parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px";
                 //ref.current.style.height=(parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px";
             },10)
