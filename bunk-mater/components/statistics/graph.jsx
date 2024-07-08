@@ -1,5 +1,3 @@
-'use client'//make sure to change it to server
-
 import chroma from 'chroma-js';
 
 export default function Graph({statData}){
@@ -42,7 +40,8 @@ export default function Graph({statData}){
                             :
                             <div className='flex flex-1'>
                                 <div className='flex-1'>
-                                    <div className='bg-red-500 h-[10vh] flex flex-col items-end justify-center rounded-[50px] min-w-[9.5vh]' style={{maxWidth:(key.percentage).toString().concat("%")}}>
+                                    <div className='bg-red-500 h-[10vh] flex flex-col items-end justify-center rounded-[50px] min-w-[9.5vh]' 
+                                         style={{maxWidth:(key.percentage).toString().concat("%")}}>
                                         <p className='text-black text-[2.5vw] font-extralight p-6 max-sm:text-3xl'>{key.percentage}</p>
                                     </div>
                                 </div>

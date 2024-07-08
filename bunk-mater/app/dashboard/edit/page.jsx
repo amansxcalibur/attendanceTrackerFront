@@ -9,6 +9,8 @@ import Link from "next/link.js";
 import Drop from '../../../components/drop_select/drop_select.jsx'
 import Popup from "@/components/popup/popup.jsx";
 import { useRouter } from "next/navigation";
+import HeightLimit from "@/components/height_limit_scrollable/heightLimit.js";
+import { Fragment } from "react";
 
 export default function EditTable(){
     const [tableData, setTableData]=useState([
@@ -44,32 +46,12 @@ export default function EditTable(){
 
     const router=useRouter()
     const [saveCheck, setSaveCheck]=useState(null);
-    const [hw,setHw]=useState((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
+    const [hw,setHw]=useState("50vh");
+    const smRatio=212;
+    const lgRatio=0.1415;
 
     useEffect(()=>{
-        // const elem=document.getElementById('victim');
-        // const rect=elem.getBoundingClientRect();
-        // const thirdparty=(Math.floor(rect["height"])).toString()+"px";
-        // setHw(thirdparty);
-
-        if (window.innerWidth>640){
-            setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
-        }else{
-            setHw((parseInt(window.innerHeight-212)).toString()+"px");
-        }
-        window.addEventListener("resize",()=>{
-            setTimeout(()=>{
-                // console.log(window.innerHeight-0.1*window.innerWidth, "hw:",hw);
-                console.log(window.innerWidth)
-                if (window.innerWidth>640){
-                    setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
-                }else{
-                    setHw((parseInt(window.innerHeight-212)).toString()+"px");
-                }
-                //reciever.style.height=(parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px";
-                //ref.current.style.height=(parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px";
-            },10)
-        });
+        HeightLimit({setHw, smRatio, lgRatio})
         return()=>{
             window.removeEventListener("resize",{});
         }
@@ -131,7 +113,7 @@ export default function EditTable(){
                     <table className="border-separate table-fixed w-[70.4vw] max-sm:w-full">
                         <tbody>
                             {tableData.map((rowVal, rowId)=>(
-                                <>
+                                <Fragment key={rowId}>
                                     <tr className="w-[4.7vw] sm:h-[19.5vw] max-sm:w-full max-sm:h-10 sm:hidden">
                                         <td className="rounded-full sm:h-16 sm:w-16 flex flex-1 justify-center h-10 items-end overflow-hidden">
                                             <button onClick={()=>{addRow(rowId)}}><PlusSvg/></button>
@@ -160,7 +142,7 @@ export default function EditTable(){
                                             </td>
                                         ))}
                                     </tr>
-                                </>
+                                </Fragment>
                             ))}
                             <tr className="text-[1.5vw] font-light">
                                 <td className="max-sm:hidden"></td>

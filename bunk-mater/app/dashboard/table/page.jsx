@@ -5,6 +5,7 @@ import EditSvg from '../../../components/svg/edit.jsx'
 import TrashSvg from '../../../components/svg/trash.jsx'
 import Link from "next/link.js";
 import Popup from '../../../components/popup/popup.jsx'
+import HeightLimit from "@/components/height_limit_scrollable/heightLimit.js";
 
 export default function Table(){
     const tableData=[
@@ -103,53 +104,11 @@ export default function Table(){
         }
     },[delCheck])
 
-    // useEffect(()=>{
-    //     let previous=window.innerHeight;
-    //     let testH=hw;
-    //     window.addEventListener("resize",()=>{
-    //         setTimeout(()=>{
-    //             if ((previous<window.innerHeight)&&hw!="50vh"){
-    //                 console.log("Increasing by ",(previous-window.innerHeight), "hw:", hw);
-    //             }else if((previous>window.innerHeight)&&hw!="50vh"){
-    //                 console.log("Decreasing by ",(previous-window.innerHeight), "hw:", hw);
-    //             }else{
-    //                 console.log("no change")
-    //             }
-    //             const thirdparty=parseInt(testH.slice(0,-2))-(previous-window.innerHeight)+"px";
-    //             console.log("thirdparty:",thirdparty)
-    //             setHw(thirdparty);
-    //             testH=thirdparty
-    //             previous=window.innerHeight;
-    //         },100)
-    //         last=Date.now();
-    //     })
-    // },[check])
-
-    // const ref=useRef();
-
+    const smRatio=170;
+    const lgRatio=0.1415;
+    
     useEffect(()=>{
-        // const elem=document.getElementById('victim');
-        // const rect=elem.getBoundingClientRect();
-        // const thirdparty=(Math.floor(rect["height"])).toString()+"px";
-        // setHw(thirdparty);
-        // const rcvr=document.getElementById("reciever")
-        if (window.innerWidth>640){
-            setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
-        }else{
-            setHw((parseInt(window.innerHeight-170)).toString()+"px");
-        }
-        window.addEventListener("resize",()=>{
-            setTimeout(()=>{
-                // console.log(window.innerHeight-0.1*window.innerWidth, "hw:",hw);
-                if (window.innerWidth>640){
-                    setHw((parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px");
-                }else{
-                    setHw((parseInt(window.innerHeight-170)).toString()+"px");
-                }
-                //reciever.style.height=(parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px";
-                //ref.current.style.height=(parseInt(window.innerHeight-0.14*window.innerWidth-2)).toString()+"px";
-            },10)
-        });
+        HeightLimit({setHw, smRatio, lgRatio})
         return()=>{
             window.removeEventListener("resize",{});
         }
@@ -204,9 +163,9 @@ export default function Table(){
                     <Link href={"/dashboard/edit"} className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
                         <EditSvg/>
                     </Link>
-                    <button className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                    <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
                         <Popup compToPass={<TrashSvg/>} setDesCheck={setDelCheck} message={{message:"Are you sure you want to delete the timetable?", opt:["Cancel", "Delete"]}}/>
-                    </button>
+                    </div>
                 </div>
             </div>
         </div>

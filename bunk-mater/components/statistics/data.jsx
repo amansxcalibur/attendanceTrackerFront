@@ -2,6 +2,7 @@
 
 import Graph from "./graph"
 import { useState, useEffect } from "react";
+import HeightLimit from "../height_limit_scrollable/heightLimit";
 
 export default function Data(){
     const statData=[
@@ -53,40 +54,13 @@ export default function Data(){
         },
     ]
 
-    const [hLim2,setHLim2]=useState('50vh');
-    // useEffect(()=>{
-    //     const elem=document.getElementById('victimer');
-    //     const rect=elem.getBoundingClientRect();
-    //     // console.log(rect['height']);
-    //     const thirdparty=(Math.round(rect["height"])).toString()+"px"
-    //     setHLim2(thirdparty);
-    //     // console.log((thirdparty));
-    //     // console.log("in data")
-        
-    //     // console.log(hLim2)
-    // },[])
+    const [hw,setHw]=useState('50vh');
+
+    const smRatio=297;
+    const lgRatio=0.218;
 
     useEffect(()=>{
-        // const elem=document.getElementById('victimer');
-        // const rect=elem.getBoundingClientRect();
-        // const thirdparty=(Math.floor(rect["height"])).toString()+"px";
-        // console.log(thirdparty)
-        // setHLim2(thirdparty);
-        if (window.innerWidth>640){
-            setHLim2((parseInt(window.innerHeight-0.216*window.innerWidth-3)).toString()+"px");
-        }else{
-            setHLim2((parseInt(window.innerHeight-297)).toString()+'px');
-        }
-        window.addEventListener("resize",()=>{
-            setTimeout(()=>{
-                //console.log(window.innerHeight-0.11*window.innerWidth, "hw:",hLim2);
-                if (window.innerWidth>640){
-                    setHLim2((parseInt(window.innerHeight-0.216*window.innerWidth-3)).toString()+"px");
-                }else{
-                    setHLim2((parseInt(window.innerHeight-297)).toString()+'px');
-                }
-            },10)
-        });
+        HeightLimit({setHw, smRatio, lgRatio})
         return()=>{
             window.removeEventListener("resize",{});
         }
@@ -101,9 +75,7 @@ export default function Data(){
     }
 
     return(
-        <div className="flex flex-1 h-full flex-col mx-[3vw] font-light max-sm:m-5 max-sm:mb-0" 
-        //style={{height:hw}}
-        >
+        <div className="flex flex-1 h-full flex-col mx-[3vw] font-light max-sm:m-5 max-sm:mb-0">
             <div className="mb-[1.5vw] max-sm:mb-2">
                 <p className="text-[6vw] max-sm:text-6xl">S2 <span className="font-thin">CSE</span></p>
             </div>
@@ -121,7 +93,7 @@ export default function Data(){
                 </div>
             </div>
             <div className="flex-1 flex h-full" id="victimer">
-                <div className="flex-1 flex h-full overflow-auto no-scrollbar" style={{height:hLim2}}>
+                <div className="flex-1 flex h-full overflow-auto no-scrollbar" style={{height:hw}}>
                     <Graph statData={statData}/>
                 </div>
             </div>

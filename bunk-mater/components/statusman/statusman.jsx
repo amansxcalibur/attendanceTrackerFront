@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 // import BasicDatePicker from "./rewind_time";
 import BasicDatePicker from "./rewind";
 import Status from "./status";
+import HeightLimit from "../height_limit_scrollable/heightLimit";
 
 export default function Statusman(){
     const [dateCurr, setDateCurr]=useState(dayjs());
@@ -54,26 +55,10 @@ export default function Statusman(){
     // },[dateCurr])
     const [rendCont, setRendCont]=useState(null);
     const [hw,setHw]=useState('50vh');
+    const smRatio=258.1;
+    const lgRatio=0.13;
     useEffect(()=>{
-        // const elem=document.getElementById('victim');
-        // const rect=elem.getBoundingClientRect();
-        // const thirdparty=(Math.floor(rect["height"])).toString()+"px";
-        // setHw(thirdparty);
-        if (window.innerWidth>640){
-            setHw((parseInt(window.innerHeight-0.128*window.innerWidth-3.3)).toString()+"px");
-        }else{
-            setHw((parseInt(window.innerHeight-258.1)).toString()+"px");
-        }
-        window.addEventListener("resize",()=>{
-            setTimeout(()=>{
-                //console.log(window.innerHeight-0.1*window.innerWidth, "hw:",hw);
-                if (window.innerWidth>640){
-                    setHw((parseInt(window.innerHeight-0.128*window.innerWidth-3.3)).toString()+"px");
-                }else{
-                    setHw((parseInt(window.innerHeight-258.1)).toString()+"px");
-                }
-            },10)
-        });
+        HeightLimit({setHw, smRatio, lgRatio})
         return()=>{
             window.removeEventListener("resize",{});
         }
