@@ -19,7 +19,7 @@ export default function Graph({statData}){
                         <div className='mr-9 min-w-[4.6vw] max-sm:text-2xl max-sm:min-w-16 max-sm:m-0'>
                             {key.name.slice(0,4)}
                         </div>
-                        {parseInt(key.percentage)>74?
+                        {parseInt(key.percentage)>75?
                             <div className='flex-1 flex h-[10vh]'>
                                 <div className='flex-1 bg-[#55eb50] flex flex-col items-end justify-center rounded-[50px] mr-[-4.5vw]'>
                                     <p className='text-black text-[2.5vw] font-extralight p-6 max-sm:text-3xl'>75</p>
