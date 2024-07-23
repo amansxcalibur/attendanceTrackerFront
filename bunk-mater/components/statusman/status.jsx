@@ -9,7 +9,7 @@ import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '@/app/_utils/apiConstants.js';
 import BasicDatePicker from './rewind_time';
 
-export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, rendCont, setRendCont, hw}){
+export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, refreshCont, setRefreshCont, hw}){
     // console.log("in Status here is dateQuery",dateQuer, JSON.stringify(dateQuer)!=JSON.stringify([]));
     // console.log(dateQuer, 'hi from statusman', rendCont);
     const firstrend=useRef(false);
@@ -66,42 +66,33 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
         cancelled:["bg-[#272727]","text-[#9e9e9e]",'',"text-[#9e9e9e]"]
     }
     
-    // useEffect(()=>{
-    //     if(firstrend.current && thirdparty.current!=[] && JSON.stringify(dateQuer)!=JSON.stringify([])) {
-    //         console.log("not firstrend, here is thirdparty.current", thirdparty.current)
-    //         update(rendCont, dateCurr, dateQuer, setRendCont, thirdparty)
-    //     }
-    //     else{
-    //         console.log("first rend") 
-    //         }
-    // },[dateQuer])
+    useEffect(()=>{
+        if(firstrend.current && thirdparty.current!=[] && JSON.stringify(dateQuer)!=JSON.stringify([])) {
+            console.log("not firstrend, here is thirdparty.current", thirdparty.current)
+            update(refreshCont, dateCurr, dateQuer, setRefreshCont, thirdparty)
+        }
+        else{
+            console.log("first rend") 
+            }
+    },[dateQuer])
 
     const handleStatusChange=(key)=>{
-        if(dateQuer[key].status[0]=='p')
-            setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'bunked'}})
-        else if(dateQuer[key].status[0]=='b')
+        if(dateQuer[key].status[0]=='p'){
+            setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'bunked'}});
+            thirdparty.current=["bunked",key];
+            firstrend.current=true
+        }
+        else if(dateQuer[key].status[0]=='b'){
             setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'cancelled'}})
-        else
-            setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'present'}})
+            thirdparty.current=["cancelled",key]; 
+            firstrend.current=true
+        }
+        else{
+            setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'present'}});
+            thirdparty.current=["present",key];
+            firstrend.current=true
+        }
     }
-    // const [sizeHelp, setSizeHelp]=useState("h-70vh");
-    // useEffect(()=>{
-    //     const handleResize=()=>{
-    //         const elem=document.getElementById('victim');
-    //         const rect=elem.getBoundingClientRect();
-    //         console.log(rect['height']);
-    //         const thirdparty="h-["+(rect["height"]-4).toString()+"px]"
-    //         setSizeHelp(thirdparty);
-    //         console.log(sizeHelp)
-    //     }
-    //     console.log("in useEffect")
-    //     window.addEventListener('resize', handleResize);
-    //     return()=>{
-    //         console.log("end")
-    //         window.removeEventListener('resize', handleResize);
-    //     }
-    // },[]);
-
    
 
     return(
@@ -126,26 +117,26 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     )
 }
 
-// function update(rendCont, dateCurr, dateQuer, setRendCont, thirdparty){
-//     console.log("this is update", thirdparty.current)
-//     console.log(dateQuer[thirdparty.current[1]].session_url, thirdparty[1])
-//     const header={
-//         'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
-//     }
-//     axios.patch(dateQuer[thirdparty.current[1]].session_url, {
-//         "status": thirdparty.current[0]
-//     },{headers:header})
-//     .then((response)=>{
-//         console.log(response.status, response.data)
+function update(refreshCont, dateCurr, dateQuer, setRefreshCont, thirdparty){
+    console.log("this is update", thirdparty.current)
+    console.log(dateQuer[thirdparty.current[1]].session_url, thirdparty.current[1])
+    const header={
+        'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
+    }
+    axios.patch(dateQuer[thirdparty.current[1]].session_url, {
+        "status": thirdparty.current[0]
+    },{headers:header})
+    .then((response)=>{
+        console.log(response.status, response.data)
         
-//     console.log("gonna set rend again")
-//     if(rendCont==[]){setRendCont(['hello'])}
-//     else{
-//     setRendCont([]);}
-//     })
-//     .catch((error)=>{
-//         console.log("caught an error in post\n",error)
-//     })
-//     console.log("end of update")
-// }
-// update(rendCont=rendCont, dateCurr=dateCurr)
+    console.log("gonna set rend again")
+    if(refreshCont==[]){setRefreshCont(['hello'])}
+    else{
+    setRefreshCont([]);}
+    })
+    .catch((error)=>{
+        console.log("caught an error in post\n",error)
+    })
+    console.log("end of update")
+}
+//update(rendCont=rendCont, dateCurr=dateCurr)

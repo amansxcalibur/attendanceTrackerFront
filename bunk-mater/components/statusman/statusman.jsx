@@ -1,6 +1,7 @@
 'use client'
 
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from "@/app/_utils/apiConstants"
+import axios from "axios";
 import { useState, useEffect } from "react"
 import { getCurrentDate } from "@/app/_utils/currDate";
 import dayjs from "dayjs";
@@ -9,7 +10,7 @@ import BasicDatePicker from "./rewind";
 import Status from "./status";
 import HeightLimit from "../height_limit_scrollable/heightLimit";
 
-export default function Statusman(){
+export default function Statusman({setRefreshCont, refreshCont}){
     const [dateCurr, setDateCurr]=useState(dayjs());
     const [dateQuer, setDateQuer]=useState([
         {
@@ -35,24 +36,25 @@ export default function Statusman(){
         
     ]);
 
-    // const header={
-    //     'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
-    //   }
-    // useEffect(()=>{
-    //     axios.get(API_BASE_URL + '/datequery?date='+dateCurr.format("YYYY-MM-DD"), {headers:header})
-    //     .then(function (response) {
-    //         if(response.status === 200){
-    //             setDateQuer(response.data)
-    //         }
-    //         else{
-    //             console.log(response.data)
-    //         }
-    //     })
-    //     .catch(function (error) {
-    //         console.log(JSON.stringify(error));
-    //     });
-    //     console.log("after useEffect",dateQuer)
-    // },[dateCurr])
+    const header={
+        'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
+      }
+    useEffect(()=>{
+        axios.get(API_BASE_URL + '/datequery?date='+dateCurr.format("YYYY-MM-DD"), {headers:header})
+        .then(function (response) {
+            if(response.status === 200){
+                setDateQuer(response.data)
+            }
+            else{
+                console.log(response.data)
+            }
+        })
+        .catch(function (error) {
+            console.log(JSON.stringify(error));
+        });
+        console.log("after useEffect",dateQuer)
+    },[dateCurr])
+
     const [rendCont, setRendCont]=useState(null);
     const [hw,setHw]=useState('50vh');
     const smRatio=258.1;
@@ -107,7 +109,7 @@ export default function Statusman(){
             </div>
             <div className="flex flex-1 pt-[0.5px]" id='victim'>
             {dateQuer===null || dateQuer==[]?<></>:
-                <Status dateQuer={dateQuer} setDateQuer={setDateQuer} dateCurr={dateCurr} setDateCurr={setDateCurr} rendCont={rendCont} setRendCont={setRendCont} hw={hw}/>
+                <Status dateQuer={dateQuer} setDateQuer={setDateQuer} dateCurr={dateCurr} setDateCurr={setDateCurr} refreshCont={refreshCont} setRefreshCont={setRefreshCont} hw={hw}/>
             }
             </div>
         </div>

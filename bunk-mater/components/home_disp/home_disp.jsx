@@ -4,6 +4,7 @@ import Data from "@/components/statistics/data";
 
 export default function HomeDisp({curr}){
     const [smWind, setSmWind]=useState();
+    const [refreshCont, setRefreshCont]=useState()
     useEffect(()=>{
         setSmWind(window.innerWidth<640)
         window.addEventListener('resize',()=>{
@@ -27,10 +28,10 @@ export default function HomeDisp({curr}){
                     </div>):
                     <>
                         <div className="bg-[#1c1c1c] flex-[4] mx-[1px] px-5 rounded-[20px]">
-                            <Statusman/>
+                            <Statusman setRefreshCont={setRefreshCont} refreshCont={refreshCont}/>
                         </div>
                         <div className="bg-[#1c1c1c] flex-[9] flex mx-[1px] rounded-[20px]">
-                            <Data/>
+                            <Data refreshCont={refreshCont}/>
                         </div>
                     </>:<></>
             }

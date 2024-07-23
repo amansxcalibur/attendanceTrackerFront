@@ -1,11 +1,13 @@
 'use client'
 
+import { ACCESS_TOKEN_NAME, API_BASE_URL } from "@/app/_utils/apiConstants";
+import axios from "axios";
 import Graph from "./graph"
 import { useState, useEffect } from "react";
 import HeightLimit from "../height_limit_scrollable/heightLimit";
 
-export default function Data(){
-    const statData=[
+export default function Data({refreshCont}){
+    const Data=[
         {
             "name": "Maths",
             "percentage": 86,
@@ -55,9 +57,27 @@ export default function Data(){
     ]
 
     const [hw,setHw]=useState('50vh');
-
+    // localStorage.setItem(ACCESS_TOKEN_NAME,JSON.stringify("673874ce2fcc135dfd39f1a76428ebae606c8b42"));
     const smRatio=297;
     const lgRatio=0.218;
+    const [statData, setStatData]=useState([]);
+    const header={
+        'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
+    }
+
+    useEffect(()=>{
+        axios.get(API_BASE_URL + '/statquery', { headers: header })
+      .then(function(response){
+        if (response.status === 200) {
+            setStatData(response.data);
+            console.log("statdata", response.data)
+          }
+        })
+        .catch(function(error) {
+          console.error("Error fetching data:", error);
+        }
+     );
+    },[refreshCont])
 
     useEffect(()=>{
         HeightLimit({setHw, smRatio, lgRatio})
@@ -84,8 +104,8 @@ export default function Data(){
                     <p className="text-[4.3vw] leading-[1] max-sm:text-5xl">{avg("percentage")}<span className="text-[3vw] max-sm:text-4xl">%</span></p>
                     <p className="text-[1.4vw] leading-[1.8vw] ml-4 max-sm:text-sm max-sm:leading-4 max-sm:ml-1">Overall<br/>attendance</p>
                 </div>
-                <div className="flex flex-[3] items-center justify-center">
-                    <p className="text-[4.3vw] leading-[1] max-sm:text-5xl">{avg("bunks_available")}<span className="text-[3vw] max-sm:text-4xl">d</span></p>
+                <div className="flex flex-[3] items-center justify-start">
+                    <p className="text-[4.3vw] leading-[1] max-sm:text-5xl">{avg("bunks_available")}<span className="text-[3vw] max-sm:text-4xl">b</span></p>
                     <p className="text-[1.5vw] leading-[2vw] ml-4 max-sm:text-sm max-sm:leading-4 max-sm:ml-1">Overall<br/>bunks left</p>
                 </div>
                 <div className="flex text-center items-center">
