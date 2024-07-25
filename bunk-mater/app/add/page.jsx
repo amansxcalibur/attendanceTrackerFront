@@ -11,6 +11,7 @@ import Popup from "@/components/popup/popup.jsx";
 import { useRouter } from "next/navigation";
 import HeightLimit from "@/components/height_limit_scrollable/heightLimit.js";
 import { Fragment } from "react";
+import BasicDateTimeRangePicker from "@/components/date_range_picker/date_range_picker.jsx";
 
 export default function Add(){
     const [tableData, setTableData]=useState([
@@ -61,6 +62,13 @@ export default function Add(){
         const thirdparty=tableData;
         setTableData(thirdparty.toSpliced(index,1))
     }
+    const [criteria, setCriteria]=useState({value:75});
+    const handleChange=(event)=>{
+        let { value, min, max } = event.target;
+        value= Math.max(Number(min), Math.min(Number(max), Number(value)));
+
+        setCriteria({ value: value });
+    }
 
     return(
         <div className="flex flex-col h-full pt-[3vw]">
@@ -73,6 +81,36 @@ export default function Add(){
                     <Popup compToPass={<div className="bg-[#2b1f1f] h-14 w-24 rounded-full flex justify-center items-center">Cancel</div>} setDesCheck={setSaveCheck} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
                 </div>
             </div>
+            <form className="flex justify-center items-center flex-col">
+                <div className="flex justify-center mb-[1vw]">
+                    <input type="text" 
+                       placeholder="Timetable Name"
+                       className=" min-w-[15vw] pl-4 bg-black border-[#3a3a3a] hover:border-white border-[1px] mx-[1vw]" 
+                       required
+                    />
+                    <p>Timetable Name<br/><span className="text-[#727272]">A name for your wonderful timetable.</span></p>
+                </div>
+                <div className="flex justify-center items-center">
+                    <div className="flex flex-col justify-center items-center mx-[1vw]">
+                        <BasicDateTimeRangePicker mssg={"Start date"}/>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <BasicDateTimeRangePicker mssg={"End date"}/>
+                    </div>
+                    <p className="max-w-[20vw]">Timetable duration.<br/><span className="text-[#727272]">Years? Months? Weeks? Days?</span></p>
+                    <div className="flex flex-col justify-center items-center ml-[2vw] mr-[1vw]">
+                        <button className="text-[1.5vw] text-[#727272] hover:text-white" onClick={handleIncrement}>+</button>
+                        <input type="number" 
+                            placeholder="75"
+                            min='0'
+                            max='100'
+                            value={criteria.value}
+                            onChange={handleChange}
+                            className="no-scrollbar bg-black hover:border-white border-[#3a3a3a] border-[1px] min-h-[4vw] max-w-[4vw] text-center text-[2vw] rounded-full"
+                        />
+                        <button className="text-[1.5vw] text-[#727272] hover:text-white" onClick={handleDecrement}>-</button>
+                    </div>
+                    <p className="max-w-[20vw]">The Attendance criteria.<br/><span className="text-[#727272]">Every subject will have a minimum attendance criteria</span></p>
+                </div>
+            </form>
             <div className="flex justify-center">
                 <table>
                     <thead>
