@@ -57,7 +57,7 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     },
 ]
     useEffect(()=>{
-        setDateQuer(data)
+        setDateQuer([])
     },[])
 
     const color={

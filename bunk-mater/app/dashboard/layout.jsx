@@ -14,7 +14,7 @@ export default function Layout({children}){
             <div className="bg-[#1c1c1c] max-sm:bg-black">
                 <nav className="flex h-[5vw] overflow-hidden max-md:h-[72px]">
                     <div className="text-[2vw] flex items-center p-[1vw] max-sm:text-3xl max-sm:flex-1 max-sm:mt-3 ml-2 mb-2">
-                        <Image src={Logo} className='h-[4vw] w-[4vw] -mr-[0.5vw]'/>
+                        <Image src={Logo} className='sm:h-[4vw] sm:w-[4vw] max-sm:h-16 max-sm:w-16 -mr-[0.5vw]'/>
                     {/* <div className="rounded-full h-[3.5vw] w-[3.5vw] border-white border-y-2 max-sm:w-[54px] max-sm:h-[54px] max-sm:hidden"></div> */}
                         <p className="ml-4 max-sm:flex-1 max-sm:text-4xl max-sm:ml-2">Bunk-Mate</p>
                     </div>

@@ -13,26 +13,26 @@ import HeightLimit from "../height_limit_scrollable/heightLimit";
 export default function Statusman({setRefreshCont, refreshCont}){
     const [dateCurr, setDateCurr]=useState(dayjs());
     const [dateQuer, setDateQuer]=useState([
-        {
-            "name": "history",
-            "status": "present",
-            "session_url": "http://127.0.0.1:8000/session/63171"
-        },
-        {
-            "name": "geography",
-            "status": "present",
-            "session_url": "http://127.0.0.1:8000/session/63172"
-        },
-        {
-            "name": "world history",
-            "status": "present",
-            "session_url": "http://127.0.0.1:8000/session/63173"
-        },
-        {
-            "name": "US history",
-            "status": "present",
-            "session_url": "http://127.0.0.1:8000/session/63174"
-        },
+        // {
+        //     "name": "history",
+        //     "status": "present",
+        //     "session_url": "http://127.0.0.1:8000/session/63171"
+        // },
+        // {
+        //     "name": "geography",
+        //     "status": "present",
+        //     "session_url": "http://127.0.0.1:8000/session/63172"
+        // },
+        // {
+        //     "name": "world history",
+        //     "status": "present",
+        //     "session_url": "http://127.0.0.1:8000/session/63173"
+        // },
+        // {
+        //     "name": "US history",
+        //     "status": "present",
+        //     "session_url": "http://127.0.0.1:8000/session/63174"
+        // },
         
     ]);
 
