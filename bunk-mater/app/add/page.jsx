@@ -70,6 +70,13 @@ export default function Add(){
         setCriteria({ value: value });
     }
 
+    const handleIncrement=(e)=>{
+
+    }
+    const handleDecrement=(e)=>{
+        
+    }
+
     return(
         <div className="flex flex-col h-full pt-[3vw]">
             {/* <div className="flex-1"></div> */}

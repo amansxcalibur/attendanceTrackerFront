@@ -3,7 +3,7 @@
 import Select from "react-select";
 import { useState } from "react";
 
-export default function Drop({tableData, handleUpdate, row, col}){
+export default function Drop({tableData, handleUpdate, row, col, statusman}){
     const optionList = [
         { value: "maths", label: "Maths" },
         { value: "phy", label: "Physics" },
@@ -16,8 +16,11 @@ export default function Drop({tableData, handleUpdate, row, col}){
       function handleSelect(data){
         setSelectedOptions(data);
         console.log(data.label, row, col);
-        handleUpdate({data, row, col});
+        if(!statusman){
+          handleUpdate({data, row, col});
+        }
       }
+      console.log(statusman)
 
       return (
         <div className="">
@@ -37,15 +40,18 @@ export default function Drop({tableData, handleUpdate, row, col}){
                   color:"",
                   display:"flex",
                   flexDirection:"column",
-                  overflow:"scroll"
+                  overflow:"scroll",
+                  fontSize:statusman?"30px":""
                   //wordBreak:"break-all"
                 }):
                 ({
                   ...baseStyles,
                   borderColor: state.isFocused?"white":"transparent",
-                  height:"13vw",
+                  height:statusman==true?"8.7vw":"13vw",
+                  width: statusman==true?"29.2vw":"",
                   backgroundColor:tableData[row][col]==null?"":"#202224",
-                  display:"flex"
+                  display:"flex",
+                  fontSize:statusman?"1.5vw":""
                 }),
                 valueContainer: (baseStyles, state)=>(window.innerWidth<640)?({
                   ...baseStyles,
@@ -53,7 +59,7 @@ export default function Drop({tableData, handleUpdate, row, col}){
                 }):
                 ({
                   ...baseStyles,
-                  overflow:"auto"
+                  overflow:"auto",
                 }),
                 menu: (baseStyles, state)=>({
                   ...baseStyles,
@@ -70,6 +76,11 @@ export default function Drop({tableData, handleUpdate, row, col}){
                 singleValue: (baseStyles, state)=>({
                   ...baseStyles,
                   color:"#99FF9B"
+                }),
+                input: (baseStyles, state)=>({
+                  ...baseStyles,
+                  color:"white",
+                  fontSize:statusman?"1.5vw":""
                 })
               }}
             />

@@ -8,12 +8,19 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '@/app/_utils/apiConstants.js';
 import BasicDatePicker from './rewind_time';
+import Drop from '../drop_select/drop_select';
+import Popup from '../popup/popup';
+import CheckSvg from '../svg/check'
+import XSvg from '../svg/x'
 
 export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, refreshCont, setRefreshCont, hw}){
     // console.log("in Status here is dateQuery",dateQuer, JSON.stringify(dateQuer)!=JSON.stringify([]));
     // console.log(dateQuer, 'hi from statusman', rendCont);
     const firstrend=useRef(false);
-    const thirdparty=useRef([])
+    const thirdparty=useRef([]);
+    const [addNewSub, setAddNewSub] = useState("Save");
+    const [saveCheck, setSaveCheck]=useState(null);
+
     const data=[
     {
         "name": "history",
@@ -98,6 +105,33 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     return(
         <div className={`flex-1 flex flex-col overflow-hidden`} style={{height:hw}}>
             <div className='flex-1 overflow-auto no-scrollbar'>
+                <div className='h-[8.9vw] flex mt-1 max-sm:h-[15vh] bg-[#0c0c0c] hover:bg-black border-dashed border-[#727272] border-[2px] rounded-[1vw]'> 
+                    {addNewSub=="Save" || addNewSub=="Discard"?
+                        <button className={`flex-1 flex text-[1.5vw] items-center rounded-l-lg pl-[3vw] max-sm:text-3xl text-[#727272] hover:text-white max-sm:font-light`} 
+                                onClick={()=>{setAddNewSub("Cancel")}}>
+                            Add another subject
+                        </button>:
+                        <>
+                            <Drop tableData={[{}]} row={0} col={0} statusman={true}></Drop>
+                            {/* <div className="max-sm:hidden">
+                                <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                                    <Popup compToPass={<CheckSvg/>} setDesCheck={setAddNewSub} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
+                                </div>
+                                <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                                    <Popup compToPass={<XSvg/>} setDesCheck={setAddNewSub} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
+                                </div>
+                            </div> */}
+                        </>
+                    }
+                </div>
+                <div className={`max-sm:hidden flex justify-end ${addNewSub=="Save" || addNewSub=="Discard"?"hidden":""}`}>
+                    <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                        <Popup compToPass={<CheckSvg/>} setDesCheck={setAddNewSub} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
+                    </div>
+                    <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
+                        <Popup compToPass={<XSvg/>} setDesCheck={setAddNewSub} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
+                    </div>
+                </div>
                 {Object.keys(dateQuer).map((key, index) => (
                     <div className='h-[8.9vw] flex mt-1 max-sm:h-[15vh]' key={index}> 
                         <div className={`flex-1 flex text-[1.5vw] items-center ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-l-lg pl-[3vw] max-sm:text-3xl max-sm:font-light`}>
