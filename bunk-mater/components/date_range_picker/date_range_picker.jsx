@@ -26,6 +26,11 @@ export default function BasicDatePicker({mssg}) {
               label={mssg}
               //value={dateCurr.format("DD-MM-YYYY")===dayjs().format("DD-MM-YYYY")?null:dateCurr}
               onChange={(newValue)=>setDateCurr(newValue)}
+              slotProps={{
+                textField: {
+                  required: true,
+                },
+              }}
           />
        </ThemeProvider>
       </DemoContainer>

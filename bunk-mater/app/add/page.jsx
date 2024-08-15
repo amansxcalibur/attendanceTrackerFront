@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import HeightLimit from "@/components/height_limit_scrollable/heightLimit.js";
 import { Fragment } from "react";
 import BasicDateTimeRangePicker from "@/components/date_range_picker/date_range_picker.jsx";
+import MinSubAttendance from "@/components/min_sub_attendance/min_sub_attendance.js";
 
 export default function Add(){
     const [tableData, setTableData]=useState([
@@ -62,24 +63,10 @@ export default function Add(){
         const thirdparty=tableData;
         setTableData(thirdparty.toSpliced(index,1))
     }
-    const [criteria, setCriteria]=useState({value:75});
-    const handleChange=(event)=>{
-        let { value, min, max } = event.target;
-        value= Math.max(Number(min), Math.min(Number(max), Number(value)));
-
-        setCriteria({ value: value });
-    }
-
-    const handleIncrement=(e)=>{
-
-    }
-    const handleDecrement=(e)=>{
-        
-    }
 
     return(
-        <div className="flex flex-col h-full pt-[3vw]">
-            {/* <div className="flex-1"></div> */}
+        <div className="flex flex-1 flex-col pt-[3vw] overflow-auto">
+            <div className="flex-1"></div>
             <div className="sm:hidden flex mb-5 mt-2">
                 <div className="rounded-full flex-1 flex justify-end items-center overflow-hidden mr-1">
                     <Popup compToPass={<div className="bg-[#1c1c1c] h-14 w-24 rounded-full flex justify-center items-center">Save</div>} setDesCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
@@ -103,22 +90,10 @@ export default function Add(){
                         <BasicDateTimeRangePicker mssg={"End date"}/>
                     </div>
                     <p className="max-w-[20vw]">Timetable duration.<br/><span className="text-[#727272]">Years? Months? Weeks? Days?</span></p>
-                    <div className="flex flex-col justify-center items-center ml-[2vw] mr-[1vw]">
-                        <button className="text-[1.5vw] text-[#727272] hover:text-white" onClick={handleIncrement}>+</button>
-                        <input type="number" 
-                            placeholder="75"
-                            min='0'
-                            max='100'
-                            value={criteria.value}
-                            onChange={handleChange}
-                            className="no-scrollbar bg-black hover:border-white border-[#3a3a3a] border-[1px] min-h-[4vw] max-w-[4vw] text-center text-[2vw] rounded-full"
-                        />
-                        <button className="text-[1.5vw] text-[#727272] hover:text-white" onClick={handleDecrement}>-</button>
-                    </div>
-                    <p className="max-w-[20vw]">The Attendance criteria.<br/><span className="text-[#727272]">Every subject will have a minimum attendance criteria</span></p>
+                    <MinSubAttendance/>
                 </div>
             </form>
-            <div className="flex justify-center">
+            <div className="flex justify-center sticky top-0">
                 <table>
                     <thead>
                         <tr className="text-[4vw] text-[#737373] max-sm:text-4xl">
@@ -131,9 +106,14 @@ export default function Add(){
                     </thead>
                 </table>
             </div>
-            <div className="flex flex-[9] justify-center " id="victim">
+            <div className="flex flex-[9] justify-center " 
+            //id="victim"
+            >
                 {/* <div className="h-16 w-16"></div> */}
-                <div className="overflow-auto no-scrollbar" style={{maxHeight:`${hw}`}}>
+                <div 
+                //className="overflow-auto no-scrollbar"
+                // style={{maxHeight:`${hw}`}}
+                >
                     <table className="border-separate table-fixed w-[70.4vw] max-sm:w-full">
                         <tbody>
                             {tableData.map((rowVal, rowId)=>(
