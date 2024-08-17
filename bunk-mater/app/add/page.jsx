@@ -11,7 +11,8 @@ import Popup from "@/components/popup/popup.jsx";
 import { useRouter } from "next/navigation";
 import HeightLimit from "@/components/height_limit_scrollable/heightLimit.js";
 import { Fragment } from "react";
-import BasicDateTimeRangePicker from "@/components/date_range_picker/date_range_picker.jsx";
+// import BasicDateTimeRangePicker from "@/components/date_range_picker/date_range_picker.jsx";
+import DateRangePicker from "@/components/date_range_picker/date_range_picker_legit.jsx";
 import MinSubAttendance from "@/components/min_sub_attendance/min_sub_attendance.js";
 
 export default function Add(){
@@ -65,8 +66,9 @@ export default function Add(){
     }
 
     return(
-        <div className="flex flex-1 flex-col pt-[3vw] overflow-auto">
-            <div className="flex-1"></div>
+        <div className="flex flex-1 flex-col overflow-auto no-scrollbar">
+            <div className="absolute z-[9] h-[10vh] w-screen bottom-0 bg-gradient-to-t from-black">____</div>
+            <div className="flex-1 pt-[3vw]"></div>
             <div className="sm:hidden flex mb-5 mt-2">
                 <div className="rounded-full flex-1 flex justify-end items-center overflow-hidden mr-1">
                     <Popup compToPass={<div className="bg-[#1c1c1c] h-14 w-24 rounded-full flex justify-center items-center">Save</div>} setDesCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
@@ -75,8 +77,13 @@ export default function Add(){
                     <Popup compToPass={<div className="bg-[#2b1f1f] h-14 w-24 rounded-full flex justify-center items-center">Cancel</div>} setDesCheck={setSaveCheck} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
                 </div>
             </div>
-            <form className="flex justify-center items-center flex-col">
-                <div className="flex justify-center mb-[1vw]">
+            <div className="flex justify-center">
+                <div className="w-[62vw] mb-[1vw]">
+                    <p className="text-[3vw]">Get started...</p>
+                </div>
+            </div>
+            <form className="flex justify-center items-center flex-col text-[1.1vw] my-[2vw]">
+                <div className="flex justify-center mb-[2vw]">
                     <input type="text" 
                        placeholder="Timetable Name"
                        className=" min-w-[15vw] pl-4 bg-black border-[#3a3a3a] hover:border-white border-[1px] mx-[1vw]" 
@@ -85,13 +92,15 @@ export default function Add(){
                     <p>Timetable Name<br/><span className="text-[#727272]">A name for your wonderful timetable.</span></p>
                 </div>
                 <div className="flex justify-center items-center">
-                    <div className="flex flex-col justify-center items-center mx-[1vw]">
-                        <BasicDateTimeRangePicker mssg={"Start date"}/>&nbsp;&nbsp;|&nbsp;&nbsp;
-                        <BasicDateTimeRangePicker mssg={"End date"}/>
+                    <div className="flex flex-col justify-center items-center mx-[2vw]">
+                        {/* <BasicDateTimeRangePicker mssg={"Start date"}/>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <BasicDateTimeRangePicker mssg={"End date"}/> */}
+                        <DateRangePicker/>
                     </div>
                     <p className="max-w-[20vw]">Timetable duration.<br/><span className="text-[#727272]">Years? Months? Weeks? Days?</span></p>
                     <MinSubAttendance/>
                 </div>
+                <div className="text-[3vw] mt-[2vw] mb-[6vw]">253 days</div>
             </form>
             <div className="flex justify-center sticky top-0">
                 <table>
@@ -106,7 +115,7 @@ export default function Add(){
                     </thead>
                 </table>
             </div>
-            <div className="flex flex-[9] justify-center " 
+            <div className="flex items-center flex-[9] justify-center " 
             //id="victim"
             >
                 {/* <div className="h-16 w-16"></div> */}
@@ -154,11 +163,13 @@ export default function Add(){
                                     <button className="hover:bg-[#202224] bg-[#0d0e0f] flex-1 max-sm:text-3xl max-sm:bg-[#202224]" onClick={()=>{addRow(tableData.length)}}>+</button>
                                 </td>
                             </tr>
-                            <tr className="h-[50vh]"></tr>
                         </tbody>
                     </table>
                 </div>
-                <div className="max-sm:hidden">
+                <div className="w-32"></div>
+            </div>
+            <div className="flex justify-center">
+                <div className="w-[62vw] flex justify-end">
                     <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
                         <Popup compToPass={<CheckSvg/>} setDesCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
                     </div>
@@ -167,6 +178,7 @@ export default function Add(){
                     </div>
                 </div>
             </div>
+            <div className="min-h-[50vh]"></div>
         </div>
     );
 }

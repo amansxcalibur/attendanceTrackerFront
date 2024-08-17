@@ -1,7 +1,7 @@
 'use client'
 
 import Select from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Drop({tableData, handleUpdate, row, col, statusman}){
     const optionList = [
@@ -12,6 +12,10 @@ export default function Drop({tableData, handleUpdate, row, col, statusman}){
         { value: "eng", label: "English" }
       ];
       const [selectedOptions, setSelectedOptions] = useState();
+      const [windowHeight, setWindowHeight] = useState(0);
+      useEffect(()=>{
+        setWindowHeight(window.innerHeight);
+      },[])
       
       function handleSelect(data){
         setSelectedOptions(data);
@@ -32,7 +36,7 @@ export default function Drop({tableData, handleUpdate, row, col, statusman}){
               onChange={handleSelect}
               isSearchable={true}
               styles={{
-                control: (baseStyles, state)=>(window.innerWidth<640)?({
+                control: (baseStyles, state)=>(windowHeight<640)?({
                   ...baseStyles,
                   borderColor: state.isFocused?"white":"transparent",
                   height:"12vh",
@@ -53,7 +57,7 @@ export default function Drop({tableData, handleUpdate, row, col, statusman}){
                   display:"flex",
                   fontSize:statusman?"1.5vw":""
                 }),
-                valueContainer: (baseStyles, state)=>(window.innerWidth<640)?({
+                valueContainer: (baseStyles, state)=>(windowHeight<640)?({
                   ...baseStyles,
                   overflow:"scroll",
                 }):

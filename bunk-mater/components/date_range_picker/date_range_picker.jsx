@@ -15,7 +15,25 @@ export default function BasicDatePicker({mssg}) {
       mode: 'dark',
     },
     components: {
-        
+      
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            // margin: '0px'
+          }
+        }
+      },
+      MuiFormLabel: {
+        styleOverrides: {
+          root: {
+            color: 'red',
+            fontSize: '1.1vw',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }
+        }
+      },
     }
   });
   return (
@@ -29,6 +47,13 @@ export default function BasicDatePicker({mssg}) {
               slotProps={{
                 textField: {
                   required: true,
+                },
+              }}
+              sx={{
+                '& .MuiInputBase-root': {
+                  height: '3.5vw',
+                  width: '20vw',
+                  // fontSize: '10px'
                 },
               }}
           />
