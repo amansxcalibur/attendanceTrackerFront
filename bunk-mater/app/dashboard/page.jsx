@@ -20,6 +20,7 @@ export default function Homepage(){
             }
             else{
                 console.log(response.data)
+                router.push('/add')
             }
         })
         .catch(function (error) {

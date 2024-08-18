@@ -5,7 +5,6 @@ import XSvg from '../../../components/svg/x.jsx';
 import CheckSvg from '../../../components/svg/check.jsx';
 import PlusSvg from '../../../components/svg/plus.jsx';
 import TrashSvg from '../../../components/svg/trash.jsx';
-import Link from "next/link.js";
 import Drop from '../../../components/drop_select/drop_select.jsx'
 import Popup from "@/components/popup/popup.jsx";
 import { useRouter } from "next/navigation";
@@ -44,6 +43,7 @@ export default function EditTable(){
         ]
     ]);
 
+    const [optionList, setOptionList] = useState(getOptions({tableData}))
     const router=useRouter()
     const [saveCheck, setSaveCheck]=useState(null);
     const [hw,setHw]=useState("50vh");
@@ -137,7 +137,7 @@ export default function EditTable(){
                                         {Object.values(rowVal).map((cellValue, colIndex) => (
                                             <td key={colIndex} className={`h-[13vw] w-[13vw] max-sm:h-[19.5vw] max-sm:w-[19.5vw] text-center ${tableData[rowId][colIndex]==null?'hover:bg-[#202224] bg-[#0d0e0f]':'hover:bg-[#292b2e] bg-[#202224]'} border border-black`}>
                                                 <div>
-                                                    <Drop tableData={tableData} handleUpdate={handleUpdate} row={rowId} col={colIndex}/>
+                                                    <Drop tableData={tableData} handleUpdate={handleUpdate} row={rowId} col={colIndex} statusman={false} optionList={optionList}/>
                                                 </div>
                                             </td>
                                         ))}
@@ -165,4 +165,22 @@ export default function EditTable(){
             </div>
         </div>
     );
+}
+
+function getOptions({tableData}){
+    console.log(tableData, 'here you go')
+    var thirdparty=[];
+    var options=[]
+    for (let i=0; i<tableData.length; i++){
+      for (let j=0; j<tableData[i].length; j++){
+        if (!thirdparty.includes(tableData[i][j])){
+          thirdparty.push(tableData[i][j])
+        }
+      }
+    }
+    for (let i=0; i<thirdparty.length; i++){
+      options.push({label: thirdparty[i], value: thirdparty[i]});
+    }
+    console.log(options, thirdparty)
+    return options;
 }
