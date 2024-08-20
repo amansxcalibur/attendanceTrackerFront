@@ -12,6 +12,7 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     const firstrend=useRef(false);
     const thirdparty=useRef([]);
     const [saveCheck, setSaveCheck]=useState(null);
+    const [dateQuerForDisp, setDateQuerForDisp] = useState(dateQuer);
 
     const data=[
     {
@@ -56,8 +57,11 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     },
 ]
     useEffect(()=>{
-        setDateQuer([])
-    },[])
+        //console.log((JSON.stringify(dateQuerForDisp) == JSON.stringify(dateQuer)),'this is comparison\n this is state', dateQuer, dateQuerForDisp)
+        if (JSON.stringify(dateQuerForDisp) != JSON.stringify(dateQuer)){
+            setDateQuerForDisp(dateQuer);
+        }
+    },[dateQuer])
 
     const color={
         present:["bg-black","text-white","bg-[#5aad70]","text-black"],
@@ -66,28 +70,28 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     }
     
     useEffect(()=>{
-        if(firstrend.current && thirdparty.current!=[] && JSON.stringify(dateQuer)!=JSON.stringify([])) {
+        if(firstrend.current && thirdparty.current!=[] && JSON.stringify(dateQuerForDisp)!=JSON.stringify([])) {
             console.log("not firstrend, here is thirdparty.current", thirdparty.current)
-            update(refreshCont, dateCurr, dateQuer, setRefreshCont, thirdparty)
+            update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdparty)
         }
         else{
             console.log("first rend") 
             }
-    },[dateQuer])
+    },[dateQuerForDisp])
 
     const handleStatusChange=(key)=>{
-        if(dateQuer[key].status[0]=='p'){
-            setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'bunked'}});
+        if(dateQuerForDisp[key].status[0]=='p'){
+            setDateQuer({...dateQuerForDisp,[key]:{...dateQuerForDisp[key], status:'bunked'}});
             thirdparty.current=["bunked",key];
             firstrend.current=true
         }
-        else if(dateQuer[key].status[0]=='b'){
-            setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'cancelled'}})
+        else if(dateQuerForDisp[key].status[0]=='b'){
+            setDateQuer({...dateQuerForDisp,[key]:{...dateQuerForDisp[key], status:'cancelled'}})
             thirdparty.current=["cancelled",key]; 
             firstrend.current=true
         }
         else{
-            setDateQuer({...dateQuer,[key]:{...dateQuer[key], status:'present'}});
+            setDateQuer({...dateQuerForDisp,[key]:{...dateQuerForDisp[key], status:'present'}});
             thirdparty.current=["present",key];
             firstrend.current=true
         }
@@ -97,16 +101,16 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     return(
         <div className={`flex-1 flex flex-col overflow-hidden`} style={{height:hw}}>
             <div className='flex-1 overflow-auto no-scrollbar'>
-                <AddNewSubs dateCurr={dateCurr} dateQuer={dateQuer}/>
-                {Object.keys(dateQuer).map((key, index) => (
+                <AddNewSubs dateCurr={dateCurr} dateQuerForDisp={dateQuerForDisp} refreshCont={refreshCont} setRefreshCont={setRefreshCont}/>
+                {Object.keys(dateQuerForDisp).map((key, index) => (
                     <div className='h-[8.9vw] flex mt-1 max-sm:h-[15vh]' key={index}> 
-                        <div className={`flex-1 flex text-[1.5vw] items-center ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-l-lg pl-[3vw] max-sm:text-3xl max-sm:font-light`}>
-                            {dateQuer[key].name}
+                        <div className={`flex-1 flex text-[1.5vw] items-center ${color[dateQuerForDisp[key].status][0]} ${color[dateQuerForDisp[key].status][1]} rounded-l-lg pl-[3vw] max-sm:text-3xl max-sm:font-light`}>
+                            {dateQuerForDisp[key].name}
                         </div>
-                        <div className={`h-full flex ${color[dateQuer[key].status][0]} ${color[dateQuer[key].status][1]} rounded-r-lg`} >
+                        <div className={`h-full flex ${color[dateQuerForDisp[key].status][0]} ${color[dateQuerForDisp[key].status][1]} rounded-r-lg`} >
                             <div className='m-[1px]'>
-                                <button className={`h-full w-[12vw] flex items-center justify-center ${color[dateQuer[key].status][2]} rounded-lg max-sm:w-[15vh]`} onClick={()=>{handleStatusChange(key)}}>
-                                    <span className={`uppercase text-[9vw] font-light ${color[dateQuer[key].status][3]} max-sm:text-[17vh]`}>{dateQuer[key].status[0]}</span>
+                                <button className={`h-full w-[12vw] flex items-center justify-center overflow-auto ${color[dateQuerForDisp[key].status][2]} rounded-lg max-sm:w-[15vh]`} onClick={()=>{handleStatusChange(key)}}>
+                                    <p className={`uppercase text-[9vw] font-light leading-none ${color[dateQuerForDisp[key].status][3]} max-sm:text-[17vh]`}>{dateQuerForDisp[key].status[0]}</p>
                                 </button>
                             </div>
                         </div>
@@ -117,22 +121,24 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     )
 }
 
-function update(refreshCont, dateCurr, dateQuer, setRefreshCont, thirdparty){
+function update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdparty){
     console.log("this is update", thirdparty.current)
-    console.log(dateQuer[thirdparty.current[1]].session_url, thirdparty.current[1])
+    console.log(dateQuerForDisp[thirdparty.current[1]].session_url, thirdparty.current[1])
     const header={
         'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
     }
-    axios.patch(dateQuer[thirdparty.current[1]].session_url, {
+    axios.patch(dateQuerForDisp[thirdparty.current[1]].session_url, {
         "status": thirdparty.current[0]
     },{headers:header})
     .then((response)=>{
         console.log(response.status, response.data)
-        
-    console.log("gonna set rend again")
-    if(refreshCont==[]){setRefreshCont(['hello'])}
-    else{
-    setRefreshCont([]);}
+        if(refreshCont==[]){
+            setRefreshCont(['hello'])
+        }else{
+            setRefreshCont([]);
+        }
+        console.log("set refreshCont")
+    
     })
     .catch((error)=>{
         console.log("caught an error in post\n",error)

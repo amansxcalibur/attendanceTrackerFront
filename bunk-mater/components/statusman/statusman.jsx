@@ -53,9 +53,9 @@ export default function Statusman({setRefreshCont, refreshCont}){
             console.log(JSON.stringify(error));
         });
         console.log("after useEffect",dateQuer)
-    },[dateCurr])
+    },[dateCurr, refreshCont])
 
-    const [rendCont, setRendCont]=useState(null);
+    //const [rendCont, setRendCont]=useState(null);
     const [hw,setHw]=useState('50vh');
     const smRatio=258.1;
     const lgRatio=0.13;
@@ -65,6 +65,12 @@ export default function Statusman({setRefreshCont, refreshCont}){
             window.removeEventListener("resize",{});
         }
     },[])
+      
+    let month=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][dateCurr.month()]
+    
+    useEffect(()=>{
+        month=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][dateCurr.month()]
+    },[dateCurr])
 
     function renderSwitch(param) {
         switch(param) {
@@ -77,13 +83,7 @@ export default function Statusman({setRefreshCont, refreshCont}){
           default:
             return 'th';
         }
-      }
-      
-    let month=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][dateCurr.month()]
-    
-    useEffect(()=>{
-        month=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][dateCurr.month()]
-    },[dateCurr])
+    }
 
     function handleCond(){
         if (dateCurr.format("DD-MM-YYYY")!==dayjs().format("DD-MM-YYYY")){

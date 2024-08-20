@@ -71,10 +71,10 @@ export default function Add(){
             <div className="flex-1 pt-[3vw]"></div>
             <div className="sm:hidden flex mb-5 mt-2">
                 <div className="rounded-full flex-1 flex justify-end items-center overflow-hidden mr-1">
-                    <Popup compToPass={<div className="bg-[#1c1c1c] h-14 w-24 rounded-full flex justify-center items-center">Save</div>} setDesCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
+                    <Popup compToPass={<div className="bg-[#1c1c1c] h-14 w-24 rounded-full flex justify-center items-center">Save</div>} setDecisionCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
                 </div>
                 <div className="rounded-full flex-1 flex justify-start items-center overflow-hidden ml-1">
-                    <Popup compToPass={<div className="bg-[#2b1f1f] h-14 w-24 rounded-full flex justify-center items-center">Cancel</div>} setDesCheck={setSaveCheck} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
+                    <Popup compToPass={<div className="bg-[#2b1f1f] h-14 w-24 rounded-full flex justify-center items-center">Cancel</div>} setDecisionCheck={setSaveCheck} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
                 </div>
             </div>
             <div className="flex justify-center">
@@ -171,10 +171,10 @@ export default function Add(){
             <div className="flex justify-center">
                 <div className="w-[62vw] flex justify-end">
                     <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                        <Popup compToPass={<CheckSvg/>} setDesCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
+                        <Popup compToPass={<CheckSvg/>} setDecisionCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
                     </div>
                     <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                        <Popup compToPass={<XSvg/>} setDesCheck={setSaveCheck} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
+                        <Popup compToPass={<XSvg/>} setDecisionCheck={setSaveCheck} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
                     </div>
                 </div>
             </div>

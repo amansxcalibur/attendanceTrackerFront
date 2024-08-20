@@ -121,7 +121,7 @@ export default function Table(){
                     <EditSvg/>
                 </Link>
                 <button className="rounded-full sm:h-16 sm:w-16 max-sm:mx-3 flex justify-center items-center overflow-hidden">
-                    <Popup compToPass={<TrashSvg/>} setDesCheck={setDelCheck} message={{message:"Are you sure you want to delete the timetable?", opt:["Cancel", "Delete"]}}/>
+                    <Popup compToPass={<TrashSvg/>} setDecisionCheck={setDelCheck} message={{message:"Are you sure you want to delete the timetable?", opt:["Cancel", "Delete"]}}/>
                 </button>
             </div>
             <div className="flex sm:flex-1 justify-center max-sm:items-end max-sm:mt-3">
@@ -164,7 +164,7 @@ export default function Table(){
                         <EditSvg/>
                     </Link>
                     <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                        <Popup compToPass={<TrashSvg/>} setDesCheck={setDelCheck} message={{message:"Are you sure you want to delete the timetable?", opt:["Cancel", "Delete"]}}/>
+                        <Popup compToPass={<TrashSvg/>} setDecisionCheck={setDelCheck} message={{message:"Are you sure you want to delete the timetable?", opt:["Cancel", "Delete"]}}/>
                     </div>
                 </div>
             </div>

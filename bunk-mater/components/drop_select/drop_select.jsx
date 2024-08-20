@@ -13,9 +13,7 @@ export default function Drop({tableData, handleUpdate, row, col, statusman, opti
   function handleSelect(data){
     setSelectedOptions(data);
     console.log(data.label, row, col);
-    if(!statusman){
-      handleUpdate({data, row, col});
-    }
+    handleUpdate({data, row, col});
   }
 
   return (
