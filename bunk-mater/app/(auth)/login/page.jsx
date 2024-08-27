@@ -4,9 +4,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../_utils/apiConstants';
 import { useRouter } from 'next/navigation';
-import ModernArt from '../../_assets/modernart-cropped.png'
 import Google from '../../_assets/google.png'
 import Image from 'next/image';
+import InfiniteAnimation from '@/components/carousels/carousel';
+import Link from 'next/link';
+import ForgotPass from '../forgot_pass/page';
 
 function LoginForm() {
     const [state, setState] = useState({
@@ -25,7 +27,7 @@ function LoginForm() {
     }
 
     const handleSubmitClick = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const payload = {
             "username": state.username,
             "password": state.password,
@@ -64,12 +66,13 @@ function LoginForm() {
     }
 
     return(
-        <div className='flex min-h-screen'>
-            <div className='ml-[150px] flex-1 justify-center items-center flex max-md:hidden'>
-                <Image src={ModernArt} width={680} className='lg:rotate-[270deg]'/>
+        <div className='flex min-h-screen max-md:flex-col'>
+            <div className='md:pl-[5vw] flex-1 md:justify-end md:items-center flex'>
+                {/* <Image src={ModernArt} width={680} className='lg:rotate-[270deg]'/> */}
+                <InfiniteAnimation/>
             </div>
             <div className='flex flex-1 justify-center items-center'>
-                <div className='p-[14vw] flex-1'>
+                <div className='p-[14vw] md:p-[9vw] flex-1'>
                 <p className='text-[40px]'>Welcome</p>
                 <div className="mb-[50px]">
                     <p className="" onClick={() => redirectToRegister()}><span><b><u>Create a free account</u></b></span> or log in to get started</p> 
@@ -82,6 +85,7 @@ function LoginForm() {
                             placeholder="Enter username" 
                             value={state.username}
                             onChange={handleChange}
+                            required
                             className='pl-[20px] min-h-[50px] rounded-[30px] border-white autofill:shadow-[inset_0_0_0px_1000px_rgb(250,250,200)] border-solid border-[1px] bg-black'
                         />
                     </div>
@@ -92,15 +96,16 @@ function LoginForm() {
                         placeholder="Password"
                         value={state.password}
                         onChange={handleChange}
+                        required
                         className='pl-[20px] min-h-[50px] rounded-[30px] border-white border-solid border-[1px] bg-black autofill:shadow-[inset_0_0_0px_1000px_rgb(250,250,200)]'
                     />
                     </div>
                     <div className='text-right my-2'>
-                        <p><u><b>Forgot password?</b></u></p>
+                        <p><u><b><Link href="/forgot_pass">Forgot password?</Link></b></u></p>
                     </div>
                     <button 
                         type="submit" 
-                        onClick={handleSubmitClick}
+                        onSubmit={handleSubmitClick}
                         className='w-full min-h-[56px] rounded-[30px] border-white border-solid border-[1px] text-black bg-white'>Login</button>
                     <button 
                         type="submit"

@@ -12,7 +12,6 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
     const [newSub, setNewSub] = useState('');
     const [optionList, setOptionList] = useState([])
     const [message, setMessage] = useState('Add another subject')
-    const [tempFixSaturday, setTempFixSaturday] = useState(false)
     const days=['sun','mon','tue','wed','thu','fri','sat',]
 
     useEffect(()=>{
@@ -36,18 +35,19 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
             var payload = {}
             var endpoint = ""
             var [YYYY, MM, DD] = dateCurr.format("YYYY-MM-DD").split('-');
-            var mydate = new Date(YYYY, MM-1, DD);
+            var mydate = new Date(YYYY, MM, DD);
             if (dateQuerForDisp.length==0){
                 // console.log(mydate.getDay());
                 payload = {
-                    "day_of_week":mydate.getDay()
+                    "day_of_week":mydate.getDay(),
+                    "date": dateCurr.format("YYYY-MM-DD")
                 };
                 endpoint = "schedule_selector"
             }else{
                 payload = {
                     "name" : newSub,
                     "schedules": {
-                        "day_of_week": mydate.getDay()
+                        "day_of_week": mydate.getDay(),
                     }
                 };
                 endpoint="courses"
@@ -56,36 +56,37 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                 const header={
                     'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
                 }
-                axios.post(API_BASE_URL + '/' + endpoint, payload, {headers : header})
-                .then((response)=>{
-                    if(response.status===200){
-                        console.log("subject updated")
-                        if(refreshCont==[]){
-                            setRefreshCont(['hello'])
-                        }else{
-                            setRefreshCont([]);
-                        }
-                        setNewSub('');
-                        setAddNewSub('');
-                        console.log('addnewsub getting reset again??')
-                    }
-                })
-                .catch((error)=>{
-                    if (error.response) {
-                        console.log(error.response.data);
-                        console.log(error.response.status)
-                }})
-                console.log(payload)
+                // axios.post(API_BASE_URL + '/' + endpoint, payload, {headers : header})
+                // .then((response)=>{
+                //     if(response.status===200){
+                //         console.log("subject updated")
+                //         if(refreshCont==[]){
+                //             setRefreshCont(['hello'])
+                //         }else{
+                //             setRefreshCont([]);
+                //         }
+                //         setNewSub('');
+                //         setAddNewSub('');
+                //         console.log('addnewsub getting reset again??')
+                //     }
+                // })
+                // .catch((error)=>{
+                //     if (error.response) {
+                //         console.log(error.response.data);
+                //         console.log(error.response.status)
+                // }})
+                console.log(payload);
+                if (refreshCont==[]){
+                    setRefreshCont('Hello')
+                }else{
+                    setRefreshCont([])
+                }
             }else{
                 alert('No empty subject name please.')
                 console.log(newSub, addNewSub, 'this')
             }
         }
     },[addNewSub])
-
-    useEffect(()=>{
-        setTempFixSaturday(dateCurr.format("YYYY-MM-DD")==dayjs().format("YYYY-MM-DD"))
-    },[dateCurr])
 
     const handleUpdate=({data,row,col})=>{
         console.log
@@ -94,7 +95,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
 
     return(
         <>
-            <div className={`h-[8.9vw] flex mt-1 max-sm:h-[15vh] bg-[#0c0c0c] hover:bg-black border-dashed border-[#727272] border-[2px] rounded-[1vw] ${tempFixSaturday?"":"hidden"}`}> 
+            <div className={`h-[8.9vw] flex mt-1 max-sm:h-[15vh] bg-[#0c0c0c] hover:bg-black border-dashed border-[#727272] border-[2px] rounded-[1vw]`}> 
                 {addNewSub=="" || addNewSub=="Discard"?
                     <button className={`flex-1 flex text-[1.5vw] items-center rounded-l-lg px-[3vw] max-sm:text-3xl text-[#727272] hover:text-white max-sm:font-light`} 
                             onClick={()=>{setAddNewSub("Cancel")}}>

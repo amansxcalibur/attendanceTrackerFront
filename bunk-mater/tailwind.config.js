@@ -12,6 +12,20 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      animation: {
+        'infinite-scroll-y': 'infinite-scroll-y 25s linear infinite',
+        'infinite-scroll-x': 'infinite-scroll-x 25s linear infinite',
+      },
+      keyframes: {
+        'infinite-scroll-y': {
+          from: { transform: 'translateY(0)' },
+          to: { transform: 'translateY(-164%)' },
+        },
+        'infinite-scroll-x': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        }
+      }
     },
   },
   plugins: [],
