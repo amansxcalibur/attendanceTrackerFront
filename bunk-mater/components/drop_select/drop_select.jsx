@@ -1,9 +1,9 @@
 'use client'
 
-import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 import { useEffect, useState } from "react";
 
-export default function Drop({tableData, handleUpdate, row, col, statusman, optionList}){
+export default function Drop({tableData, handleUpdate, row, col, statusman, optionList, setOptionList}){
   const [selectedOptions, setSelectedOptions] = useState();
   const [windowHeight, setWindowHeight] = useState(0);
   useEffect(()=>{
@@ -16,14 +16,26 @@ export default function Drop({tableData, handleUpdate, row, col, statusman, opti
     handleUpdate({data, row, col});
   }
 
+  const createOption=(label)=>{
+    console.log({label: label, value: label})
+    return {label: label, value: label}
+  }
+
+  const handleCreate=(inputValue)=>{
+    const newOption = createOption(inputValue);
+    setOptionList((prev) => [...prev, newOption]);
+    setSelectedOptions(newOption);
+  }
+
   return (
     <div className="">
       <div className="dropdown-container">
-        <Select 
+        <CreatableSelect 
           options={optionList}
           placeholder={tableData[row][col]}
           value={selectedOptions}
           onChange={handleSelect}
+          onCreateOption={handleCreate}
           isSearchable={true}
           styles={{
             control: (baseStyles, state)=>(windowHeight<640)?({

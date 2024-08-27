@@ -6,97 +6,17 @@ import TrashSvg from '../../../components/svg/trash.jsx'
 import Link from "next/link.js";
 import Popup from '../../../components/popup/popup.jsx'
 import HeightLimit from "@/components/height_limit_scrollable/heightLimit.js";
+import axios from "axios";
+import { API_BASE_URL, ACCESS_TOKEN_NAME, ACCESS_TIMETABLE_NAME } from "@/app/_utils/apiConstants.js";
+import { useRouter } from "next/navigation";
 
 export default function Table(){
-    const tableData=[
-        [
-            "maths",
-            "English",
-            "history",
-            "chemistry",
-            "physics"
-        ],
-        [
-            "algebra",
-            "literature",
-            "geography",
-            null,
-            "computer science"
-        ],
-        [
-            null,
-            "English",
-            "world history",
-            "physics",
-            "art"
-        ],
-        [
-            null,
-            null,
-            "US history",
-            "chemistry",
-            null
-        ],
-        [
-            "maths",
-            "English",
-            "history",
-            "chemistry",
-            "physics"
-        ],
-        [
-            "algebra",
-            "literature",
-            "geography",
-            null,
-            "computer science"
-        ],
-        [
-            null,
-            "English",
-            "world history",
-            "physics",
-            "art"
-        ],
-        [
-            null,
-            null,
-            "US history",
-            "chemistry",
-            null
-        ],
-        [
-            "maths",
-            "English",
-            "history",
-            "chemistry",
-            "physics"
-        ],
-        [
-            "algebra",
-            "literature",
-            "geography",
-            null,
-            "computer science"
-        ],
-        [
-            null,
-            "English",
-            "world history",
-            "physics",
-            "art"
-        ],
-        [
-            null,
-            null,
-            "US history",
-            "chemistry",
-            null
-        ]
-    ];
+    const [tableData, setTableData]=useState([[null,null,null,null,null]]);
 
     const [delCheck, setDelCheck]=useState(null);
     const [hw,setHw]=useState('50vh');
+    console.log("maybe mounting?")
+    const router=useRouter()
 
     useEffect(()=>{
         if (delCheck=="Delete"){
@@ -107,17 +27,39 @@ export default function Table(){
     const smRatio=170;
     const lgRatio=0.1415;
     
-    useEffect(()=>{
+    useEffect(()=>{56
         HeightLimit({setHw, smRatio, lgRatio})
         return()=>{
             window.removeEventListener("resize",{});
         }
     },[])
 
+    useEffect(()=>{
+        if(localStorage.getItem(ACCESS_TIMETABLE_NAME)){
+            setTableData(JSON.parse(localStorage.getItem(ACCESS_TIMETABLE_NAME)).courses_data);
+        }else{
+            const header={
+                'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
+            }
+            axios.get(API_BASE_URL + '/collection', {headers:header})
+            .then(function (response) {
+                if(response.status === 200){
+                    setTableData(response.data.courses_data)
+                    localStorage.setItem(ACCESS_TIMETABLE_NAME, JSON.stringify(response.data))
+                }
+                else{
+                    console.log(response.data)
+                }
+            })
+            .catch(function (error) {
+                console.log(JSON.stringify(error));
+            });
+        }
+    },[])
     return(
         <div className="flex flex-col h-full pt-[3vw] max-sm:pt-4">
             <div className="sm:hidden max-sm:flex max-sm:justify-center">
-                <Link href={"/dashboard/edit"} className="rounded-full sm:h-16 sm:w-16 max-sm:mx-3 flex justify-center items-center overflow-hidden">
+                <Link href={{pathname:"/dashboard/edit", query: {data: JSON.stringify(tableData)}}} className="rounded-full sm:h-16 sm:w-16 max-sm:mx-3 flex justify-center items-center overflow-hidden">
                     <EditSvg/>
                 </Link>
                 <button className="rounded-full sm:h-16 sm:w-16 max-sm:mx-3 flex justify-center items-center overflow-hidden">

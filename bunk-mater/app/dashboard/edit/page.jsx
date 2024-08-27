@@ -10,39 +10,13 @@ import Popup from "@/components/popup/popup.jsx";
 import { useRouter } from "next/navigation";
 import HeightLimit from "@/components/height_limit_scrollable/heightLimit.js";
 import { Fragment } from "react";
+import { ACCESS_TIMETABLE_NAME, API_BASE_URL, ACCESS_TOKEN_NAME } from "@/app/_utils/apiConstants.js";
+import axios from "axios";
 
 export default function EditTable(){
-    const [tableData, setTableData]=useState([
-        [
-            "maths",
-            "English",
-            "history",
-            "chemistry",
-            "physics"
-        ],
-        [
-            "algebra",
-            "literature",
-            "geography",
-            null,
-            "computer science"
-        ],
-        [
-            null,
-            "English",
-            "world history",
-            "physics",
-            "art"
-        ],
-        [
-            null,
-            null,
-            "US history",
-            "chemistry",
-            null
-        ]
-    ]);
 
+   
+    const [tableData, setTableData] = useState([])
     const [optionList, setOptionList] = useState(getOptions({tableData}))
     const router=useRouter()
     const [saveCheck, setSaveCheck]=useState(null);
@@ -52,6 +26,9 @@ export default function EditTable(){
 
     useEffect(()=>{
         HeightLimit({setHw, smRatio, lgRatio})
+        if (localStorage.getItem(ACCESS_TIMETABLE_NAME)){
+            setTableData(JSON.parse(localStorage.getItem(ACCESS_TIMETABLE_NAME)))
+        }
         return()=>{
             window.removeEventListener("resize",{});
         }
@@ -60,12 +37,27 @@ export default function EditTable(){
     useEffect(()=>{
         if (saveCheck=="Save"){
             alert("saved");
-            router.push('/dashboard/table')
+            console.log(tableData, 'here is the updated one')
+            const header={
+                'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
+            }
+            axios.patch(API_BASE_URL+'/collection',{"courses_data":tableData},{headers:header})
+            .then((response)=>{
+                console.log(response.status, response.data)
+                if (response.status==200){
+                    localStorage.removeItem(ACCESS_TIMETABLE_NAME);
+                    console.log('removed from local')
+                }
+                router.push('/dashboard/table')
+            })
+            .catch((error)=>{
+                console.log("caught an error in post\n",error)
+            })
         }else if(saveCheck=="Discard"){
             alert("discarded");
             router.push('/dashboard/table')
         }
-    })
+    },[saveCheck])
 
     const handleUpdate=({data,row,col})=>{
         var thirdparty=tableData;
@@ -137,7 +129,7 @@ export default function EditTable(){
                                         {Object.values(rowVal).map((cellValue, colIndex) => (
                                             <td key={colIndex} className={`h-[13vw] w-[13vw] max-sm:h-[19.5vw] max-sm:w-[19.5vw] text-center ${tableData[rowId][colIndex]==null?'hover:bg-[#202224] bg-[#0d0e0f]':'hover:bg-[#292b2e] bg-[#202224]'} border border-black`}>
                                                 <div>
-                                                    <Drop tableData={tableData} handleUpdate={handleUpdate} row={rowId} col={colIndex} statusman={false} optionList={optionList}/>
+                                                    <Drop tableData={tableData} handleUpdate={handleUpdate} row={rowId} col={colIndex} statusman={false} optionList={optionList} setOptionList={setOptionList}/>
                                                 </div>
                                             </td>
                                         ))}

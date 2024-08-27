@@ -31,6 +31,7 @@ export default function Add(){
     const [hw,setHw]=useState("50vh");
     const smRatio=212;
     const lgRatio=0.1415;
+    const [optionList, setOptionList] = useState([])
 
     useEffect(()=>{
         HeightLimit({setHw, smRatio, lgRatio})
@@ -150,7 +151,7 @@ export default function Add(){
                                         {Object.values(rowVal).map((cellValue, colIndex) => (
                                             <td key={colIndex} className={`h-[13vw] w-[13vw] max-sm:h-[19.5vw] max-sm:w-[19.5vw] text-center ${tableData[rowId][colIndex]==null?'hover:bg-[#202224] bg-[#0d0e0f]':'hover:bg-[#292b2e] bg-[#202224]'} border border-black`}>
                                                 <div>
-                                                    <Drop tableData={tableData} handleUpdate={handleUpdate} row={rowId} col={colIndex}/>
+                                                    <Drop tableData={tableData} handleUpdate={handleUpdate} row={rowId} col={colIndex} optionList={optionList} setOptionList={setOptionList}/>
                                                 </div>
                                             </td>
                                         ))}

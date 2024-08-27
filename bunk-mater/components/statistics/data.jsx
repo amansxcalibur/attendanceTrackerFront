@@ -1,66 +1,19 @@
 'use client'
 
-import { ACCESS_TOKEN_NAME, API_BASE_URL } from "@/app/_utils/apiConstants";
+import { ACCESS_TOKEN_NAME, API_BASE_URL, ACCESS_TIMETABLE_NAME } from "@/app/_utils/apiConstants";
 import axios from "axios";
 import Graph from "./graph"
 import { useState, useEffect } from "react";
 import HeightLimit from "../height_limit_scrollable/heightLimit";
 
 export default function Data({refreshCont}){
-    const Data=[
-        {
-            "name": "Maths",
-            "percentage": 86,
-            "bunks_available": 5
-        },
-        {
-            "name": "English",
-            "percentage": 94 ,
-            "bunks_available": 10
-        },
-        {
-            "name": "Phys",
-            "percentage": 52 ,
-            "bunks_available": 10
-        },
-        {
-            "name": "Maths",
-            "percentage": 77,
-            "bunks_available": 5
-        },
-        {
-            "name": "English",
-            "percentage": 94 ,
-            "bunks_available": 10
-        },
-        {
-            "name": "Phys",
-            "percentage": 77 ,
-            "bunks_available": 10
-        },
-
-        {
-            "name": "Maths",
-            "percentage": 86,
-            "bunks_available": 5
-        },
-        {
-            "name": "English",
-            "percentage": 94 ,
-            "bunks_available": 10
-        },
-        {
-            "name": "Phys",
-            "percentage": 77 ,
-            "bunks_available": 10
-        },
-    ]
 
     const [hw,setHw]=useState('50vh');
     // localStorage.setItem(ACCESS_TOKEN_NAME,JSON.stringify("673874ce2fcc135dfd39f1a76428ebae606c8b42"));
     const smRatio=297;
     const lgRatio=0.218;
     const [statData, setStatData]=useState([]);
+    const [name, setName] = useState('')
     const header={
         'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
     }
@@ -86,6 +39,27 @@ export default function Data({refreshCont}){
         }
     },[])
 
+    useEffect(()=>{
+        const header={
+            'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
+            }
+        axios.get(API_BASE_URL + '/collection', {headers:header})
+        .then(function (response) {
+            if(response.status === 200){
+                localStorage.setItem(ACCESS_TIMETABLE_NAME,JSON.stringify(response.data))
+                const str=response.data.name;
+                var list=[str.substring(0, str.indexOf(' ')),str.substring(str.indexOf(' ') + 1)];
+                setName(list)
+            }
+            else{
+                console.log(response.data,'hhhhhh')
+            }
+        })
+        .catch(function (error) {
+            console.log((error),'mmmmmm');
+        });
+    },[])
+
     const avg=(key)=>{
         let sum=0;
         statData.forEach((sub)=>{
@@ -97,7 +71,7 @@ export default function Data({refreshCont}){
     return(
         <div className="flex flex-1 h-full flex-col mx-[3vw] font-light max-sm:m-5 max-sm:mb-0">
             <div className="mb-[1.5vw] max-sm:mb-2">
-                <p className="text-[6vw] max-sm:text-6xl">S2 <span className="font-thin">CSE</span></p>
+                <p className="text-[6vw] max-sm:text-6xl">{name[0]} <span className="font-thin">{name[1]}</span></p>
             </div>
             <div className="flex">
                 <div className="flex flex-[2] items-center">
