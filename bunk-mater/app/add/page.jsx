@@ -9,11 +9,11 @@ import Link from "next/link.js";
 import Drop from '../../components/drop_select/drop_select.jsx'
 import Popup from "@/components/popup/popup.jsx";
 import { useRouter } from "next/navigation";
-import HeightLimit from "@/components/height_limit_scrollable/heightLimit.js";
 import { Fragment } from "react";
-// import BasicDateTimeRangePicker from "@/components/date_range_picker/date_range_picker.jsx";
 import DateRangePicker from "@/components/date_range_picker/date_range_picker_legit.jsx";
 import MinSubAttendance from "@/components/min_sub_attendance/min_sub_attendance.js";
+import { ACCESS_TOKEN_NAME, API_BASE_URL } from "../_utils/apiConstants.js";
+import axios from "axios";
 
 export default function Add(){
     const [tableData, setTableData]=useState([
@@ -27,28 +27,20 @@ export default function Add(){
     ]);
 
     const router=useRouter()
-    const [saveCheck, setSaveCheck]=useState(null);
-    const [hw,setHw]=useState("50vh");
-    const smRatio=212;
-    const lgRatio=0.1415;
-    const [optionList, setOptionList] = useState([])
+    const [name, setName] = useState("")
+    const [optionList, setOptionList] = useState([]);
+    const [interval, setInterval] = useState({start_date: '', end_date: ''})
+    const [range, setRange] = useState(0);
+    const [criteria, setCriteria]=useState({value:75});
 
     useEffect(()=>{
-        HeightLimit({setHw, smRatio, lgRatio})
-        return()=>{
-            window.removeEventListener("resize",{});
+        if (interval.start_date != '' && interval.end_date != ''){
+            const start_date = new Date(interval.start_date);
+            const end_date = new Date(interval.end_date);
+            const time_range = Math.floor((end_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24));
+            setRange(time_range)
         }
-    },[])
-
-    useEffect(()=>{
-        if (saveCheck=="Save"){
-            alert("saved");
-            router.push('/dashboard/table')
-        }else if(saveCheck=="Discard"){
-            alert("discarded");
-            router.push('/dashboard/table')
-        }
-    })
+    },[interval])
 
     const handleUpdate=({data,row,col})=>{
         var thirdparty=tableData;
@@ -56,6 +48,39 @@ export default function Add(){
         setTableData(thirdparty);
     }
 
+    const handleSubmit=()=>{
+        const payload={
+            "name": name,
+            "start_date": interval.start_date,
+            "end_date": interval.end_date,
+            "threshold": criteria.value,
+            "courses_data": removeNull(tableData)
+        }
+        console.log(payload)
+        const header={
+            'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
+        }
+        axios.post(API_BASE_URL + '/collection', payload, {headers: header})
+            .then(function (response) {
+                if(response.status === 201){
+                    router.push('/dashboard/home')
+                }
+                // else if(response.code === 204){
+                //     props.showError("Username and password do not match");
+                // }
+                else{
+                    alert("Some error has occurred");
+                    console.log(response.data)
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    const handleName=(e)=>{
+        setName(e.target.value);
+    }
     const addRow=(index)=>{
         const thirdparty=tableData;
         setTableData(thirdparty.toSpliced(index,0,[null, null, null, null, null]));
@@ -67,42 +92,39 @@ export default function Add(){
     }
 
     return(
-        <div className="flex flex-1 flex-col overflow-auto no-scrollbar">
+        <form className="flex flex-1 flex-col overflow-auto no-scrollbar">
             <div className="absolute z-[9] h-[10vh] w-screen bottom-0 bg-gradient-to-t from-black">____</div>
             <div className="flex-1 pt-[3vw]"></div>
-            <div className="sm:hidden flex mb-5 mt-2">
-                <div className="rounded-full flex-1 flex justify-end items-center overflow-hidden mr-1">
-                    <Popup compToPass={<div className="bg-[#1c1c1c] h-14 w-24 rounded-full flex justify-center items-center">Save</div>} setDecisionCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
-                </div>
-                <div className="rounded-full flex-1 flex justify-start items-center overflow-hidden ml-1">
-                    <Popup compToPass={<div className="bg-[#2b1f1f] h-14 w-24 rounded-full flex justify-center items-center">Cancel</div>} setDecisionCheck={setSaveCheck} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
-                </div>
-            </div>
-            <div className="flex justify-center">
+            <div className="flex sm:justify-center">
                 <div className="w-[62vw] mb-[1vw]">
-                    <p className="text-[3vw]">Get started...</p>
+                    <p className="text-[3vw] max-sm:text-3xl max-sm:ml-[4vw] max-sm:mt-6 max-sm:mb-2">Get started...</p>
                 </div>
             </div>
-            <form className="flex justify-center items-center flex-col text-[1.1vw] my-[2vw]">
-                <div className="flex justify-center mb-[2vw]">
-                    <input type="text" 
-                       placeholder="Timetable Name"
-                       className=" min-w-[15vw] pl-4 bg-black border-[#3a3a3a] hover:border-white border-[1px] mx-[1vw]" 
-                       required
-                    />
-                    <p>Timetable Name<br/><span className="text-[#727272]">A name for your wonderful timetable.</span></p>
-                </div>
-                <div className="flex justify-center items-center">
-                    <div className="flex flex-col justify-center items-center mx-[2vw]">
-                        {/* <BasicDateTimeRangePicker mssg={"Start date"}/>&nbsp;&nbsp;|&nbsp;&nbsp;
-                        <BasicDateTimeRangePicker mssg={"End date"}/> */}
-                        <DateRangePicker/>
+            <div className="flex sm:justify-center sm:items-center flex-col text-[1.1vw] my-[2vw] max-sm:text-lg max-[400px]:text-base">
+                <div className="flex justify-center max-sm:items-center mb-[2vw]">
+                    <div className="max-sm:flex-1 flex justify-center">
+                        <input type="text"
+                            id="table_name"
+                            onChange={handleName}
+                            value={name}
+                            placeholder="Timetable Name"
+                            className=" min-w-[15vw] max-sm:w-[45vw] max-sm:min-h-14 pl-4 bg-black border-[#3a3a3a] hover:border-white border-[1px] mx-[1vw]" 
+                            required
+                        />
                     </div>
-                    <p className="max-w-[20vw]">Timetable duration.<br/><span className="text-[#727272]">Years? Months? Weeks? Days?</span></p>
-                    <MinSubAttendance/>
+                    <p className="max-sm:flex-1">Timetable Name<br/><span className="text-[#727272]">A name for your wonderful timetable.</span></p>
                 </div>
-                <div className="text-[3vw] mt-[2vw] mb-[6vw]">253 days</div>
-            </form>
+                <div className="flex justify-center sm:items-center max-sm:flex-col">
+                    <div className="flex items-center max-sm:flex-row-reverse max-sm:my-5">
+                        <div className="flex flex-col max-sm:flex-1 justify-center items-center mx-[2vw]">
+                            <DateRangePicker interval={interval} setInterval={setInterval}/>
+                        </div>
+                        <p className="sm:max-w-[20vw] max-sm:flex-1 max-sm:text-right">Timetable duration.<br/><span className="text-[#727272]">Years? Months? Weeks? Days?</span></p>
+                    </div>
+                    <MinSubAttendance criteria={criteria} setCriteria={setCriteria}/>
+                </div>
+                <div className="text-[3vw] mt-[2vw] mb-[6vw] max-sm:flex max-sm:justify-center max-sm:text-[40px] max-sm:py-7">{range} days</div>
+            </div>
             <div className="flex justify-center sticky top-0">
                 <table>
                     <thead>
@@ -130,22 +152,22 @@ export default function Add(){
                                 <Fragment key={rowId}>
                                     <tr className="w-[4.7vw] sm:h-[19.5vw] max-sm:w-full max-sm:h-10 sm:hidden">
                                         <td className="rounded-full sm:h-16 sm:w-16 flex flex-1 justify-center h-10 items-end overflow-hidden">
-                                            <button onClick={()=>{addRow(rowId)}}><PlusSvg/></button>
+                                            <button type="button" onClick={()=>{addRow(rowId)}}><PlusSvg/></button>
                                         </td>
                                         <td className="w-[19.5vw]"></td>
                                         <td className="w-[19.5vw]"></td>
                                         <td className="w-[19.5vw]"></td>
                                         <td className="rounded-full sm:h-16 sm:w-16 flex flex-1 justify-center h-10 items-end overflow-hidden">
-                                            <button onClick={()=>{delRow(rowId)}}><TrashSvg/></button>
+                                            <button type="button" onClick={()=>{delRow(rowId)}}><TrashSvg/></button>
                                         </td>
                                     </tr>
                                     <tr key={rowId} className="text-[1.5vw] font-light max-sm:text-lg">
                                         <td className="w-[4.7vw] flex flex-col justify-center items-end max-sm:hidden">
                                             <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                                                <button onClick={()=>{addRow(rowId)}}><PlusSvg/></button>
+                                                <button type="button" onClick={()=>{addRow(rowId)}}><PlusSvg/></button>
                                             </div>
                                             <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                                                <button onClick={()=>{delRow(rowId)}}><TrashSvg/></button>
+                                                <button type="button" onClick={()=>{delRow(rowId)}}><TrashSvg/></button>
                                             </div>
                                         </td>
                                         {Object.values(rowVal).map((cellValue, colIndex) => (
@@ -169,17 +191,30 @@ export default function Add(){
                 </div>
                 <div className="w-32"></div>
             </div>
-            <div className="flex justify-center">
-                <div className="w-[62vw] flex justify-end">
-                    <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                        <Popup compToPass={<CheckSvg/>} setDecisionCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
-                    </div>
-                    <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                        <Popup compToPass={<XSvg/>} setDecisionCheck={setSaveCheck} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
-                    </div>
+            <div className="flex sm:justify-center justify-end">
+                <div className="sm:w-[62vw] flex justify-end max-sm:mr-6">
+                    <button 
+                        type="button"
+                        className="bg-black max-sm:text-lg text-[1.5vw] font-light rounded-lg hover:text-black hover:bg-white transition duration-1000 border-[1px] border-b-blueviolet border-r-blueviolet border-t-white border-l-white p-4 text-blueviolet hover:border-b-[#ee67ee] hover:border-r-[#ee67ee] hover:border-t-blueviolet hover:border-l-blueviolet hover:shadow-[5px_5px_rgba(240,46,170,0.4),10px_10px_rgba(240,46,170,0.3),15px_15px_rgba(240,46,170,0.2)]"
+                        onClick={handleSubmit}
+                        >
+                        Save Timetable
+                    </button>
                 </div>
             </div>
-            <div className="min-h-[50vh]"></div>
-        </div>
+            <div className="min-h-[20vh]"></div>
+        </form>
     );
+}
+
+function removeNull(tableData){
+    var nullLessTableData = tableData
+    for (let i=0; i<tableData.length; i++){
+        for (let j=0; j<5; j++){
+            if (nullLessTableData[i][j]==null){
+                nullLessTableData[i][j]=""
+            }
+        }
+    }
+    return nullLessTableData
 }

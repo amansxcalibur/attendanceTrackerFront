@@ -109,7 +109,7 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
                         </div>
                         <div className={`h-full flex ${color[dateQuerForDisp[key].status][0]} ${color[dateQuerForDisp[key].status][1]} rounded-r-lg`} >
                             <div className='m-[1px]'>
-                                <button className={`h-full w-[12vw] flex items-center justify-center overflow-auto ${color[dateQuerForDisp[key].status][2]} rounded-lg max-sm:w-[15vh]`} onClick={()=>{handleStatusChange(key)}}>
+                                <button className={`h-full w-[12vw] flex items-center justify-center overflow-hidden ${color[dateQuerForDisp[key].status][2]} rounded-lg max-sm:w-[15vh]`} onClick={()=>{handleStatusChange(key)}}>
                                     <p className={`uppercase text-[9vw] font-light leading-none ${color[dateQuerForDisp[key].status][3]} max-sm:text-[17vh]`}>{dateQuerForDisp[key].status[0]}</p>
                                 </button>
                             </div>
@@ -145,4 +145,3 @@ function update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdpar
     })
     console.log("end of update")
 }
-//update(rendCont=rendCont, dateCurr=dateCurr)
