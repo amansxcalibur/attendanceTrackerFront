@@ -46,7 +46,8 @@ export default function Data({refreshCont}){
         axios.get(API_BASE_URL + '/collection', {headers:header})
         .then(function (response) {
             if(response.status === 200){
-                localStorage.setItem(ACCESS_TIMETABLE_NAME,JSON.stringify(response.data))
+                sessionStorage.setItem(ACCESS_TIMETABLE_NAME,JSON.stringify(response.data))
+                console.log(response.data,'check this out')
                 const str=response.data.name;
                 var list=[str.substring(0, str.indexOf(' ')),str.substring(str.indexOf(' ') + 1)];
                 setName(list)

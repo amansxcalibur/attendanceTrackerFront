@@ -6,7 +6,7 @@ import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../_utils/apiConstants';
 import { useRouter } from 'next/navigation';
 import Google from '../../_assets/google.png'
 import Image from 'next/image';
-import InfiniteAnimation from '@/components/carousels/carousel';
+import Carousel from '@/components/carousels/carousel';
 import Link from 'next/link';
 import ForgotPass from '../forgot_pass/page';
 
@@ -69,7 +69,7 @@ function LoginForm() {
         <div className='flex min-h-screen max-md:flex-col'>
             <div className='md:pl-[5vw] flex-1 md:justify-end md:items-center flex'>
                 {/* <Image src={ModernArt} width={680} className='lg:rotate-[270deg]'/> */}
-                <InfiniteAnimation/>
+                <Carousel/>
             </div>
             <div className='flex flex-1 justify-center items-center'>
                 <div className='p-[14vw] md:p-[9vw] flex-1'>

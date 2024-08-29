@@ -35,8 +35,8 @@ export default function Table(){
     },[])
 
     useEffect(()=>{
-        if(localStorage.getItem(ACCESS_TIMETABLE_NAME)){
-            setTableData(JSON.parse(localStorage.getItem(ACCESS_TIMETABLE_NAME)).courses_data);
+        if(sessionStorage.getItem(ACCESS_TIMETABLE_NAME)){
+            setTableData(JSON.parse(sessionStorage.getItem(ACCESS_TIMETABLE_NAME)).courses_data);
         }else{
             const header={
                 'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
@@ -45,7 +45,7 @@ export default function Table(){
             .then(function (response) {
                 if(response.status === 200){
                     setTableData(response.data.courses_data)
-                    localStorage.setItem(ACCESS_TIMETABLE_NAME, JSON.stringify(response.data))
+                    sessionStorage.setItem(ACCESS_TIMETABLE_NAME, JSON.stringify(response.data))
                 }
                 else{
                     console.log(response.data)
@@ -87,7 +87,7 @@ export default function Table(){
                             {tableData.map((rowVal, rowId)=>(
                                 <tr key={rowId} className="text-[1.5vw] font-light max-sm:text-lg">
                                     {Object.values(rowVal).map((cellValue, colIndex) => (
-                                        <td key={colIndex} className={`h-[13vw] w-[13vw] text-center ${tableData[rowId][colIndex]==null?'':'hover:bg-[#292b2e] bg-[#202224]'} border border-black
+                                        <td key={colIndex} className={`h-[13vw] w-[13vw] text-center ${tableData[rowId][colIndex]==''?'hover:bg-[#0e0e0f]':'hover:bg-[#292b2e] bg-[#202224]'} border border-black
                                                                        max-sm:h-[19.5vw] max-sm:w-[19.5vw]`}>
                                             <div className="h-full flex justify-center items-center flex-wrap break-all">
                                                 {/* {colIndex}

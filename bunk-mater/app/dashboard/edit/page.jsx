@@ -16,8 +16,8 @@ import axios from "axios";
 export default function EditTable(){
 
    
-    const [tableData, setTableData] = useState([])
-    const [optionList, setOptionList] = useState(getOptions({tableData}))
+    const [tableData, setTableData] = useState([[]])
+    const [optionList, setOptionList] = useState([{}])
     const router=useRouter()
     const [saveCheck, setSaveCheck]=useState(null);
     const [hw,setHw]=useState("50vh");
@@ -26,8 +26,10 @@ export default function EditTable(){
 
     useEffect(()=>{
         HeightLimit({setHw, smRatio, lgRatio})
-        if (localStorage.getItem(ACCESS_TIMETABLE_NAME)){
-            setTableData(JSON.parse(localStorage.getItem(ACCESS_TIMETABLE_NAME)))
+        if (sessionStorage.getItem(ACCESS_TIMETABLE_NAME)){
+            const timetable=JSON.parse(sessionStorage.getItem(ACCESS_TIMETABLE_NAME)).courses_data
+            setTableData(timetable)
+            setOptionList(getOptions({timetable}))
         }
         return()=>{
             window.removeEventListener("resize",{});
@@ -45,7 +47,7 @@ export default function EditTable(){
             .then((response)=>{
                 console.log(response.status, response.data)
                 if (response.status==200){
-                    localStorage.removeItem(ACCESS_TIMETABLE_NAME);
+                    sessionStorage.removeItem(ACCESS_TIMETABLE_NAME);
                     console.log('removed from local')
                 }
                 router.push('/dashboard/table')
@@ -159,19 +161,21 @@ export default function EditTable(){
     );
 }
 
-function getOptions({tableData}){
-    console.log(tableData, 'here you go')
+function getOptions({timetable}){
+    console.log(timetable, 'here you go')
     var thirdparty=[];
     var options=[]
-    for (let i=0; i<tableData.length; i++){
-      for (let j=0; j<tableData[i].length; j++){
-        if (!thirdparty.includes(tableData[i][j])){
-          thirdparty.push(tableData[i][j])
+    for (let i=0; i<timetable.length; i++){
+      for (let j=0; j<timetable[i].length; j++){
+        if (!thirdparty.includes(timetable[i][j])){
+          thirdparty.push(timetable[i][j])
         }
       }
     }
     for (let i=0; i<thirdparty.length; i++){
-      options.push({label: thirdparty[i], value: thirdparty[i]});
+        if(thirdparty[i] != ""){
+            options.push({label: thirdparty[i], value: thirdparty[i]});
+        }
     }
     console.log(options, thirdparty)
     return options;
