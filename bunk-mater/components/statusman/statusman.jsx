@@ -3,37 +3,24 @@
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from "@/app/_utils/apiConstants"
 import axios from "axios";
 import { useState, useEffect } from "react"
-import { getCurrentDate } from "@/app/_utils/currDate";
 import dayjs from "dayjs";
-// import BasicDatePicker from "./rewind_time";
 import BasicDatePicker from "./rewind";
 import Status from "./status";
 import HeightLimit from "../height_limit_scrollable/heightLimit";
+import { useRouter } from "next/navigation";
 
 export default function Statusman({setRefreshCont, refreshCont}){
     const [dateCurr, setDateCurr]=useState(dayjs());
+    const [hw,setHw]=useState('50vh');
+    const smRatio=258.1;
+    const lgRatio=0.13;
+    const router = useRouter()
     const [dateQuer, setDateQuer]=useState([
         // {
         //     "name": "history",
         //     "status": "present",
         //     "session_url": "http://127.0.0.1:8000/session/63171"
         // },
-        // {
-        //     "name": "geography",
-        //     "status": "present",
-        //     "session_url": "http://127.0.0.1:8000/session/63172"
-        // },
-        // {
-        //     "name": "world history",
-        //     "status": "present",
-        //     "session_url": "http://127.0.0.1:8000/session/63173"
-        // },
-        // {
-        //     "name": "US history",
-        //     "status": "present",
-        //     "session_url": "http://127.0.0.1:8000/session/63174"
-        // },
-        
     ]);
 
     const header={
@@ -50,15 +37,14 @@ export default function Statusman({setRefreshCont, refreshCont}){
             }
         })
         .catch(function (error) {
+            if (error.response.status==401){
+                router.push('/login')
+            }
             console.log(JSON.stringify(error));
         });
         console.log("after useEffect",dateQuer)
     },[dateCurr, refreshCont])
 
-    //const [rendCont, setRendCont]=useState(null);
-    const [hw,setHw]=useState('50vh');
-    const smRatio=258.1;
-    const lgRatio=0.13;
     useEffect(()=>{
         HeightLimit({setHw, smRatio, lgRatio})
         return()=>{

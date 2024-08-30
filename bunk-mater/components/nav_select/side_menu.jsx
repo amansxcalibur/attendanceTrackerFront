@@ -21,6 +21,11 @@ export default function SideMenu({options, href, pathname}){
                             </li>
                         )}
                     </ul>
+                    <ul className="absolute bottom-0 mb-4">
+                        <li>
+                            <button className="text-4xl">Logout</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </>

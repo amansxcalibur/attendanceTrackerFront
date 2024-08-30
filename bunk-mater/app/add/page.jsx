@@ -74,6 +74,9 @@ export default function Add(){
                 }
             })
             .catch(function (error) {
+                if (error.response.status==401){
+                    router.push('/login')
+                }
                 console.log(error);
             });
     }

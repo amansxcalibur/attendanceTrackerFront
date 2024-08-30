@@ -5,15 +5,17 @@ import axios from "axios";
 import Graph from "./graph"
 import { useState, useEffect } from "react";
 import HeightLimit from "../height_limit_scrollable/heightLimit";
+import { useRouter } from "next/navigation";
 
 export default function Data({refreshCont}){
 
     const [hw,setHw]=useState('50vh');
-    // localStorage.setItem(ACCESS_TOKEN_NAME,JSON.stringify("673874ce2fcc135dfd39f1a76428ebae606c8b42"));
     const smRatio=297;
     const lgRatio=0.218;
     const [statData, setStatData]=useState([]);
-    const [name, setName] = useState('')
+    const [name, setName] = useState('');
+    const [threshold, setThreshold] = useState(0);
+    const router = useRouter()
     const header={
         'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
     }
@@ -49,14 +51,22 @@ export default function Data({refreshCont}){
                 sessionStorage.setItem(ACCESS_TIMETABLE_NAME,JSON.stringify(response.data))
                 console.log(response.data,'check this out')
                 const str=response.data.name;
-                var list=[str.substring(0, str.indexOf(' ')),str.substring(str.indexOf(' ') + 1)];
+                if (str.indexOf(' ') != -1){
+                    var list=[str.substring(0, str.indexOf(' ')),str.substring(str.indexOf(' ') + 1)];
+                }else{
+                    var list=[str,]
+                }
                 setName(list)
+                setThreshold(response.data.threshold)
             }
             else{
                 console.log(response.data,'hhhhhh')
             }
         })
         .catch(function (error) {
+            if (error.response.status==401){
+                router.push('/login')
+            }
             console.log((error),'mmmmmm');
         });
     },[])
@@ -89,7 +99,7 @@ export default function Data({refreshCont}){
             </div>
             <div className="flex-1 flex h-full" id="victimer">
                 <div className="flex-1 flex h-full overflow-auto no-scrollbar" style={{height:hw}}>
-                    <Graph statData={statData}/>
+                    <Graph statData={statData} threshold={threshold}/>
                 </div>
             </div>
         </div>

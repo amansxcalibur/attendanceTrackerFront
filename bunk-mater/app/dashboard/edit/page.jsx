@@ -14,8 +14,6 @@ import { ACCESS_TIMETABLE_NAME, API_BASE_URL, ACCESS_TOKEN_NAME } from "@/app/_u
 import axios from "axios";
 
 export default function EditTable(){
-
-   
     const [tableData, setTableData] = useState([[]])
     const [optionList, setOptionList] = useState([{}])
     const router=useRouter()
@@ -53,6 +51,9 @@ export default function EditTable(){
                 router.push('/dashboard/table')
             })
             .catch((error)=>{
+                if (error.response.status==401){
+                    router.push('/login')
+                }
                 console.log("caught an error in post\n",error)
             })
         }else if(saveCheck=="Discard"){
@@ -122,10 +123,10 @@ export default function EditTable(){
                                     <tr key={rowId} className="text-[1.5vw] font-light max-sm:text-lg">
                                         <td className="w-[4.7vw] flex flex-col justify-center items-end max-sm:hidden">
                                             <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                                                <button onClick={()=>{addRow(rowId)}}><PlusSvg/></button>
+                                                <button onClick={()=>{addRow(rowId)}} title="Add row"><PlusSvg/></button>
                                             </div>
                                             <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                                                <button onClick={()=>{delRow(rowId)}}><TrashSvg/></button>
+                                                <button onClick={()=>{delRow(rowId)}} title="Delete row"><TrashSvg/></button>
                                             </div>
                                         </td>
                                         {Object.values(rowVal).map((cellValue, colIndex) => (
@@ -150,7 +151,7 @@ export default function EditTable(){
                 </div>
                 <div className="max-sm:hidden">
                     <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
-                        <Popup compToPass={<CheckSvg/>} setDecisionCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
+                        <Popup compToPass={<CheckSvg/>} setDecisionCheck={setSaveCheck} message={{message:"Are you sure you want to save the changes? Warning: All the data of the previous timetable will be lost!", opt:["Cancel", "Save"]}}/>
                     </div>
                     <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
                         <Popup compToPass={<XSvg/>} setDecisionCheck={setSaveCheck} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>

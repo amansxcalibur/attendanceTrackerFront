@@ -3,61 +3,15 @@
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '@/app/_utils/apiConstants.js';
-// import BasicDatePicker from './rewind_time';
 import AddNewSubs from './add_new_sub';
 
 export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, refreshCont, setRefreshCont, hw}){
-    // console.log("in Status here is dateQuery",dateQuer, JSON.stringify(dateQuer)!=JSON.stringify([]));
-    // console.log(dateQuer, 'hi from statusman', rendCont);
     const firstrend=useRef(false);
     const thirdparty=useRef([]);
     const [saveCheck, setSaveCheck]=useState(null);
     const [dateQuerForDisp, setDateQuerForDisp] = useState(dateQuer);
 
-    const data=[
-    {
-        "name": "history",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63171"
-    },
-    {
-        "name": "geography",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63172"
-    },
-    {
-        "name": "world history",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63173"
-    },
-    {
-        "name": "US history",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63174"
-    },
-    {
-        "name": "Math",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63174"
-    },
-    {
-        "name": "world history",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63173"
-    },
-    {
-        "name": "US history",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63174"
-    },
-    {
-        "name": "Math",
-        "status": "present",
-        "session_url": "http://127.0.0.1:8000/session/63174"
-    },
-]
     useEffect(()=>{
-        //console.log((JSON.stringify(dateQuerForDisp) == JSON.stringify(dateQuer)),'this is comparison\n this is state', dateQuer, dateQuerForDisp)
         if (JSON.stringify(dateQuerForDisp) != JSON.stringify(dateQuer)){
             setDateQuerForDisp(dateQuer);
         }
@@ -109,7 +63,10 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
                         </div>
                         <div className={`h-full flex ${color[dateQuerForDisp[key].status][0]} ${color[dateQuerForDisp[key].status][1]} rounded-r-lg`} >
                             <div className='m-[1px]'>
-                                <button className={`h-full w-[12vw] flex items-center justify-center overflow-hidden ${color[dateQuerForDisp[key].status][2]} rounded-lg max-sm:w-[15vh]`} onClick={()=>{handleStatusChange(key)}}>
+                                <button 
+                                    className={`h-full w-[12vw] flex items-center justify-center overflow-hidden ${color[dateQuerForDisp[key].status][2]} rounded-lg max-sm:w-[15vh]`} 
+                                    onClick={()=>{handleStatusChange(key)}}
+                                    title={dateQuerForDisp[key].status}>
                                     <p className={`uppercase text-[9vw] font-light leading-none ${color[dateQuerForDisp[key].status][3]} max-sm:text-[17vh]`}>{dateQuerForDisp[key].status[0]}</p>
                                 </button>
                             </div>
@@ -143,5 +100,4 @@ function update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdpar
     .catch((error)=>{
         console.log("caught an error in post\n",error)
     })
-    console.log("end of update")
 }

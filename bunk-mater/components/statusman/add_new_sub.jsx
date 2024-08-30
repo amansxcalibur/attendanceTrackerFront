@@ -4,6 +4,7 @@ import Drop from '../drop_select/drop_select';
 import CheckSvg from '../svg/check'
 import XSvg from '../svg/x'
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { API_BASE_URL, ACCESS_TOKEN_NAME, ACCESS_TIMETABLE_NAME } from "@/app/_utils/apiConstants";
 
 export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setRefreshCont}){
@@ -11,6 +12,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
     const [newSub, setNewSub] = useState('');
     const [optionList, setOptionList] = useState([])
     const [message, setMessage] = useState('Add another subject')
+    const router = useRouter()
     const days=['sun','mon','tue','wed','thu','fri','sat',]
 
     useEffect(()=>{
@@ -80,10 +82,12 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                         }
                     })
                     .catch((error)=>{
-                        if (error.response) {
-                            console.log(error.response.data);
-                            console.log(error.response.status)
-                    }})
+                        if (error.response.status==401) {
+                            router.push('/login')
+                        }
+                        console.log(error.response.data);
+                        console.log(error.response.status)
+                    })
                 }
             }else{
                 alert('No empty subject name please.')

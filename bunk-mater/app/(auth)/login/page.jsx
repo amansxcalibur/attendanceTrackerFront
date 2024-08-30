@@ -27,34 +27,34 @@ function LoginForm() {
     }
 
     const handleSubmitClick = (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         const payload = {
             "username": state.username,
             "password": state.password,
         };
-        // axios.post(API_BASE_URL + '/login', payload)
-        //     .then(function (response) {
-        //         if(response.status === 202){
-        //             setState(prevState => ({
-        //                 ...prevState,
-        //                 'successMessage' : 'Login successful. Redirecting to home page..'
-        //             }))
-        //             console.log(response.data)
-        //             localStorage.setItem(ACCESS_TOKEN_NAME,JSON.stringify(response.data.token));
-        //             redirectToHome();
-        //         }
-        //         // else if(response.code === 204){
-        //         //     props.showError("Username and password do not match");
-        //         // }
-        //         else{
-        //             alert("Username does not exists");
-        //             console.log(response.data)
-        //         }
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
-        redirectToHome()//make sure to comment this out
+        axios.post(API_BASE_URL + '/login', payload)
+            .then(function (response) {
+                if(response.status === 202){
+                    setState(prevState => ({
+                        ...prevState,
+                        'successMessage' : 'Login successful. Redirecting to home page..'
+                    }))
+                    console.log(response.data)
+                    localStorage.setItem(ACCESS_TOKEN_NAME,JSON.stringify(response.data.token));
+                    redirectToHome();
+                }
+                // else if(response.code === 204){
+                //     props.showError("Username and password do not match");
+                // }
+                else{
+                    alert("Username does not exists");
+                    console.log(response.data)
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        // redirectToHome()//make sure to comment this out
     }
 
     const redirectToHome = () => {
@@ -62,7 +62,7 @@ function LoginForm() {
     }
 
     const redirectToRegister = () => {
-        router.push('./registration');
+        router.push('/registration');
     }
 
     return(
@@ -77,7 +77,7 @@ function LoginForm() {
                 <div className="mb-[50px]">
                     <p className="" onClick={() => redirectToRegister()}><span><b><u>Create a free account</u></b></span> or log in to get started</p> 
                 </div>
-                <form>
+                <form onSubmit={handleSubmitClick}>
                     <div className='flex flex-col'>
                         <label htmlFor="Username1">Username</label>
                         <input type="text"
@@ -104,8 +104,7 @@ function LoginForm() {
                         <p><u><b><Link href="/forgot_pass">Forgot password?</Link></b></u></p>
                     </div>
                     <button 
-                        type="submit" 
-                        onSubmit={handleSubmitClick}
+                        type="submit"
                         className='w-full min-h-[56px] rounded-[30px] border-white border-solid border-[1px] text-black bg-white'>Login</button>
                     <button 
                         type="submit"

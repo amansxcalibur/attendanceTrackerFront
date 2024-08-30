@@ -22,6 +22,7 @@ function ButtonField(props) {
   return (
     <Button
       id={id}
+      title='Rewind Time'
       disabled={disabled}
       ref={ref}
       aria-label={ariaLabel}

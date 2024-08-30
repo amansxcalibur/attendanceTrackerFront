@@ -34,15 +34,6 @@ export default function RegistrationForm(props){
             [id]: value
         }));
     }
-    const handleChangeForRadio=(e)=>{
-        const role=e.target.name;
-        const value=e.target.id;
-        setState(prevState=>({
-            ...prevState,
-            [role]: value
-        }));
-        console.log(state);
-    }
 
     const sendDetailsToServer=()=>{
         console.log("im here");
@@ -52,56 +43,35 @@ export default function RegistrationForm(props){
                 "username":state.username,
                 "password":state.password,
             }
-            axios.defaults.headers.common['Access-Control-Allow-Origin']= '*'
+            //axios.defaults.headers.common['Access-Control-Allow-Origin']= '*'
             console.log(state, "korewa state desne");
-            // axios.post(API_BASE_URL + '/register', payload)
-            // .then((response)=>{
-            //     if(response.status===200){
-            //         console.log(response.body);
-            //         setState(prevState=>({
-            //             ...prevState,
-            //             'succesMessage':'Registration successful. Redirecting to homepage'
-            //         }))
-            //         console.log("about to pass")
-            //         // localStorage.setItem(ACCESS_TOKEN_NAME, JSON.stringify(response.data.token));
-            //         // redirectToHome();
-            //         console.log("created")
-            //     }
-            // })
-            // .catch((error)=>{
-            //     if (error.response) {
-            //         // The request was made and the server responded with a status code
-            //         // that falls out of the range of 2xx
-            //         console.log('yo got a response but not 200');
-            //         console.log(error.response.data);
-            //         console.log(error.response.status)
-            //     //   } else if (error.request) {
-            //     //     // The request was made but no response was received
-            //     //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            //     //     // http.ClientRequest in node.js
-            //     //     console.log("no server response");
-            //     //     console.log(error.request);
-            //     //   } else {
-            //     //     // Something happened in setting up the request that triggered an Error
-            //     //     console.log("error while setting up request");
-            //     //     console.log('Error', error.message);
-            //     //   }
-            //     //   console.log("error config");
-            //     //   console.log(error.config);
-            // }})
+            axios.post(API_BASE_URL + '/register', payload)
+            .then((response)=>{
+                if(response.status===201){
+                    console.log(response.body);
+                    setState(prevState=>({
+                        ...prevState,
+                        'succesMessage':'Registration successful. Redirecting to homepage'
+                    }))
+                    console.log("about to pass")
+                    // localStorage.setItem(ACCESS_TOKEN_NAME, JSON.stringify(response.data.token));
+                    redirectToLogin();
+                    console.log("created")
+                }
+            })
+            .catch((error)=>{
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status)
+            }})
         }else{
             // props.showError("Please enter valid credentials")
             alert("Please fill the empty boxes");
         }
     }
 
-    const redirectToHome=()=>{
-        console.log("home")
-        router.push('/home');
-    }
-
     const redirectToLogin=()=>{
-        router.push('./login');
+        router.push('/login');
     }
 
     const handleSubmitClick=(e)=>{
@@ -126,7 +96,7 @@ export default function RegistrationForm(props){
                 <div className="mb-[50px]">
                     <p className="">Already have an account? <span onClick={() => redirectToLogin()}><b><u>Login here</u></b></span></p> 
                 </div>
-                <form>
+                <form onSubmit={handleSubmitClick}>
                     <div className='flex flex-col'>
                         <label htmlFor="Username1">Username</label>
                         <input type="text"
@@ -165,13 +135,13 @@ export default function RegistrationForm(props){
                         <p>I agree to the <u><b><Link href='/chinchilla/'>Terms & Privacy</Link></b></u></p>
                     </div>
                     <button 
-                        type="submit" 
-                        onSubmit={handleSubmitClick}
+                        type="submit"
                         className='w-full min-h-[56px] rounded-[30px] border-white border-solid border-[1px] text-black bg-white'>Register</button>
                     <button 
                         type="submit"
                         className='w-full min-h-[56px] rounded-[30px] border-white border-solid border-[1px] text-white bg-black mt-[30px] flex justify-center items-center'>
-                            <Image src={Google} className='pr-[20px]' height={55}/><span className='leading-[8px]'>Login with Google</span></button>
+                            <Image src={Google} className='pr-[20px]' height={55}/><span className='leading-[8px]'>Login with Google</span>
+                    </button>
                 </form>
             </div>
         </div>

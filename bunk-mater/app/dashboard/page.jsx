@@ -9,22 +9,24 @@ import { useRouter } from "next/navigation";
 
 export default function Homepage(){
     const router=useRouter();
-    const header={
-        'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
-      }
-      useEffect(()=>{
+    useEffect(()=>{
+        const header={
+            'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
+          }
+          console.log('header',header)
         axios.get(API_BASE_URL + '/courses', {headers:header})
         .then(function (response) {
             if(response.status === 200){
                 router.push('/dashboard/home')
             }
-            else{
-                console.log(response.data)
-                router.push('/add')
-            }
         })
         .catch(function (error) {
-            console.log(JSON.stringify(error));
+            if (error.response.status==404){
+                router.push('/add')
+            }else{
+                console.log('status',error.response.status)
+                console.log(JSON.stringify(error));
+            }
         });
     },[])
     return(
