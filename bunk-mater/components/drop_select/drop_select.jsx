@@ -12,12 +12,12 @@ export default function Drop({tableData, handleUpdate, row, col, statusman, opti
   
   function handleSelect(data){
     setSelectedOptions(data);
-    console.log(data.label, row, col);
+    //console.log(data.label, row, col);
     handleUpdate({data, row, col});
   }
 
   const createOption=(label)=>{
-    console.log({label: label, value: label})
+    //console.log({label: label, value: label})
     return {label: label, value: label}
   }
 

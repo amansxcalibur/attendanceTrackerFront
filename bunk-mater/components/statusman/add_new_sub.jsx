@@ -55,7 +55,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                     axios.get(API_BASE_URL + '/courses', {headers: header})
                     .then((response)=>{
                         if(response.status==200){
-                            console.log(response.data, 'response')
+                            //console.log(response.data, 'response')
                             let flag = false;
                             for (let i=0; i<response.data.length; i++){
                                 if (response.data[i].name==newSub){
@@ -85,13 +85,13 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                         if (error.response.status==401) {
                             router.push('/login')
                         }
-                        console.log(error.response.data);
-                        console.log(error.response.status)
+                        //console.log(error.response.data);
+                        //console.log(error.response.status)
                     })
                 }
             }else{
                 alert('No empty subject name please.')
-                console.log(newSub, addNewSub, 'this')
+                //console.log(newSub, addNewSub, 'this')
             }
         }
     },[addNewSub])
@@ -100,7 +100,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
         axios.post(API_BASE_URL + '/' + endpoint, payload, {headers : header})
                 .then((response)=>{
                     if(response.status===201){
-                        console.log("subject updated")
+                        //console.log("subject updated")
                         if(refreshCont==[]){
                             setRefreshCont(['hello'])
                         }else{
@@ -108,15 +108,15 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                         }
                         setNewSub('');
                         setAddNewSub('');
-                        console.log('addnewsub getting reset again??')
+                        //console.log('addnewsub getting reset again??')
                     }
                 })
                 .catch((error)=>{
                     if (error.response) {
-                        console.log(error.response.data);
-                        console.log(error.response.status)
+                        //console.log(error.response.data);
+                        //console.log(error.response.status)
                 }})
-                console.log(payload,'payload that posted');
+                //console.log(payload,'payload that posted');
                 if (refreshCont==[]){
                     setRefreshCont('Hello')
                 }else{
@@ -125,7 +125,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
     }
 
     const handleUpdate=({data,row,col})=>{
-        console.log
+        //console.log
         setNewSub(data.value);
     }
 
@@ -153,7 +153,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
 }
 
 function getOptions({timetable}){
-    console.log(timetable, 'here you go')
+    //console.log(timetable, 'here you go')
     var thirdparty=[];
     var options=[]
     for (let i=0; i<timetable.length; i++){
@@ -168,7 +168,7 @@ function getOptions({timetable}){
             options.push({label: thirdparty[i], value: thirdparty[i]});
         }
     }
-    console.log(options, thirdparty)
+    //console.log(options, thirdparty)
     return options;
 }
 // function setOptions({setOptionList}){

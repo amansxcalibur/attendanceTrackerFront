@@ -30,7 +30,7 @@ export default function Layout({children}){
             .then((response)=>{
                 if(response.status===200){
                     localStorage.removeItem(ACCESS_TOKEN_NAME);
-                    console.log("logged out")
+                    //console.log("logged out")
                     router.push('/login'); 
                 }
             })
@@ -38,7 +38,7 @@ export default function Layout({children}){
                 if (error.response.status==401){
                     router.push('/login')
                 }
-                console.log(error.response);
+                //console.log(error.response);
             })
         }
 

@@ -14,7 +14,7 @@ export default function Graph({statData, threshold}){
     useEffect(()=>{
         if (sessionStorage.getItem(ACCESS_TIMETABLE_NAME).threshold){
             setThreshold(sessionStorage.getItem(ACCESS_TIMETABLE_NAME).threshold);
-            console.log(threshold)
+            //console.log(threshold)
         }
     },[])
     

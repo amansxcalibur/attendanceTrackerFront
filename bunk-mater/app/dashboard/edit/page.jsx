@@ -37,16 +37,16 @@ export default function EditTable(){
     useEffect(()=>{
         if (saveCheck=="Save"){
             alert("saved");
-            console.log(tableData, 'here is the updated one')
+            //console.log(tableData, 'here is the updated one')
             const header={
                 'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
             }
             axios.patch(API_BASE_URL+'/collection',{"courses_data":tableData},{headers:header})
             .then((response)=>{
-                console.log(response.status, response.data)
+                //console.log(response.status, response.data)
                 if (response.status==200){
                     sessionStorage.removeItem(ACCESS_TIMETABLE_NAME);
-                    console.log('removed from local')
+                    //console.log('removed from local')
                 }
                 router.push('/dashboard/table')
             })
@@ -54,7 +54,7 @@ export default function EditTable(){
                 if (error.response.status==401){
                     router.push('/login')
                 }
-                console.log("caught an error in post\n",error)
+                //console.log("caught an error in post\n",error)
             })
         }else if(saveCheck=="Discard"){
             alert("discarded");
@@ -163,7 +163,7 @@ export default function EditTable(){
 }
 
 function getOptions({timetable}){
-    console.log(timetable, 'here you go')
+    //console.log(timetable, 'here you go')
     var thirdparty=[];
     var options=[]
     for (let i=0; i<timetable.length; i++){
@@ -178,6 +178,6 @@ function getOptions({timetable}){
             options.push({label: thirdparty[i], value: thirdparty[i]});
         }
     }
-    console.log(options, thirdparty)
+    //console.log(options, thirdparty)
     return options;
 }

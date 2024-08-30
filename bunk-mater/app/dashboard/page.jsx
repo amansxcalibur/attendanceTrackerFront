@@ -13,7 +13,7 @@ export default function Homepage(){
         const header={
             'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
           }
-          console.log('header',header)
+          //console.log('header',header)
         axios.get(API_BASE_URL + '/courses', {headers:header})
         .then(function (response) {
             if(response.status === 200){
@@ -24,8 +24,8 @@ export default function Homepage(){
             if (error.response.status==404){
                 router.push('/add')
             }else{
-                console.log('status',error.response.status)
-                console.log(JSON.stringify(error));
+                //console.log('status',error.response.status)
+                //console.log(JSON.stringify(error));
             }
         });
     },[])

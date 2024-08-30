@@ -25,11 +25,11 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     
     useEffect(()=>{
         if(firstrend.current && thirdparty.current!=[] && JSON.stringify(dateQuerForDisp)!=JSON.stringify([])) {
-            console.log("not firstrend, here is thirdparty.current", thirdparty.current)
+            //console.log("not firstrend, here is thirdparty.current", thirdparty.current)
             update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdparty)
         }
         else{
-            console.log("first rend") 
+            //console.log("first rend") 
             }
     },[dateQuerForDisp])
 
@@ -79,8 +79,8 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
 }
 
 function update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdparty){
-    console.log("this is update", thirdparty.current)
-    console.log(dateQuerForDisp[thirdparty.current[1]].session_url, thirdparty.current[1])
+    //console.log("this is update", thirdparty.current)
+    //console.log(dateQuerForDisp[thirdparty.current[1]].session_url, thirdparty.current[1])
     const header={
         'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
     }
@@ -88,16 +88,16 @@ function update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdpar
         "status": thirdparty.current[0]
     },{headers:header})
     .then((response)=>{
-        console.log(response.status, response.data)
+        //console.log(response.status, response.data)
         if(refreshCont==[]){
             setRefreshCont(['hello'])
         }else{
             setRefreshCont([]);
         }
-        console.log("set refreshCont")
+        //console.log("set refreshCont")
     
     })
     .catch((error)=>{
-        console.log("caught an error in post\n",error)
+        //console.log("caught an error in post\n",error)
     })
 }

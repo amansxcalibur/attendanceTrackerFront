@@ -39,7 +39,7 @@ function LoginForm() {
                         ...prevState,
                         'successMessage' : 'Login successful. Redirecting to home page..'
                     }))
-                    console.log(response.data)
+                    //console.log(response.data)
                     localStorage.setItem(ACCESS_TOKEN_NAME,JSON.stringify(response.data.token));
                     redirectToHome();
                 }
@@ -48,11 +48,11 @@ function LoginForm() {
                 // }
                 else{
                     alert("Username does not exists");
-                    console.log(response.data)
+                    //console.log(response.data)
                 }
             })
             .catch(function (error) {
-                console.log(error);
+                //console.log(error);
             });
         // redirectToHome()//make sure to comment this out
     }

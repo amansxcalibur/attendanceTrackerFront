@@ -25,7 +25,7 @@ export default function Data({refreshCont}){
       .then(function(response){
         if (response.status === 200) {
             setStatData(response.data);
-            console.log("statdata", response.data)
+            //console.log("statdata", response.data)
           }
         })
         .catch(function(error) {
@@ -49,7 +49,7 @@ export default function Data({refreshCont}){
         .then(function (response) {
             if(response.status === 200){
                 sessionStorage.setItem(ACCESS_TIMETABLE_NAME,JSON.stringify(response.data))
-                console.log(response.data,'check this out')
+                //console.log(response.data,'check this out')
                 const str=response.data.name;
                 if (str.indexOf(' ') != -1){
                     var list=[str.substring(0, str.indexOf(' ')),str.substring(str.indexOf(' ') + 1)];
@@ -60,14 +60,14 @@ export default function Data({refreshCont}){
                 setThreshold(response.data.threshold)
             }
             else{
-                console.log(response.data,'hhhhhh')
+                //console.log(response.data,'hhhhhh')
             }
         })
         .catch(function (error) {
             if (error.response.status==401){
                 router.push('/login')
             }
-            console.log((error),'mmmmmm');
+            //console.log((error),'mmmmmm');
         });
     },[])
 

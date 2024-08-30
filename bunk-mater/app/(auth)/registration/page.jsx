@@ -24,7 +24,7 @@ export default function RegistrationForm(props){
         // 'Access-Control-Allow-Origin':'*',
     }
     
-    //console.log(header)
+    ////console.log(header)
     const router =useRouter();
 
     const handleChange=(e)=>{
@@ -36,33 +36,33 @@ export default function RegistrationForm(props){
     }
 
     const sendDetailsToServer=()=>{
-        console.log("im here");
+        //console.log("im here");
         if(state.username.length&&state.password.length&&state.confirmpassword.length){
-            console.log('maybe here');
+            //console.log('maybe here');
             const payload={
                 "username":state.username,
                 "password":state.password,
             }
             //axios.defaults.headers.common['Access-Control-Allow-Origin']= '*'
-            console.log(state, "korewa state desne");
+            //console.log(state, "korewa state desne");
             axios.post(API_BASE_URL + '/register', payload)
             .then((response)=>{
                 if(response.status===201){
-                    console.log(response.body);
+                    //console.log(response.body);
                     setState(prevState=>({
                         ...prevState,
                         'succesMessage':'Registration successful. Redirecting to homepage'
                     }))
-                    console.log("about to pass")
+                    //console.log("about to pass")
                     // localStorage.setItem(ACCESS_TOKEN_NAME, JSON.stringify(response.data.token));
                     redirectToLogin();
-                    console.log("created")
+                    //console.log("created")
                 }
             })
             .catch((error)=>{
                 if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status)
+                    //console.log(error.response.data);
+                    //console.log(error.response.status)
             }})
         }else{
             // props.showError("Please enter valid credentials")
@@ -76,7 +76,7 @@ export default function RegistrationForm(props){
 
     const handleSubmitClick=(e)=>{
         e.preventDefault();
-        console.log("here")
+        //console.log("here")
         if(state.password===state.confirmpassword){
             sendDetailsToServer();
         }else{

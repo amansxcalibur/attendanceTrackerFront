@@ -15,7 +15,7 @@ export default function Table(){
 
     const [delCheck, setDelCheck]=useState(null);
     const [hw,setHw]=useState('50vh');
-    console.log("maybe mounting?")
+    //console.log("maybe mounting?")
     const router=useRouter()
 
     useEffect(()=>{
@@ -48,14 +48,14 @@ export default function Table(){
                     sessionStorage.setItem(ACCESS_TIMETABLE_NAME, JSON.stringify(response.data))
                 }
                 else{
-                    console.log(response.data)
+                    //console.log(response.data)
                 }
             })
             .catch(function (error) {
                 if (error.response.status==401){
                     router.push('/login')
                 }
-                console.log(JSON.stringify(error));
+                //console.log(JSON.stringify(error));
             });
         }
     },[])

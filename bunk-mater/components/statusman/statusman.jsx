@@ -33,16 +33,16 @@ export default function Statusman({setRefreshCont, refreshCont}){
                 setDateQuer(response.data)
             }
             else{
-                console.log(response.data)
+                //console.log(response.data)
             }
         })
         .catch(function (error) {
             if (error.response.status==401){
                 router.push('/login')
             }
-            console.log(JSON.stringify(error));
+            //console.log(JSON.stringify(error));
         });
-        console.log("after useEffect",dateQuer)
+        //console.log("after useEffect",dateQuer)
     },[dateCurr, refreshCont])
 
     useEffect(()=>{

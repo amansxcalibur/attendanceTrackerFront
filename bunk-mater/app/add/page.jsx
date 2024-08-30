@@ -56,7 +56,7 @@ export default function Add(){
             "threshold": criteria.value,
             "courses_data": removeNull(tableData)
         }
-        console.log(payload)
+        //console.log(payload)
         const header={
             'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
         }
@@ -70,14 +70,14 @@ export default function Add(){
                 // }
                 else{
                     alert("Some error has occurred");
-                    console.log(response.data)
+                    //console.log(response.data)
                 }
             })
             .catch(function (error) {
                 if (error.response.status==401){
                     router.push('/login')
                 }
-                console.log(error);
+                //console.log(error);
             });
     }
 

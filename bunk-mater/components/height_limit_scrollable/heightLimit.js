@@ -11,7 +11,7 @@ export default function HeightLimit({setHw, smRatio, lgRatio}){
         }
         window.addEventListener("resize",()=>{
             setTimeout(()=>{
-                // console.log(window.innerHeight-0.1*window.innerWidth, "hw:",hw);
+                // //console.log(window.innerHeight-0.1*window.innerWidth, "hw:",hw);
                 if (window.innerWidth>640){
                     setHw((parseInt(window.innerHeight-lgRatio*window.innerWidth)).toString()+"px");
                 }else{
