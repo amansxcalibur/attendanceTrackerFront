@@ -2,7 +2,7 @@ import { ACCESS_TIMETABLE_NAME } from '@/app/_utils/apiConstants';
 import chroma from 'chroma-js';
 import { useState, useEffect } from 'react';
 
-export default function Graph({statData, threshold}){
+export default function Graph({statData, threshold, setThreshold}){
     const f = chroma.scale(['red','yellow','green']);
     const handleGraphWidth=(key)=>{
         if (parseInt(key.percentage)<75){
@@ -12,11 +12,19 @@ export default function Graph({statData, threshold}){
         }
     }
     useEffect(()=>{
-        if (sessionStorage.getItem(ACCESS_TIMETABLE_NAME).threshold!=null){
-            setThreshold(sessionStorage.getItem(ACCESS_TIMETABLE_NAME).threshold);
-            //console.log(threshold)
+        if (sessionStorage.getItem(ACCESS_TIMETABLE_NAME)!=null){
+            setThreshold(JSON.parse(sessionStorage.getItem(ACCESS_TIMETABLE_NAME)).threshold);
         }
     },[])
+
+    useEffect(()=>{
+        console.log(threshold, 'updates')
+        console.log(statData,'here is statData')
+    },[threshold])
+    useEffect(()=>{
+        // console.log(threshold, 'updates')
+        console.log(statData,'here is statData')
+    },[statData])
     
     return(
         <div className='h-full w-full my-[2vw]'>

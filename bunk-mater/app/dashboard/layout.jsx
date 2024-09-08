@@ -68,7 +68,8 @@ export default function Layout({children}){
                     </div>
                     <div className="flex justify-end items-center text-5xl px-5 sm:hidden">
                         <SideMenu options={options}
-                                  pathname={pathname}/>
+                                  pathname={pathname}
+                                  handleLogout={handleLogout}/>
                     </div>
                     <div className="right-0 h-[5vw] text-[2vw] flex justify-end items-center p-[1vw] max-sm:hidden">
                         <div className="invisible">

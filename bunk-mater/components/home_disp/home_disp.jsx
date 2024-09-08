@@ -16,6 +16,7 @@ export default function HomeDisp({curr}){
                 }
             },100)
         })
+        console.log('home_disp')
     },[])
     return(
         <div className="flex overflow-hidden flex-1">

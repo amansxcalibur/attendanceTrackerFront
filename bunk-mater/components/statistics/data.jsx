@@ -39,6 +39,7 @@ export default function Data({refreshCont}){
 
     useEffect(()=>{
         HeightLimit({setHw, smRatio, lgRatio})
+        console.log('data')
         return()=>{
             window.removeEventListener("resize",{});
         }
@@ -102,7 +103,7 @@ export default function Data({refreshCont}){
             </div>
             <div className="flex-1 flex h-full" id="victimer">
                 <div className="flex-1 flex h-full overflow-auto no-scrollbar" style={{height:hw}}>
-                    <Graph statData={statData} threshold={threshold}/>
+                    <Graph statData={statData} threshold={threshold} setThreshold={setThreshold}/>
                 </div>
             </div>
         </div>

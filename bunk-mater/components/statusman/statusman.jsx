@@ -47,6 +47,7 @@ export default function Statusman({setRefreshCont, refreshCont}){
 
     useEffect(()=>{
         HeightLimit({setHw, smRatio, lgRatio})
+        console.log('statusman')
         return()=>{
             window.removeEventListener("resize",{});
         }
