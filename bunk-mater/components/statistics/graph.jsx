@@ -12,7 +12,7 @@ export default function Graph({statData, threshold}){
         }
     }
     useEffect(()=>{
-        if (sessionStorage.getItem(ACCESS_TIMETABLE_NAME).threshold){
+        if (sessionStorage.getItem(ACCESS_TIMETABLE_NAME).threshold!=null){
             setThreshold(sessionStorage.getItem(ACCESS_TIMETABLE_NAME).threshold);
             //console.log(threshold)
         }

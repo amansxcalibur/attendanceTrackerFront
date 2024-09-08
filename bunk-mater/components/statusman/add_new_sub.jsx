@@ -26,7 +26,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
               ]);
             setMessage("Choose which week-day's timetable to use")
         }else if (message!="Add another subject"){ 
-            if (sessionStorage.getItem(ACCESS_TIMETABLE_NAME)){
+            if (sessionStorage.getItem(ACCESS_TIMETABLE_NAME)!=null){
                 const timetable=JSON.parse(sessionStorage.getItem(ACCESS_TIMETABLE_NAME)).courses_data
                 setOptionList(getOptions({timetable}))
             }
@@ -82,7 +82,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                         }
                     })
                     .catch((error)=>{
-                        if (error.response.status==401) {
+                        if (error.response && error.response.status==401) {
                             router.push('/login')
                         }
                         //console.log(error.response.data);
@@ -113,6 +113,9 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                 })
                 .catch((error)=>{
                     if (error.response) {
+                        if (error.response.status==401){
+                            router.push('/login')
+                        }
                         //console.log(error.response.data);
                         //console.log(error.response.status)
                 }})

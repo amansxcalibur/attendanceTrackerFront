@@ -30,6 +30,9 @@ export default function Data({refreshCont}){
         })
         .catch(function(error) {
           console.error("Error fetching data:", error);
+          if (error.response.status==401){
+            router.push('/login')
+        }
         }
      );
     },[refreshCont])

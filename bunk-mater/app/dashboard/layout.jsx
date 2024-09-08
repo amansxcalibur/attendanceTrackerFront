@@ -8,7 +8,7 @@ import Logo from "../_assets/logo.png"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { API_BASE_URL, ACCESS_TOKEN_NAME } from "../_utils/apiConstants";
+import { API_BASE_URL, ACCESS_TOKEN_NAME, ACCESS_TIMETABLE_NAME } from "../_utils/apiConstants";
 import Logout from "@/components/svg/logout";
 import { useEffect } from "react";
 
@@ -30,6 +30,9 @@ export default function Layout({children}){
             .then((response)=>{
                 if(response.status===200){
                     localStorage.removeItem(ACCESS_TOKEN_NAME);
+                    try {
+                        sessionStorage.removeItem(ACCESS_TIMETABLE_NAME);
+                    }catch{}
                     //console.log("logged out")
                     router.push('/login'); 
                 }

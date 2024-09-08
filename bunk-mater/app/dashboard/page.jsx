@@ -21,6 +21,9 @@ export default function Homepage(){
             }
         })
         .catch(function (error) {
+            if (error.response.status==401){
+                router.push('/login')
+            }
             if (error.response.status==404){
                 router.push('/add')
             }else{

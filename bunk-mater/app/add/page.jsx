@@ -186,7 +186,7 @@ export default function Add(){
                             <tr className="text-[1.5vw] font-light">
                                 <td className="max-sm:hidden"></td>
                                 <td className='h-[13vw] w-[13vw] max-sm:h-[19.5vw] max-sm:w-[19.5vw] text-center border border-black flex'>
-                                    <button className="hover:bg-[#202224] bg-[#0d0e0f] flex-1 max-sm:text-3xl max-sm:bg-[#202224]" onClick={()=>{addRow(tableData.length)}}>+</button>
+                                    <button type="button" className="hover:bg-[#202224] bg-[#0d0e0f] flex-1 max-sm:text-3xl max-sm:bg-[#202224]" onClick={()=>{addRow(tableData.length)}}>+</button>
                                 </td>
                             </tr>
                         </tbody>

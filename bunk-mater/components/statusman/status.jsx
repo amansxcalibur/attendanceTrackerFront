@@ -98,6 +98,11 @@ function update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdpar
     
     })
     .catch((error)=>{
+        if (error.response){
+            if (error.response.status==401){
+                router.push('/login')
+            }
+        }
         //console.log("caught an error in post\n",error)
     })
 }

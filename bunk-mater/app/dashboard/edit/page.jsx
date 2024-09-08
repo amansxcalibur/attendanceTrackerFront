@@ -24,7 +24,7 @@ export default function EditTable(){
 
     useEffect(()=>{
         HeightLimit({setHw, smRatio, lgRatio})
-        if (sessionStorage.getItem(ACCESS_TIMETABLE_NAME)){
+        if (sessionStorage.getItem(ACCESS_TIMETABLE_NAME)!=null){
             const timetable=JSON.parse(sessionStorage.getItem(ACCESS_TIMETABLE_NAME)).courses_data
             setTableData(timetable)
             setOptionList(getOptions({timetable}))

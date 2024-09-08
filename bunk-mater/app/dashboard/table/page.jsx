@@ -35,7 +35,7 @@ export default function Table(){
     },[])
 
     useEffect(()=>{
-        if(sessionStorage.getItem(ACCESS_TIMETABLE_NAME)){
+        if(sessionStorage.getItem(ACCESS_TIMETABLE_NAME)!=null){
             setTableData(JSON.parse(sessionStorage.getItem(ACCESS_TIMETABLE_NAME)).courses_data);
         }else{
             const header={
