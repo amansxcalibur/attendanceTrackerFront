@@ -11,11 +11,12 @@ import CoursesDropped from "@/app/_assets/courses_drop_cropped.png"
 // import Scroller from "@/components/scroll_shenanigans/scroll";
 import HorizontalScroll from "@/components/scroll_shenanigans/scroll";
 import { useState } from "react";
+import CircleScale from "@/components/scroll_shenanigans/circle_scale";
 
 export default function Home() {
   const [activate, setActivate] = useState(false);
   return (
-    <div className={`h-[90vh] ${activate?"overflow-y-hidden":""}`}>
+    <div className={`h-[94vh] scroll-smooth`}>
       <div className="flex flex-col items-center justify-center flex-1 m-[1vw] h-[90vh] bg-black">
         <p className="text-[2vw] -m-[1vw]">Welcome to</p>
         <p className="text-[7vw]">Bunk-Mate</p>
@@ -54,7 +55,8 @@ export default function Home() {
           <Image src={Statusman} className="w-[20vw] h-auto"/>
           <p>Update your attendance for each course</p>
         </div>
-        <HorizontalScroll activate={activate} setActivate={setActivate}/>
+        {/* <HorizontalScroll activate={activate} setActivate={setActivate}/> */}
+        <CircleScale/>
       </div>
     </div>
   );

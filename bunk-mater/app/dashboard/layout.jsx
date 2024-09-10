@@ -29,7 +29,7 @@ export default function Layout({children}){
         axios.post(API_BASE_URL + '/logout', {}, {headers: header})
             .then((response)=>{
                 if(response.status===200){
-                    localStorage.removeItem(ACCESS_TOKEN_NAME);
+                    localStorage.removeItem(ACCESS_TOKEN_NAME); 
                     try {
                         sessionStorage.removeItem(ACCESS_TIMETABLE_NAME);
                     }catch{}

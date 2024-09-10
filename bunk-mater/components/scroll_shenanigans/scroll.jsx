@@ -57,7 +57,7 @@ export default function HorizontalScroll({activate,setActivate}){
           ([entry]) => {
             setActivate(entry.isIntersecting);
           },
-          { root: null, rootMargin: '0px', threshold: 0.4 }
+          { root: null, rootMargin: '0px', threshold: 0.3 }
         );
     
         if (ref.current) {
@@ -74,8 +74,11 @@ export default function HorizontalScroll({activate,setActivate}){
       }, []);
 
   return(
-    <div ref={ref} className={`bg-white text-black text-[3vw] w-[200vw] h-screen flex justify-center items-center`} style={{transform: `translateX(${scrollerX}px)`}}>
-        <p>(Your text goes here. Also, you can place other elements within this parent div.)</p>
+    // <div ref={ref} className={`bg-white text-black text-[3vw] w-[300vw] h-screen flex justify-center items-center`} style={{transform: `translateX(${scrollerX}px)`}}>
+    //     <p>(Your text goes here. Also, you can place other elements within this parent div.)</p>
+    // </div>
+    <div id='victim' className='h-[200vh]'>
+      <div className='bg-white h-[20vw] w-[20vw] animate-scale-with-scroll-y rounded-full text-black flex justify-center'>ttt</div>
     </div>
   )
 }
