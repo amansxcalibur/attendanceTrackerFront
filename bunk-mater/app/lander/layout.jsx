@@ -1,7 +1,7 @@
 export default function RootLayout({ children }) {
   return (
     <div className="w-full">
-      <nav className="flex h-[3vw] bg-red-300">
+      <nav className="flex h-[3vw] bg-red-300 sticky top-0">
         <p>BunkMate</p>
         <div className="flex flex-1 justify-center">
           <p>Home</p>

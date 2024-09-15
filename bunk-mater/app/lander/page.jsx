@@ -11,6 +11,7 @@ import CoursesDropped from "@/app/_assets/courses_drop_cropped.png"
 import { useState } from "react";
 import CircleScale from "@/components/scroll_shenanigans/circle_scale";
 import HorizontalScrollCarousel from "@/components/scroll_shenanigans/dependent_horizontal_scroll";
+import ContactFooter from "@/components/contact_us/contact_footer";
 
 export default function Home() {
   const [activate, setActivate] = useState(false);
@@ -56,10 +57,7 @@ export default function Home() {
         </div>
         {/* <CircleScale/>
         <HorizontalScrollCarousel/> */}
-        <div className="bg-white h-screen flex text-black">
-          <div>Bunk-Mate</div>
-          <div className="flex-1"></div>
-        </div>
+       <ContactFooter/>
       </div>
     </div>
   );
