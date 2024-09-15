@@ -6,12 +6,9 @@ export default function CircleScale(){
     const [h, setH] = useState(0);
     const [w, setW] = useState(0);
     const [activate, setActivate] = useState(false)
-    const circleRef = useRef(null);
+    const ref = useRef(null);
     const scrollDir = useRef("scrolling down")
     const offs = useRef(0);
-    const winH = useRef(0);
-    const winW = useRef(0);
-    const prev = useRef(0);
   
     useEffect(() => {
       let lastScrollY = window.scrollY;
@@ -40,38 +37,18 @@ export default function CircleScale(){
     }, []);
 
     useEffect(()=>{
-        winH.current = window.innerHeight;
-        winW.current = window.innerWidth;
-        console.log('setting windows', winH.current, winW.current)
-        window.addEventListener("resize",()=>{
-            setTimeout(()=>{
-                prev.current = winH.current
-                winH.current = window.innerHeight;
-                winW.current = window.innerWidth;
-                if ((winH.current-prev.current)!=0){
-                    offs.current=offs.current+winH.current-prev.current
-                }
-                console.log('firing resize', scrollY, offs.current, prev.current)
-            },10)
-        });
-        return ()=>{
-            window.removeEventListener("resize", {})
-        }
-    },[])
-
-    useEffect(()=>{
         console.log('dir change to ', scrollDir)
     },[scrollDir])
     const handleScroll=()=>{
         // console.log('here')
-        if(window.innerHeight>=window.innerWidth){
-            setH(h => (winH.current/winW.current)*(window.scrollY-offs.current));
-            setW(w => (winH.current/winW.current)*(window.scrollY-offs.current));
-            // console.log('addition', scrollDir)
+        if(scrollDir.current=="scrolling down"){
+            setH(h => 1*(window.scrollY-offs.current));
+            setW(w => 1*(window.scrollY-offs.current));
+            console.log('addition', scrollDir)
         }else{
-            setH(h => (winW.current/winH.current)*(window.scrollY-offs.current));
-            setW(w => (winW.current/winH.current)*(window.scrollY-offs.current));
-            // console.log('subttraction', scrollDir)
+            setH(h => 1*(window.scrollY-offs.current));
+            setW(w => 1*(window.scrollY-offs.current));
+            console.log('subttraction', scrollDir)
         }
         console.log(window.scrollY-offs.current, offs.current, window.scrollY)
         // console.log(h,w)
@@ -104,14 +81,14 @@ export default function CircleScale(){
             { root: null, rootMargin: '0px', threshold: 0 }
         );
 
-        if (circleRef.current) {
-            observer.observe(circleRef.current);
+        if (ref.current) {
+            observer.observe(ref.current);
             console.log('observing')
         }
 
         return () => {
-            if (circleRef.current) {
-            observer.unobserve(circleRef.current);
+            if (ref.current) {
+            observer.unobserve(ref.current);
             console.log('not observing')
             }
         };
@@ -122,19 +99,19 @@ export default function CircleScale(){
         },[activate])
 
     return(
-        <div className="h-full">
-        <div className="h-[50vh]"></div>
-        <div className="flex justify-center h-[120vh] -mb-[100vh] max-sm:-mb-[150vh]" ref={circleRef}
+        <div className="h-[600vh]">
+        <div className="h-[200vh]"></div>
+        <div className="flex justify-center h-[200vh] bg-red-950" ref={ref}
         //style={{height:`${Math.round(Math.sqrt((window.innerHeight)**2+(window.innerWidth)**2))}px`}}
         >
-            <div className={`bg-white rounded-full fixed ${h>window.innerHeight?'transform -translate-y-1/2 top-[50vh]':'bottom-0'}`}
+            <div className={`bg-blue-600 rounded-full fixed ${h>window.innerHeight?'transform -translate-y-1/2 top-[50vh]':'bottom-0'}`}
             style={{minHeight: `${h}px`, minWidth: `${w}px`}}
             ></div>
         </div>
         {/* <div className={`flex justify-center bg-blue-600 transform ${h>window.innerHeight?"fixed left-1/2 -translate-x-1/2 -translate-y-1/2 top-[50vh]":"bottom-0"}`}>
-            <div ref={circleRef} className="bg-white transition rounded-full" style={{minHeight: `${h}px`, minWidth: `${w}px`}}></div>
+            <div ref={ref} className="bg-white transition rounded-full" style={{minHeight: `${h}px`, minWidth: `${w}px`}}></div>
         </div> */}
-        {/* <div className="h-[200vh]"></div> */}
+        <div className="h-[200vh]"></div>
         </div>
     )
 }

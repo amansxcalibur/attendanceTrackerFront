@@ -8,10 +8,9 @@ import EditTable from "@/app/_assets/edit_timetable.png"
 import RewindTime from "@/app/_assets/rewind_time.png"
 import Statusman from "@/app/_assets/statusman.png"
 import CoursesDropped from "@/app/_assets/courses_drop_cropped.png"
-// import Scroller from "@/components/scroll_shenanigans/scroll";
-import HorizontalScroll from "@/components/scroll_shenanigans/scroll";
 import { useState } from "react";
 import CircleScale from "@/components/scroll_shenanigans/circle_scale";
+import HorizontalScrollCarousel from "@/components/scroll_shenanigans/dependent_horizontal_scroll";
 
 export default function Home() {
   const [activate, setActivate] = useState(false);
@@ -55,8 +54,12 @@ export default function Home() {
           <Image src={Statusman} className="w-[20vw] h-auto"/>
           <p>Update your attendance for each course</p>
         </div>
-        {/* <HorizontalScroll activate={activate} setActivate={setActivate}/> */}
-        <CircleScale/>
+        {/* <CircleScale/>
+        <HorizontalScrollCarousel/> */}
+        <div className="bg-white h-screen flex text-black">
+          <div>Bunk-Mate</div>
+          <div className="flex-1"></div>
+        </div>
       </div>
     </div>
   );

@@ -67,6 +67,7 @@ export default function HorizontalScroll(){
     console.log('here is activate',activate,'\nhere is scroll',scrollDir)
     offs.current = window.scrollY
     if (activate){
+      console.log("adding event listener")
       window.addEventListener('scroll', handleScroll)
     }else{
       window.removeEventListener('scroll', handleScroll)
