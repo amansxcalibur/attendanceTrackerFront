@@ -124,7 +124,7 @@ export default function CircleScale(){
     return(
         <div className="h-full">
         <div className="h-[50vh]"></div>
-        <div className="flex justify-center h-[120vh] -mb-[100vh] max-sm:-mb-[150vh]" ref={circleRef}
+        <div className="flex justify-center h-[200vh] -mb-[100vh] max-sm:-mb-[150vh]" ref={circleRef}
         //style={{height:`${Math.round(Math.sqrt((window.innerHeight)**2+(window.innerWidth)**2))}px`}}
         >
             <div className={`bg-white rounded-full fixed ${h>window.innerHeight?'transform -translate-y-1/2 top-[50vh]':'bottom-0'}`}

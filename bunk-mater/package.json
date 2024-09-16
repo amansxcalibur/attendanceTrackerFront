@@ -17,6 +17,7 @@
     "chroma-js": "^2.4.2",
     "dayjs": "^1.11.11",
     "framer-motion": "^11.5.4",
+    "lenis": "^1.1.13",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",

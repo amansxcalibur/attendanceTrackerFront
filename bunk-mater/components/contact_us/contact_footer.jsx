@@ -7,7 +7,7 @@ import BackToTop from "../svg/back_to_top"
 export default function ContactFooter(){
     return(
         <div className="h-screen bg-white flex flex-col text-black invert">
-            <div className="absolute flex flex-col items-end z-10 min-h-screen w-screen pointer-events-none">
+            <div className="absolute flex flex-col items-end z-10 min-h-screen w-full pointer-events-none">
                 <div className="text-[4vw] w-full flex items-center tracking-tighter">
                     <Image src={Logo} className="invert h-[5.5vw] w-auto"/>Bunk-Mate</div>
                 <div className="flex-1"></div>
