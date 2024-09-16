@@ -1,6 +1,6 @@
 export default function BackToTop() {
   return (
-    <button onClick={()=>{window.scrollTo(0,0)}} className="relative max-sm:w-36 max-sm:h-14 w-[9vw] h-[3.9vw] text-[1.5vw] overflow-hidden border-none text-black bg-transparent pb-8 cursor-pointer group">
+    <button onClick={()=>{window.scrollTo(0,0)}} className="relative max-sm:w-36 max-sm:h-14 w-[9vw] h-[3.9vw] text-[1.5vw] max-md:text-[4vw] overflow-hidden border-none text-black bg-transparent pb-8 cursor-pointer group">
       <div className="text flex absolute w-full h-full">
         <span className="transition-opacity opacity-100 ml-1 group-hover:translate-y-[-60px]">Back</span>
         <span className="transition-opacity opacity-100 ml-1 group-hover:translate-y-[-60px]">to</span>
