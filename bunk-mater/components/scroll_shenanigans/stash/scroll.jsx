@@ -108,20 +108,20 @@ export default function HorizontalScroll({activate,setActivate}){
     }, []);
 
     useEffect(()=>{
-        console.log('dir change to ', scrollDir)
+        //console.log('dir change to ', scrollDir)
     },[scrollDir])
     const handleScroll=()=>{
         // console.log('here')
         if(scrollDir.current=="scrolling down"){
             setScrollerX(scrollerX => 1*(window.scrollY-offs.current));
             // setW(w => 1*(window.scrollY-offs.current));
-            console.log('addition', scrollDir)
+            //console.log('addition', scrollDir)
         }else{
             setScrollerX(scrollerX => 1*(window.scrollY-offs.current));
             // setW(w => 1*(window.scrollY-offs.current));
-            console.log('subttraction', scrollDir)
+            //console.log('subttraction', scrollDir)
         }
-        console.log(window.scrollY-offs.current)
+        //console.log(window.scrollY-offs.current)
         // console.log(h,w)
     }
     useEffect(()=>{
@@ -129,12 +129,12 @@ export default function HorizontalScroll({activate,setActivate}){
         
         if (activate){
           if(scrollDir.current=='scrolling down'){
-            console.log(activate,'activate')
+            //console.log(activate,'activate')
             window.addEventListener("scroll", handleScroll);
           }
         }else{
           if (scrollDir.current=='scrolling up'){
-            console.log(activate,'activate dea')
+            //console.log(activate,'activate dea')
             window.removeEventListener("scroll", handleScroll)
           }
         }
@@ -181,24 +181,24 @@ export default function HorizontalScroll({activate,setActivate}){
 
       if (startRef.current) {
           startObserver.observe(startRef.current);
-          console.log('observing')
+          //console.log('observing')
       }
       if (stopRef.current) {
         stopObserver.observe(stopRef.current);
-        console.log('observing')
+        //console.log('observing')
     }
 
       return () => {
           if (startRef.current || stopRef.current) {
           startObserver.unobserve(startRef.current);
           stopObserver.unobserve(stopRef.current);
-          console.log('not observing')
+          //console.log('not observing')
           }
       };
       }, []);
 
         useEffect(()=>{
-            console.log(activate,'here is activate')
+            //console.log(activate,'here is activate')
         },[activate])
 
   return(

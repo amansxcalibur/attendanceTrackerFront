@@ -18,12 +18,12 @@ export default function Graph({statData, threshold, setThreshold}){
     },[])
 
     useEffect(()=>{
-        console.log(threshold, 'updates')
-        console.log(statData,'here is statData')
+        //console.log(threshold, 'updates')
+        //console.log(statData,'here is statData')
     },[threshold])
     useEffect(()=>{
         // console.log(threshold, 'updates')
-        console.log(statData,'here is statData')
+        //console.log(statData,'here is statData')
     },[statData])
     
     return(

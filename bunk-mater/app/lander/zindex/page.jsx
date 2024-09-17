@@ -37,20 +37,20 @@ export default function CircleScale(){
     }, []);
 
     useEffect(()=>{
-        console.log('dir change to ', scrollDir)
+        //console.log('dir change to ', scrollDir)
     },[scrollDir])
     const handleScroll=()=>{
         // console.log('here')
         if(scrollDir.current=="scrolling down"){
             setH(h => 1*(window.scrollY-offs.current));
             setW(w => 1*(window.scrollY-offs.current));
-            console.log('addition', scrollDir)
+            //console.log('addition', scrollDir)
         }else{
             setH(h => 1*(window.scrollY-offs.current));
             setW(w => 1*(window.scrollY-offs.current));
-            console.log('subttraction', scrollDir)
+            //console.log('subttraction', scrollDir)
         }
-        console.log(window.scrollY-offs.current, offs.current, window.scrollY)
+        //console.log(window.scrollY-offs.current, offs.current, window.scrollY)
         // console.log(h,w)
     }
     useEffect(()=>{
@@ -59,7 +59,7 @@ export default function CircleScale(){
         }
 
         if (activate){
-            console.log(activate,'activate')
+            //console.log(activate,'activate')
             window.addEventListener("scroll", handleScroll);
         }else{
             setH(0);
@@ -83,19 +83,19 @@ export default function CircleScale(){
 
         if (ref.current) {
             observer.observe(ref.current);
-            console.log('observing')
+            //console.log('observing')
         }
 
         return () => {
             if (ref.current) {
             observer.unobserve(ref.current);
-            console.log('not observing')
+            //console.log('not observing')
             }
         };
         }, []);
 
         useEffect(()=>{
-            console.log(activate,'here is activate')
+            //console.log(activate,'here is activate')
         },[activate])
 
     return(

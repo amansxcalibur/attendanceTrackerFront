@@ -24,24 +24,24 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     let observer;
     const ref = document.getElementById("end");
-    console.log('vna')
+    //console.log('vna')
     observer = new IntersectionObserver(
         ([entry]) => {
         setOpen(!entry.isIntersecting);
-        console.log(!entry.isIntersecting)
+        //console.log(!entry.isIntersecting)
         },
         { root: null, rootMargin: '0px', threshold: 0 }
     );
 
     if (ref) {
         observer.observe(ref);
-        console.log('observing')
+        //console.log('observing')
     }
 
     return () => {
         if (ref && observer !=undefined) {
         observer.unobserve(ref);
-        console.log('not observing')
+        //console.log('not observing')
         }
     };
   }, []);

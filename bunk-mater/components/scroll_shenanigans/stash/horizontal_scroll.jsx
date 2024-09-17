@@ -51,41 +51,41 @@ export default function HorizontalScroll(){
 
         if (ref.current) {
             observer.observe(ref.current);
-            console.log('observing')
+            //console.log('observing')
         }
     }
 
     return () => {
         if (ref.current && observer !=undefined) {
         observer.unobserve(ref.current);
-        console.log('not observing')
+        //console.log('not observing')
         }
     };
   }, [height]);
 
   useEffect(()=>{
-    console.log('here is activate',activate,'\nhere is scroll',scrollDir)
+    //console.log('here is activate',activate,'\nhere is scroll',scrollDir)
     offs.current = window.scrollY
     if (activate){
-      console.log("adding event listener")
+      //console.log("adding event listener")
       window.addEventListener('scroll', handleScroll)
     }else{
       window.removeEventListener('scroll', handleScroll)
     }
     return ()=>{
-      console.log('flushing window');
+      //console.log('flushing window');
       window.removeEventListener('scroll', handleScroll)}
   },[activate])
 
   const handleScroll = () => {
-      console.log('effect in place')
+      //console.log('effect in place')
       if(offs.current<window.scrollY){
           setScrollerX(scrollerX => (-window.scrollY+offs.current));
       }else{
           setScrollerX(scrollerX => (-window.scrollY+offs.current-height-window.innerHeight));
       }
-      console.log('addition', scrollDir)
-      console.log(window.scrollY-offs.current)
+      //console.log('addition', scrollDir)
+      //console.log(window.scrollY-offs.current)
   }
 
   useEffect(() => {

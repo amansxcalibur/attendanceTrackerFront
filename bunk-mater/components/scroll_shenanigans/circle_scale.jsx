@@ -42,7 +42,7 @@ export default function CircleScale(){
     useEffect(()=>{
         winH.current = window.innerHeight;
         winW.current = window.innerWidth;
-        console.log('setting windows', winH.current, winW.current)
+        //console.log('setting windows', winH.current, winW.current)
         window.addEventListener("resize",()=>{
             setTimeout(()=>{
                 prev.current = winH.current
@@ -51,7 +51,7 @@ export default function CircleScale(){
                 if ((winH.current-prev.current)!=0){
                     offs.current=offs.current+winH.current-prev.current
                 }
-                console.log('firing resize', scrollY, offs.current, prev.current)
+                //console.log('firing resize', scrollY, offs.current, prev.current)
             },10)
         });
         return ()=>{
@@ -60,7 +60,7 @@ export default function CircleScale(){
     },[])
 
     useEffect(()=>{
-        console.log('dir change to ', scrollDir)
+        //console.log('dir change to ', scrollDir)
     },[scrollDir])
     const handleScroll=()=>{
         // console.log('here')
@@ -73,7 +73,7 @@ export default function CircleScale(){
             setW(w => (winW.current/winH.current)*(window.scrollY-offs.current));
             // console.log('subttraction', scrollDir)
         }
-        console.log(window.scrollY-offs.current, offs.current, window.scrollY)
+        //console.log(window.scrollY-offs.current, offs.current, window.scrollY)
         // console.log(h,w)
     }
     useEffect(()=>{
@@ -82,7 +82,7 @@ export default function CircleScale(){
         }
 
         if (activate){
-            console.log(activate,'activate')
+            //console.log(activate,'activate')
             window.addEventListener("scroll", handleScroll);
         }else{
             setH(0);
@@ -106,19 +106,19 @@ export default function CircleScale(){
 
         if (circleRef.current) {
             observer.observe(circleRef.current);
-            console.log('observing')
+            //console.log('observing')
         }
 
         return () => {
             if (circleRef.current) {
             observer.unobserve(circleRef.current);
-            console.log('not observing')
+            //console.log('not observing')
             }
         };
         }, []);
 
         useEffect(()=>{
-            console.log(activate,'here is activate')
+            //console.log(activate,'here is activate')
         },[activate])
 
     return(

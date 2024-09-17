@@ -39,7 +39,7 @@ export default function Data({refreshCont}){
 
     useEffect(()=>{
         HeightLimit({setHw, smRatio, lgRatio})
-        console.log('data')
+        //console.log('data')
         return()=>{
             window.removeEventListener("resize",{});
         }

@@ -17,7 +17,7 @@ export default function Home() {
     window.onbeforeunload=()=>{
         window.scrollTo(0,0)
     }
-    console.log('reload')
+    //console.log('reload')
   })
   return (
     <div className="h-[94vh] scroll-smooth">

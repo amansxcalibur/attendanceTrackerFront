@@ -44,13 +44,13 @@ export default function HorizontalScroll({activate,setActivate}){
 
     if (ref.current) {
         observer.observe(ref.current);
-        console.log('observing')
+        //console.log('observing')
     }
 
     return () => {
         if (ref.current) {
         observer.unobserve(ref.current);
-        console.log('not observing')
+        //console.log('not observing')
         }
     };
   }, []);
@@ -58,7 +58,7 @@ export default function HorizontalScroll({activate,setActivate}){
   useEffect(() => {
     const observer = new IntersectionObserver(
         ([entry]) => {
-          console.log('window updating white ref', entry.isIntersecting)
+          //console.log('window updating white ref', entry.isIntersecting)
           whiteRef.current = entry.isIntersecting;
         },
         { root: null, rootMargin: '0px', threshold: 0 }
@@ -66,52 +66,52 @@ export default function HorizontalScroll({activate,setActivate}){
 
     if (whiteRef.current) {
         observer.observe(whiteRef.current);
-        console.log('observing')
+        //console.log('observing')
     }
 
     return () => {
         if (ref.current) {
         observer.unobserve(whiteRef.current);
-        console.log('not observing')
+        //console.log('not observing')
         }
     };
   }, []);
 
   useEffect(()=>{
-    console.log('here is activate',activate,'\nhere is scroll',scrollDir)
+    //console.log('here is activate',activate,'\nhere is scroll',scrollDir)
     offs.current = window.scrollY
     if (activate){ 
       if (scrollDir == 'scrolling down'){
         window.addEventListener('scroll', handleScroll)
-        console.log('added window listener')
+        //console.log('added window listener')
       }else if (scrollDir == 'scrolling up'){
         window.removeEventListener('scroll', handleScroll)
-        console.log('removed window listener')
+        //console.log('removed window listener')
       }
     }else if(whiteRef.current==true){
       if (scrollDir){
         window.addEventListener('scroll', handleScroll)
-        console.log('added in elseif window listener', whiteRef.current)
+        //console.log('added in elseif window listener', whiteRef.current)
       }
     }else{
       window.removeEventListener('scroll', handleScroll)
     }
     return ()=>{
-      console.log('flushing window');
+      //console.log('flushing window');
       window.removeEventListener('scroll', handleScroll)}
   },[activate,scrollDir])
 
   const handleScroll = () => {
     if(whiteRef.current==true){
-      console.log('effect in place', whiteRef.current)
+      //console.log('effect in place', whiteRef.current)
       if(scrollDir.current=="scrolling down"){
         setScrollerX(scrollerX => 1*(window.scrollY-offs.current));
-        console.log('addition', scrollDir)
+        //console.log('addition', scrollDir)
       }else{
           setScrollerX(scrollerX => 1*(window.scrollY-offs.current));
-          console.log('subttraction', scrollDir)
+          //console.log('subttraction', scrollDir)
       }
-      console.log(window.scrollY-offs.current)
+      //console.log(window.scrollY-offs.current)
     }
   }
 
