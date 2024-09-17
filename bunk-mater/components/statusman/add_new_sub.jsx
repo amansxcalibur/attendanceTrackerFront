@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Popup from '../popup/popup';
 import Drop from '../drop_select/drop_select';
 import CheckSvg from '../svg/check'
@@ -6,6 +6,7 @@ import XSvg from '../svg/x'
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { API_BASE_URL, ACCESS_TOKEN_NAME, ACCESS_TIMETABLE_NAME } from "@/app/_utils/apiConstants";
+import SlideInNotifications from "../notifications/side_notification";
 
 export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setRefreshCont}){
     const [addNewSub, setAddNewSub] = useState("");
@@ -14,6 +15,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
     const [message, setMessage] = useState('Add another subject')
     const router = useRouter()
     const days=['sun','mon','tue','wed','thu','fri','sat',]
+    const notificationRef = useRef(null)
 
     useEffect(()=>{
         if (dateQuerForDisp.length==0){
@@ -82,6 +84,9 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                         }
                     })
                     .catch((error)=>{
+                        if (notificationRef.current) {
+                            notificationRef.current.addNotif(Math.random(), "Request failed. Please try again.");
+                          }
                         if (error.response && error.response.status==401) {
                             router.push('/login')
                         }
@@ -90,7 +95,10 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                     })
                 }
             }else{
-                alert('No empty subject name please.')
+                if (notificationRef.current) {
+                    notificationRef.current.addNotif(Math.random(), "Please fill the subject name.");
+                  }
+                // alert('No empty subject name please.')
                 //console.log(newSub, addNewSub, 'this')
             }
         }
@@ -106,6 +114,19 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                         }else{
                             setRefreshCont([]);
                         }
+                        if (endpoint=="schedule_selector"){
+                            if (notificationRef.current) {
+                                notificationRef.current.addNotif(Math.random(), "Schedule added.");
+                              }
+                        }else if(endpoint=="courses"){
+                            if (notificationRef.current) {
+                                notificationRef.current.addNotif(Math.random(), "New course added.");
+                              }
+                        }else{
+                            if (notificationRef.current) {
+                                notificationRef.current.addNotif(Math.random(), "Course added.");
+                              }
+                        }
                         setNewSub('');
                         setAddNewSub('');
                         //console.log('addnewsub getting reset again??')
@@ -113,6 +134,9 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                 })
                 .catch((error)=>{
                     if (error.response) {
+                        if (notificationRef.current) {
+                            notificationRef.current.addNotif(Math.random(), "Request failed. Please try again.");
+                          }
                         if (error.response.status==401){
                             router.push('/login')
                         }
@@ -151,6 +175,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                     <Popup compToPass={<XSvg/>} setDecisionCheck={setAddNewSub} message={{message:"Are you sure you want to discard the changes?", opt:["Cancel", "Discard"]}}/>
                 </div>
             </div>
+            <SlideInNotifications ref={notificationRef}/>
         </>
     )
 }

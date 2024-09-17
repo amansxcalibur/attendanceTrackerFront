@@ -4,12 +4,14 @@ import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '@/app/_utils/apiConstants.js';
 import AddNewSubs from './add_new_sub';
+import SlideInNotifications from '../notifications/side_notification';
 
 export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, refreshCont, setRefreshCont, hw}){
     const firstrend=useRef(false);
     const thirdparty=useRef([]);
     const [saveCheck, setSaveCheck]=useState(null);
     const [dateQuerForDisp, setDateQuerForDisp] = useState(dateQuer);
+    const notificationRef = useRef(null);
 
     useEffect(()=>{
         if (JSON.stringify(dateQuerForDisp) != JSON.stringify(dateQuer)){
@@ -26,7 +28,7 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
     useEffect(()=>{
         if(firstrend.current && thirdparty.current!=[] && JSON.stringify(dateQuerForDisp)!=JSON.stringify([])) {
             //console.log("not firstrend, here is thirdparty.current", thirdparty.current)
-            update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdparty)
+            update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdparty, notificationRef)
         }
         else{
             //console.log("first rend") 
@@ -74,11 +76,12 @@ export default function Status({dateQuer, setDateQuer, dateCurr, setDateCurr, re
                     </div>
                 ))}
             </div>
+            <SlideInNotifications ref={notificationRef}/>
     </div>
     )
 }
 
-function update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdparty){
+function update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdparty, notificationRef){
     //console.log("this is update", thirdparty.current)
     //console.log(dateQuerForDisp[thirdparty.current[1]].session_url, thirdparty.current[1])
     const header={
@@ -88,6 +91,12 @@ function update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdpar
         "status": thirdparty.current[0]
     },{headers:header})
     .then((response)=>{
+        if(response.status==200){
+            if (notificationRef.current) {
+                // notificationRef.current.addNotif(Math.random(), "Updated attendance status.");
+                // its getting updated twice
+              }
+        }
         //console.log(response.status, response.data)
         if(refreshCont==[]){
             setRefreshCont(['hello'])
@@ -103,6 +112,9 @@ function update(refreshCont, dateCurr, dateQuerForDisp, setRefreshCont, thirdpar
                 router.push('/login')
             }
         }
+        if (notificationRef.current) {
+            notificationRef.current.addNotif(Math.random(), "Request failed. Please try again.");
+          }
         //console.log("caught an error in post\n",error)
     })
 }

@@ -11,7 +11,6 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     let observer;
     const ref = document.getElementById("end");
-    //console.log('vna')
     observer = new IntersectionObserver(
         ([entry]) => {
         setOpen(!entry.isIntersecting);

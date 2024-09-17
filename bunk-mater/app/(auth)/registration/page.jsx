@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../_utils/apiConstants';
 import { useRouter } from 'next/navigation';
@@ -8,6 +8,7 @@ import Google from '../../_assets/google.png'
 import Image from 'next/image';
 import Carousel from '@/components/carousels/carousel';
 import Link from 'next/link';
+import SlideInNotifications from '@/components/notifications/side_notification';
 //axios.defaults.headers.common['Access-Control-Allow-Origin']= '*'
 
 export default function RegistrationForm(props){
@@ -26,6 +27,7 @@ export default function RegistrationForm(props){
     
     ////console.log(header)
     const router =useRouter();
+    const notificationRef = useRef(null)
 
     const handleChange=(e)=>{
         const { id, value }=e.target;
@@ -38,13 +40,15 @@ export default function RegistrationForm(props){
     const sendDetailsToServer=()=>{
         //console.log("im here");
         if(state.username.length&&state.password.length&&state.confirmpassword.length){
-            //console.log('maybe here');
+            if (notificationRef.current) {
+                notificationRef.current.addNotif(Math.random(), "Registration request sent. Please wait.");
+              }
             const payload={
                 "username":state.username,
                 "password":state.password,
             }
-            //axios.defaults.headers.common['Access-Control-Allow-Origin']= '*'
-            //console.log(state, "korewa state desne");
+            // axios.defaults.headers.common['Access-Control-Allow-Origin']= '*'
+            // console.log(state, "korewa state desne");
             axios.post(API_BASE_URL + '/register', payload)
             .then((response)=>{
                 if(response.status===201){
@@ -53,20 +57,36 @@ export default function RegistrationForm(props){
                         ...prevState,
                         'succesMessage':'Registration successful. Redirecting to homepage'
                     }))
-                    //console.log("about to pass")
-                    // localStorage.setItem(ACCESS_TOKEN_NAME, JSON.stringify(response.data.token));
-                    redirectToLogin();
+                    if (notificationRef.current) {
+                        notificationRef.current.addNotif(Math.random(), "Registration successful. Try logging in.");
+                      }
+                    // redirectToLogin();
                     //console.log("created")
+                }else{
+                    // console.log('failed')
+                    if (notificationRef.current) {
+                        notificationRef.current.addNotif(Math.random(), "Registration failed. Please try again.");
+                      }
                 }
             })
             .catch((error)=>{
                 if (error.response) {
+                    if (notificationRef.current) {
+                        notificationRef.current.addNotif(Math.random(), "Registration failed. Please try again.");
+                      }
                     //console.log(error.response.data);
                     //console.log(error.response.status)
+            }else{
+                if (notificationRef.current) {
+                    notificationRef.current.addNotif(Math.random(), "Request failed. Please try again.");
+                  }
             }})
         }else{
+            if (notificationRef.current) {
+                notificationRef.current.addNotif(Math.random(), "Please fill the empty input fields.");
+              }
             // props.showError("Please enter valid credentials")
-            alert("Please fill the empty boxes");
+            // alert("Please fill the empty boxes");
         }
     }
 
@@ -80,7 +100,10 @@ export default function RegistrationForm(props){
         if(state.password===state.confirmpassword){
             sendDetailsToServer();
         }else{
-            alert("Password do not match... ");
+            // alert("Password do not match... ");
+            if (notificationRef.current) {
+                notificationRef.current.addNotif(Math.random(), "Passwords do not match.");
+              }
         }
     }
 
@@ -137,13 +160,14 @@ export default function RegistrationForm(props){
                     <button 
                         type="submit"
                         className='w-full min-h-[56px] rounded-[30px] border-white border-solid border-[1px] text-black bg-white'>Register</button>
-                    <button 
+                    {/* <button 
                         type="submit"
                         className='w-full min-h-[56px] rounded-[30px] border-white border-solid border-[1px] text-white bg-black mt-[30px] flex justify-center items-center'>
                             <Image src={Google} className='pr-[20px]' height={55}/><span className='leading-[8px]'>Login with Google</span>
-                    </button>
+                    </button> */}
                 </form>
             </div>
+            <SlideInNotifications ref={notificationRef}/>
         </div>
     </div>
     )

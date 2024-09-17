@@ -3,12 +3,13 @@
 import axios from "axios";
 import { redirect } from "next/dist/server/api-utils";
 import { ACCESS_TOKEN_NAME, API_BASE_URL } from "../_utils/apiConstants";
-import { useEffect } from "react";
-import dayjs from "dayjs";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import SlideInNotifications from "@/components/notifications/side_notification";
 
 export default function Homepage(){
     const router=useRouter();
+    const notificationRef = useRef(null)
     useEffect(()=>{
         const header={
             'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
@@ -27,12 +28,18 @@ export default function Homepage(){
             if (error.response.status==404){
                 router.push('/add')
             }else{
+                if (notificationRef.current) {
+                    notificationRef.current.addNotif(Math.random(), "Some error has occurred.");
+                  }
                 //console.log('status',error.response.status)
                 //console.log(JSON.stringify(error));
             }
         });
     },[])
     return(
-        <div className="h-screen flex">welcome to dahsboard</div>
+        <>
+        <div className="h-screen flex w-full justify-center items-center break-normal text-[2vw]">Welcome to the dashboard. You will be redirected shortly.</div>
+        <SlideInNotifications ref={notificationRef}/>
+        </>
     );
 }

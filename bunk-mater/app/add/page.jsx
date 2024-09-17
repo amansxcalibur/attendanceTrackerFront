@@ -1,19 +1,16 @@
 'use client'
 
-import { useState, useEffect } from "react";
-import XSvg from '../../components/svg/x.jsx';
-import CheckSvg from '../../components/svg/check.jsx';
+import { useState, useEffect, useRef } from "react";
 import PlusSvg from '../../components/svg/plus.jsx';
 import TrashSvg from '../../components/svg/trash.jsx';
-import Link from "next/link.js";
 import Drop from '../../components/drop_select/drop_select.jsx'
-import Popup from "@/components/popup/popup.jsx";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import DateRangePicker from "@/components/date_range_picker/date_range_picker_legit.jsx";
 import MinSubAttendance from "@/components/min_sub_attendance/min_sub_attendance.js";
 import { ACCESS_TOKEN_NAME, API_BASE_URL } from "../_utils/apiConstants.js";
 import axios from "axios";
+import SlideInNotifications from "@/components/notifications/side_notification.jsx";
 
 export default function Add(){
     const [tableData, setTableData]=useState([
@@ -32,6 +29,7 @@ export default function Add(){
     const [interval, setInterval] = useState({start_date: '', end_date: ''})
     const [range, setRange] = useState(0);
     const [criteria, setCriteria]=useState({value:75});
+    const notificationRef = useRef(null)
 
     useEffect(()=>{
         if (interval.start_date != '' && interval.end_date != ''){
@@ -44,7 +42,11 @@ export default function Add(){
 
     const handleUpdate=({data,row,col})=>{
         var thirdparty=tableData;
-        thirdparty[row][col]=data.label;
+        if (data!=null){
+            thirdparty[row][col]=data.label;
+        }else{
+            thirdparty[row][col]=''
+        }
         setTableData(thirdparty);
     }
 
@@ -60,16 +62,25 @@ export default function Add(){
         const header={
             'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
         }
+        if (notificationRef.current) {
+            notificationRef.current.addNotif(Math.random(), "Request sent. Please wait.");
+          }
         axios.post(API_BASE_URL + '/collection', payload, {headers: header})
             .then(function (response) {
                 if(response.status === 201){
+                    if (notificationRef.current) {
+                        notificationRef.current.addNotif(Math.random(), "Created timetable.");
+                      }
                     router.push('/dashboard/home')
                 }
                 // else if(response.code === 204){
                 //     props.showError("Username and password do not match");
                 // }
                 else{
-                    alert("Some error has occurred");
+                    if (notificationRef.current) {
+                        notificationRef.current.addNotif(Math.random(), "Creation failed. Please try again.");
+                      }
+                    // alert("Some error has occurred");
                     //console.log(response.data)
                 }
             })
@@ -77,6 +88,9 @@ export default function Add(){
                 if (error.response.status==401){
                     router.push('/login')
                 }
+                if (notificationRef.current) {
+                    notificationRef.current.addNotif(Math.random(), "Request failed. Please try again.");
+                  }
                 //console.log(error);
             });
     }
@@ -96,7 +110,7 @@ export default function Add(){
 
     return(
         <form className="flex flex-1 flex-col overflow-auto no-scrollbar">
-            <div className="absolute z-[9] h-[10vh] w-screen bottom-0 bg-gradient-to-t from-black">____</div>
+            <div className="absolute z-[9] h-[10vh] w-screen bottom-0 bg-gradient-to-t from-black"></div>
             <div className="flex-1 pt-[3vw]"></div>
             <div className="flex sm:justify-center">
                 <div className="w-[62vw] mb-[1vw]">
@@ -206,6 +220,7 @@ export default function Add(){
                 </div>
             </div>
             <div className="min-h-[20vh]"></div>
+            <SlideInNotifications ref={notificationRef}/>
         </form>
     );
 }

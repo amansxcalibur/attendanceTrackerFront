@@ -39,7 +39,7 @@ export default function ContactFooter(){
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <button className="rounded-full min-w-[15vw] max-md:min-w-[40vw] flex justify-center items-center mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-[#ff61ff]">
-                        <Link href={'/login'} className="text-[1.25vw] max-md:text-[4vw]">Get started now?</Link>
+                        <Link href={'/login'} className="flex-1 text-[1.25vw] max-md:text-[4vw]">Get started now?</Link>
                     </button>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
@@ -54,9 +54,9 @@ export default function ContactFooter(){
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black max-md:hidden"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black max-md:hidden"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-                    <div className="rounded-full min-w-[20vw] max-md:min-w-[45vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-[#ff61ff] flex justify-center items-center">
-                        <Link href={'/login'} className="text-[1.25vw] max-md:text-[4vw]">We also have an app</Link>
-                    </div>
+                    <button className="rounded-full min-w-[20vw] max-md:min-w-[45vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-[#ff61ff] flex justify-center items-center">
+                        <Link href={'https://github.com/Bunk-Mate/Mobile-App'} className="flex-1 text-[1.25vw] max-md:text-[4vw]">We also have an app</Link>
+                    </button>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
@@ -66,7 +66,7 @@ export default function ContactFooter(){
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-[#ff61ff] flex justify-center items-center">
-                        <Link href={'/login'} className="text-[1.25vw] max-md:text-[4vw]">Found any bugs?</Link>
+                        <Link href={'https://github.com/Bunk-Mate/Website/issues'} className="flex-1 text-[1.25vw] max-md:text-[4vw]">Found any bugs?</Link>
                     </div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>

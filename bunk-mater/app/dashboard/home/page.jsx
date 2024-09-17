@@ -1,9 +1,7 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import HomeDisp from "@/components/home_disp/home_disp";
-import { ACCESS_TIMETABLE_NAME, ACCESS_TOKEN_NAME, API_BASE_URL } from "@/app/_utils/apiConstants";
-import axios from "axios";
 
 export default function Home(){
     const [curr, setCurr]=useState('Overview');

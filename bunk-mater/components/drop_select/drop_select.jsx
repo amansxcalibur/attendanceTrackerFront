@@ -25,6 +25,7 @@ export default function Drop({tableData, handleUpdate, row, col, statusman, opti
     const newOption = createOption(inputValue);
     setOptionList((prev) => [...prev, newOption]);
     setSelectedOptions(newOption);
+    handleUpdate({data, row, col});
   }
 
   return (
@@ -36,6 +37,7 @@ export default function Drop({tableData, handleUpdate, row, col, statusman, opti
           value={selectedOptions}
           onChange={handleSelect}
           onCreateOption={handleCreate}
+          isClearable={true}
           isSearchable={true}
           styles={{
             control: (baseStyles, state)=>(windowHeight<640)?({

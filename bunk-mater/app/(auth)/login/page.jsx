@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../_utils/apiConstants';
 import { useRouter } from 'next/navigation';
@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Carousel from '@/components/carousels/carousel';
 import Link from 'next/link';
 import ForgotPass from '../forgot_pass/page';
+import SlideInNotifications from '@/components/notifications/side_notification';
 
 function LoginForm() {
     const [state, setState] = useState({
@@ -17,6 +18,7 @@ function LoginForm() {
         successMessage: null
     });
     const router = useRouter();
+    const notificationRef = useRef(null);
 
     const handleChange = (e) => {
         const { id, value } = e.target;
@@ -28,6 +30,9 @@ function LoginForm() {
 
     const handleSubmitClick = (e) => {
         e.preventDefault();
+        if (notificationRef.current) {
+            notificationRef.current.addNotif(Math.random(), "Login request sent. Please wait.");
+          }
         const payload = {
             "username": state.username,
             "password": state.password,
@@ -40,6 +45,9 @@ function LoginForm() {
                         'successMessage' : 'Login successful. Redirecting to home page..'
                     }))
                     //console.log(response.data)
+                    if (notificationRef.current) {
+                        notificationRef.current.addNotif(Math.random(), "Login successful");
+                      }
                     localStorage.setItem(ACCESS_TOKEN_NAME,JSON.stringify(response.data.token));
                     redirectToHome();
                 }
@@ -47,11 +55,17 @@ function LoginForm() {
                 //     props.showError("Username and password do not match");
                 // }
                 else{
-                    alert("Username does not exists");
+                    if (notificationRef.current) {
+                        notificationRef.current.addNotif(Math.random(), "Login failed. Please try again.");
+                      }
+                    // alert("Username does not exists");
                     //console.log(response.data)
                 }
             })
             .catch(function (error) {
+                if (notificationRef.current) {
+                    notificationRef.current.addNotif(Math.random(), "Login failed. Please try again.");
+                  }
                 //console.log(error);
             });
         // redirectToHome()//make sure to comment this out
@@ -106,10 +120,11 @@ function LoginForm() {
                     <button 
                         type="submit"
                         className='w-full min-h-[56px] rounded-[30px] border-white border-solid border-[1px] text-black bg-white'>Login</button>
-                    <button 
+                    <SlideInNotifications ref={notificationRef} />
+                    {/* <button 
                         type="submit"
                         className='w-full min-h-[56px] rounded-[30px] border-white border-solid border-[1px] text-white bg-black mt-[30px] flex justify-center items-center'>
-                            <Image src={Google} className='pr-[20px]' height={55}/><span className='leading-[8px]'>Login with Google</span></button>
+                            <Image src={Google} className='pr-[20px]' height={55}/><span className='leading-[8px]'>Login with Google</span></button> */}
                 </form>
             </div>
         </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import XSvg from '../../../components/svg/x.jsx';
 import CheckSvg from '../../../components/svg/check.jsx';
 import PlusSvg from '../../../components/svg/plus.jsx';
@@ -12,6 +12,7 @@ import HeightLimit from "@/components/height_limit_scrollable/heightLimit.js";
 import { Fragment } from "react";
 import { ACCESS_TIMETABLE_NAME, API_BASE_URL, ACCESS_TOKEN_NAME } from "@/app/_utils/apiConstants.js";
 import axios from "axios";
+import SlideInNotifications from "@/components/notifications/side_notification.jsx";
 
 export default function EditTable(){
     const [tableData, setTableData] = useState([[]])
@@ -21,6 +22,7 @@ export default function EditTable(){
     const [hw,setHw]=useState("50vh");
     const smRatio=212;
     const lgRatio=0.1415;
+    const notificationRef = useRef(null)
 
     useEffect(()=>{
         HeightLimit({setHw, smRatio, lgRatio})
@@ -36,7 +38,10 @@ export default function EditTable(){
 
     useEffect(()=>{
         if (saveCheck=="Save"){
-            alert("saved");
+            // alert("saved");
+            if (notificationRef.current) {
+                notificationRef.current.addNotif(Math.random(), "Request sent. Please wait.");
+              }
             //console.log(tableData, 'here is the updated one')
             const header={
                 'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
@@ -46,25 +51,40 @@ export default function EditTable(){
                 //console.log(response.status, response.data)
                 if (response.status==200){
                     sessionStorage.removeItem(ACCESS_TIMETABLE_NAME);
+                    if (notificationRef.current) {
+                        notificationRef.current.addNotif(Math.random(), "Timetable updated.");
+                      }
                     //console.log('removed from local')
                 }
                 router.push('/dashboard/table')
             })
             .catch((error)=>{
-                if (error.response.status==401){
-                    router.push('/login')
+                if (notificationRef.current) {
+                    notificationRef.current.addNotif(Math.random(), "Request failed. Please try again.");
+                  }
+                if(error){
+                    if (error?.response?.status==401){
+                        router.push('/login')
+                    }
                 }
                 //console.log("caught an error in post\n",error)
             })
         }else if(saveCheck=="Discard"){
-            alert("discarded");
+            if (notificationRef.current) {
+                notificationRef.current.addNotif(Math.random(), "Changes discarded.");
+              }
+            // alert("discarded");
             router.push('/dashboard/table')
         }
     },[saveCheck])
 
     const handleUpdate=({data,row,col})=>{
         var thirdparty=tableData;
-        thirdparty[row][col]=data.label;
+        if (data!=null){
+            thirdparty[row][col]=data.label;
+        }else{
+            thirdparty[row][col]=''
+        }
         setTableData(thirdparty);
     }
 
@@ -158,6 +178,7 @@ export default function EditTable(){
                     </div>
                 </div>
             </div>
+            <SlideInNotifications ref={notificationRef}/>
         </div>
     );
 }
