@@ -117,7 +117,7 @@ export default function RegistrationForm(props){
                 <div className='p-[14vw] md:p-[9vw] flex-1'>
                 <p className='text-[40px]'>Welcome</p>
                 <div className="mb-[50px]">
-                    <p className="">Already have an account? <span onClick={() => redirectToLogin()}><b><u>Login here</u></b></span></p> 
+                    <p className="">Already have an account? <Link href={'/login'}><b><u>Login here</u></b></Link></p> 
                 </div>
                 <form onSubmit={handleSubmitClick}>
                     <div className='flex flex-col'>

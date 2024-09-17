@@ -89,7 +89,7 @@ function LoginForm() {
                 <div className='p-[14vw] md:p-[9vw] flex-1'>
                 <p className='text-[40px]'>Welcome</p>
                 <div className="mb-[50px]">
-                    <p className="" onClick={() => redirectToRegister()}><span><b><u>Create a free account</u></b></span> or log in to get started</p> 
+                    <p><Link href={'/registration'}><b><u>Create a free account</u></b></Link> or log in to get started</p> 
                 </div>
                 <form onSubmit={handleSubmitClick}>
                     <div className='flex flex-col'>
