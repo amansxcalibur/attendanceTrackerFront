@@ -8,8 +8,17 @@ import CircleScale from "@/components/scroll_shenanigans/circle_scale";
 import HorizontalScrollCarousel from "@/components/scroll_shenanigans/dependent_horizontal_scroll";
 import ContactFooter from "@/components/contact_us/contact_footer";
 import Feature from "@/components/feature/feature";
+import NameStrip from "@/components/name_strip/name_strip";
+import FeatureStrip from "@/components/name_strip/feature_strip"
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(()=>{
+    window.onbeforeunload=()=>{
+        window.scrollTo(0,0)
+    }
+    console.log('reload')
+  })
   return (
     <div className="h-[94vh] scroll-smooth">
       <div className="flex flex-col items-center justify-center flex-1 m-[1vw] h-[90vh] max-md:h-[90vh] bg-black">
@@ -24,7 +33,7 @@ export default function Home() {
       </div>
       <div className="flex flex-col items-center justify-center -mt-[8vw]">
         <Image src={Dashboard} className="h-[30vw] w-auto border-[0.4vw] rounded-[1vw] border-[#979797] border-solid max-md:w-[90vw] max-md:h-auto"/>
-        <div className="bg-gradient-to-t from-black min-h-[10vw] w-screen -mt-[10vw]"></div>
+        <div className="bg-gradient-to-t from-black min-h-[10vw] max-w-screen -mt-[10vw]"></div>
       </div>
       <div className="text-[3vw] max-md:text-[7vw] h-screen flex justify-center items-center">
         <p className="max-w-[60vw] max-md:max-w-[85vw]">
@@ -32,15 +41,22 @@ export default function Home() {
         </p>
       </div>
       <div className="flex flex-col justify-center items-center mt-[50vh] max-md:mt-[15vh]">
-        <Image src={Dashboard} className="w-[60vw] h-auto sticky top-[50vh] -translate-y-1/2 mb-[20vw] max-md:w-[90vw]"/>
-        <Image src={EditTable} className="w-[60vw] h-auto sticky top-[50vh] -translate-y-1/2 mb-[20vw] max-md:w-[90vw]"/>
-        <div className="w-[60vw] h-[30vw] flex justify-center items-center rounded-[2vw] bg-[#1c1c1c] sticky top-[50vh] -translate-y-1/2 mb-[20vw] max-md:w-[90vw] max-md:h-[45vw]">Ranked bunking here</div>
+        <Image src={Dashboard} className="w-[60vw] h-auto sticky top-[50vh] -translate-y-1/2 mb-[20vw] max-md:w-[90vw] border-[0.4vw] rounded-[1vw] border-[#505050] border-solid"/>
+        <Image src={EditTable} className="w-[60vw] h-auto sticky top-[50vh] -translate-y-1/2 mb-[20vw] max-md:w-[90vw] border-[0.4vw] rounded-[1vw] border-[#505050] border-solid"/>
+        <div className="w-[60vw] h-[30.4vw] flex justify-center items-center bg-[#1c1c1c] sticky top-[50vh] -translate-y-1/2 mb-[20vw] max-md:w-[90vw] max-md:h-[45vw] border-[0.2vw] rounded-[1vw] border-[#979797] border-dashed text-[1vw]">Ranked bunking coming soon</div>
+      </div>
+      <div className="max-w-screen -mb-[13vw] -mt-[20vw]">
+        <FeatureStrip/>
       </div>
       <div id='feature'>
         <Feature/>
       </div>
-      {/* <CircleScale/>
-      <HorizontalScrollCarousel/> */}
+      <CircleScale/>
+      <HorizontalScrollCarousel/>
+      <div className="max-w-screen bg-white">
+        <NameStrip/>
+      </div>
+      <div className="h-[20vh] bg-black max-w-screen"></div>
       <ContactFooter/>
     </div>
   );

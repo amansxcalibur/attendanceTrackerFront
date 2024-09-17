@@ -29,7 +29,7 @@ export default function ContactFooter(){
                             <p className="text-[1.5vw] max-md:text-[4vw] px-[1vw] hover:bg-black hover:text-white rounded-full transition duration-300 ease"><Link href={'https://github.com/Bunk-Mate/Mobile-App'}>Mobile App</Link></p>
                         </div>
                     </div>
-                    <div className="text-[#8a8a8a] text-[1vw] max-md:text-[3vw] w-full p-[1vw]">&copy;2024, Bunk-Mate. All Rights Probably NOT Reserved</div>
+                    <div id="end" className="text-[#8a8a8a] text-[1vw] max-md:text-[3vw] w-full p-[1vw]">&copy;2024, Bunk-Mate. All Rights Probably NOT Reserved</div>
                 </div>
             </div>
             <div className="flex-1 bg-white flex flex-col -ml-[15vw] max-h-screen overflow-hidden tracking-tight">
