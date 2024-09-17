@@ -33,7 +33,7 @@ export default function Home() {
       </div>
       <div className="flex flex-col items-center justify-center -mt-[8vw]">
         <Image src={Dashboard} className="h-[30vw] w-auto border-[0.4vw] rounded-[1vw] border-[#979797] border-solid max-md:w-[90vw] max-md:h-auto"/>
-        <div className="bg-gradient-to-t from-black min-h-[10vw] max-w-screen -mt-[10vw]"></div>
+        <div className="bg-gradient-to-t from-black min-h-[10vw] w-screen -mt-[10vw]"></div>
       </div>
       <div className="text-[3vw] max-md:text-[7vw] h-screen flex justify-center items-center">
         <p className="max-w-[60vw] max-md:max-w-[85vw]">

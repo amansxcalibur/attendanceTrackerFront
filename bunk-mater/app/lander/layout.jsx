@@ -8,19 +8,6 @@ import Image from "next/image";
 
 export default function RootLayout({ children }) {
   const [open, setOpen] = useState(true)
-  // const docH = useRef(0);
-  // useEffect(()=>{
-  //   const handleScroll=()=>{
-  //     console.log(window.scrollY, document.body.scrollHeight-window.innerHeight, docH)
-  //     if(window.scrollY>=docH.current){
-  //       setOpen(false);
-  //     }else{
-  //       setOpen(true)
-  //     }
-  //   }
-  //   docH.current = document.body.scrollHeight-(1)*window.innerHeight;
-  //   window.addEventListener('scroll', handleScroll)
-  // })
   useEffect(() => {
     let observer;
     const ref = document.getElementById("end");
