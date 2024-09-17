@@ -129,6 +129,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                         }
                         setNewSub('');
                         setAddNewSub('');
+                        sessionStorage.removeItem(ACCESS_TIMETABLE_NAME);
                         //console.log('addnewsub getting reset again??')
                     }
                 })
@@ -153,7 +154,11 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
 
     const handleUpdate=({data,row,col})=>{
         //console.log
-        setNewSub(data.value);
+        if(data!=null){
+            setNewSub(data.value);
+        }else{
+            setNewSub('');
+        }
     }
 
     return(

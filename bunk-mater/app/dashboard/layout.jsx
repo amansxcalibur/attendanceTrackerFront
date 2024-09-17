@@ -10,11 +10,13 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { API_BASE_URL, ACCESS_TOKEN_NAME, ACCESS_TIMETABLE_NAME } from "../_utils/apiConstants";
 import Logout from "@/components/svg/logout";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import SlideInNotifications from "@/components/notifications/side_notification";
 
 export default function Layout({children}){
     const pathname=usePathname();
     const router = useRouter()
+    const notificationRef = useRef(null);
 
     useEffect(()=>{
         if (localStorage.getItem(ACCESS_TOKEN_NAME)==null){
@@ -26,21 +28,34 @@ export default function Layout({children}){
         const header={
             'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
         }
+        if (notificationRef.current) {
+            notificationRef.current.addNotif(Math.random(), "Logging you out...");
+          }
         axios.post(API_BASE_URL + '/logout', {}, {headers: header})
             .then((response)=>{
                 if(response.status===200){
+                    if (notificationRef.current) {
+                        notificationRef.current.addNotif(Math.random(), "Logged out.");
+                      }
                     localStorage.removeItem(ACCESS_TOKEN_NAME); 
                     try {
                         sessionStorage.removeItem(ACCESS_TIMETABLE_NAME);
                     }catch{}
                     //console.log("logged out")
                     router.push('/login'); 
+                }else{
+                    if (notificationRef.current) {
+                        notificationRef.current.addNotif(Math.random(), "Some error has occurred. Please try again.");
+                      }
                 }
             })
             .catch((error)=>{
                 if (error.response.status==401){
                     router.push('/login')
                 }
+                if (notificationRef.current) {
+                    notificationRef.current.addNotif(Math.random(), "Some error has occurred. Please try again");
+                  }
                 //console.log(error.response);
             })
         }
@@ -83,6 +98,7 @@ export default function Layout({children}){
                 </nav>
             </div>
             <div className="h-full bg-black">{children}</div>
+            <SlideInNotifications ref={notificationRef}/>
         </div>
     )
 }

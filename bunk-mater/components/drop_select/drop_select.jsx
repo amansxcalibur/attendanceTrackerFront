@@ -25,7 +25,7 @@ export default function Drop({tableData, handleUpdate, row, col, statusman, opti
     const newOption = createOption(inputValue);
     setOptionList((prev) => [...prev, newOption]);
     setSelectedOptions(newOption);
-    handleUpdate({data, row, col});
+    handleUpdate({inputValue, row, col});
   }
 
   return (
