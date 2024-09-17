@@ -107,7 +107,7 @@ export default function HorizontalScroll(){
                 >
                     <p className="h-full flex items-center" 
                     style={{paddingLeft:`${window.innerHeight+window.innerWidth}px`, paddingRight:`${window.innerHeight+window.innerWidth}px`}}>
-                    LET'S GO BUNK-MATE
+                    LET&apos;S GO BUNK-MATE
                     </p>
                 </div>
             </div>

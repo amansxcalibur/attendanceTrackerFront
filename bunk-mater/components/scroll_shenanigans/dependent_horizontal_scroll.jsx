@@ -23,7 +23,7 @@ const HorizontalScrollCarousel = () => {
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden ">
         <motion.div style={{ x }} className="flex whitespace-nowrap">
-          <p ref={ref} className="text-[80vh] max-md:text-[40vh] ml-[100vw] h-screen bg-white flex items-center">LET'S GO BUNKMATE</p>
+          <p ref={ref} className="text-[80vh] max-md:text-[40vh] ml-[100vw] h-screen bg-white flex items-center">LET&apos;S GO BUNKMATE</p>
           <div className="bg-white min-w-[100vw] min-h-[100vh] -mr-[100vw]"></div>
         </motion.div>
       </div>

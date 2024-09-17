@@ -1,12 +1,12 @@
-import React, { useImperativeHandle, forwardRef, useState, useEffect } from "react";
+import React, { useImperativeHandle, forwardRef, useState, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const SlideInNotifications = forwardRef((props, ref) => {
   const [notifications, setNotifications] = useState([]);
 
-  const removeNotif = (id) => {
+  const removeNotif = useCallback((id) => {
     setNotifications((pv) => pv.filter((n) => n.id !== id));
-  };
+  }, []);
 
   const addNotif = (id, text) => {
     setNotifications((pv) => [{ id, text }, ...pv]);
@@ -27,6 +27,7 @@ const SlideInNotifications = forwardRef((props, ref) => {
   );
 });
 
+SlideInNotifications.displayName = "SlideInNotifications"
 const NOTIFICATION_TTL = 5000;
 
 const Notification = ({ text, id, removeNotif }) => {

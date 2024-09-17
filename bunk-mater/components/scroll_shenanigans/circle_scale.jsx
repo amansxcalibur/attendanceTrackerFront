@@ -12,6 +12,7 @@ export default function CircleScale(){
     const winH = useRef(0);
     const winW = useRef(0);
     const prev = useRef(0);
+    const [windH, setWindH] = useState(0);
   
     useEffect(() => {
       let lastScrollY = window.scrollY;
@@ -121,13 +122,21 @@ export default function CircleScale(){
             //console.log(activate,'here is activate')
         },[activate])
 
+    useEffect(()=>{
+        window.addEventListener("resize",()=>{
+            setTimeout(()=>{
+                setWindH(window.innerHeight);
+            },10)
+        });
+    })
+
     return(
         <div className="h-full">
         <div className="h-[50vh]"></div>
         <div className="flex justify-center h-[200vh] -mb-[100vh] max-sm:-mb-[150vh]" ref={circleRef}
         //style={{height:`${Math.round(Math.sqrt((window.innerHeight)**2+(window.innerWidth)**2))}px`}}
         >
-            <div className={`bg-white rounded-full fixed ${h>window.innerHeight?'transform -translate-y-1/2 top-[50vh]':'bottom-0'}`}
+            <div className={`bg-white rounded-full fixed ${h>windH?'transform -translate-y-1/2 top-[50vh]':'bottom-0'}`}
             style={{minHeight: `${h}px`, minWidth: `${w}px`}}
             ></div>
         </div>
