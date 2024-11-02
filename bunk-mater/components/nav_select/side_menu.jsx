@@ -11,7 +11,7 @@ export default function SideMenu({options, href, pathname, handleLogout}){
             <button className="text-5xl" onClick={()=>{setOpen(true)}}>
                 <Bars/>
             </button>
-            <div className={`absolute z-10 bg-[rgba(20,20,20,0.5)] backdrop-blur-sm h-[100vh] w-full left-0 top-0 flex justify-end ${open?'':'hidden'}`}>
+            <div className={`fixed z-10 bg-[rgba(20,20,20,0.5)] backdrop-blur-sm h-[calc(100%)] w-full left-0 top-0 flex justify-end ${open?'':'hidden'}`}>
                 <div className="bg-black w-44 p-4 rounded-l-3xl">
                     <button className="text-5xl" onClick={()=>{setOpen(false)}}>X</button>
                     <ul className="flex justify-center flex-col text-4xl mt-3">
