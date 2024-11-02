@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 
 export default function Drop({tableData, handleUpdate, row, col, statusman, optionList, setOptionList}){
   const [selectedOptions, setSelectedOptions] = useState();
-  const [windowHeight, setWindowHeight] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(641);
   useEffect(()=>{
-    setWindowHeight(window.innerHeight);
+    setWindowWidth(window.innerWidth);
   },[])
   
   function handleSelect(data){
@@ -40,14 +40,15 @@ export default function Drop({tableData, handleUpdate, row, col, statusman, opti
           isClearable={true}
           isSearchable={true}
           styles={{
-            control: (baseStyles, state)=>(windowHeight<640)?({
+            control: (baseStyles, state)=>(windowWidth<640)?({
               ...baseStyles,
               borderColor: state.isFocused?"white":"transparent",
-              height:"12vh",
+              height:"14vh",
+              width: statusman?"92vw":"",
               backgroundColor:tableData[row][col]==null?"":"#202224",
               color:"",
               display:"flex",
-              flexDirection:"column",
+              flexDirection: statusman?"row":"column",
               overflow:"scroll",
               fontSize:statusman?"30px":""
               //wordBreak:"break-all"
@@ -61,7 +62,7 @@ export default function Drop({tableData, handleUpdate, row, col, statusman, opti
               display:"flex",
               fontSize:statusman?"1.5vw":""
             }),
-            valueContainer: (baseStyles, state)=>(windowHeight<640)?({
+            valueContainer: (baseStyles, state)=>(windowWidth<640)?({
               ...baseStyles,
               overflow:"scroll",
             }):
@@ -75,7 +76,8 @@ export default function Drop({tableData, handleUpdate, row, col, statusman, opti
             }),
             option: (baseStyles, { isFocused, isSelected }) => ({
               ...baseStyles,
-                backgroundColor: isSelected ? "green" : isFocused ? "#00AA4A" : undefined
+                backgroundColor: isSelected ? "green" : isFocused ? "#00AA4A" : undefined,
+                fontSize:statusman?"30px":""
             }),
             placeholder: (baseStyles, state)=>({
               ...baseStyles,

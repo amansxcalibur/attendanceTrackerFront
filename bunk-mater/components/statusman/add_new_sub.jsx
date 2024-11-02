@@ -172,7 +172,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                     <Drop tableData={[{}]} handleUpdate={handleUpdate} row={0} col={0} statusman={true} optionList={optionList} setOptionList={setOptionList}></Drop>
                 }
             </div>
-            <div className={`max-sm:hidden flex justify-end ${addNewSub=="" || addNewSub=="Discard" || addNewSub=="Save"?"hidden":""}`}>
+            <div className={`flex justify-end ${addNewSub=="" || addNewSub=="Discard" || addNewSub=="Save"?"hidden":""}`}>
                 <div className="rounded-full h-16 w-16 flex justify-center items-center overflow-hidden">
                     <Popup compToPass={<CheckSvg/>} setDecisionCheck={setAddNewSub} message={{message:"Are you sure you want to save the changes?", opt:["Cancel", "Save"]}}/>
                 </div>
