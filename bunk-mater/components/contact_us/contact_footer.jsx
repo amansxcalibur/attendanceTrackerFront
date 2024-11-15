@@ -3,6 +3,7 @@ import Tape from "@/app/_assets/name_strip.png"
 import Image from "next/image"
 import Link from "next/link"
 import BackToTop from "../svg/back_to_top"
+import PopOutButton from "../ui/popout_button"
 
 export default function ContactFooter(){
     return(
@@ -16,17 +17,27 @@ export default function ContactFooter(){
                     <div className="flex-1 w-full flex p-[2vw] px-[4vw]">
                         <div className="min-w-[15vw]">
                             <p className="text-[2vw] text-[#8a8a8a] max-md:text-[5vw]">A PROJECT BY</p>
-                            <p className="text-[1.5vw] max-md:text-[4vw] px-[1vw] hover:bg-black hover:text-white rounded-full transition duration-300 ease"><Link href={'https://github.com/amansxcalibur'}>amansxcalibur</Link></p>
-                            <p className="text-[1.5vw] max-md:text-[4vw] px-[1vw] hover:bg-black hover:text-white rounded-full transition duration-300 ease"><Link href={'https://github.com/angrezichatterbox'}>angrezichatterbox</Link></p>
-                            <p className="text-[1.5vw] max-md:text-[4vw] px-[1vw] hover:bg-black hover:text-white rounded-full transition duration-300 ease"><Link href={'https://github.com/hrideshmg'}>hrideshmg</Link></p>
+                            <p className="text-[1.5vw] max-md:text-[4vw] px-[1vw] hover:bg-black hover:text-white rounded-full transition duration-300 ease flex">
+                                <Link href={'https://github.com/amansxcalibur'} className="flex-1">amansxcalibur</Link>
+                            </p>
+                            <p className="text-[1.5vw] max-md:text-[4vw] px-[1vw] hover:bg-black hover:text-white rounded-full transition duration-300 ease flex">
+                                <Link href={'https://github.com/angrezichatterbox'} className="flex-1">angrezichatterbox</Link>
+                            </p>
+                            <p className="text-[1.5vw] max-md:text-[4vw] px-[1vw] hover:bg-black hover:text-white rounded-full transition duration-300 ease flex">
+                                <Link href={'https://github.com/hrideshmg'} className="flex-1">hrideshmg</Link>
+                            </p>
                         </div>
                         <div className="text-black flex-1 flex justify-center w-full items-end">
                             <BackToTop/>
                         </div>
                         <div className="min-w-[15vw]">
                             <p className="text-[2vw] text-[#8a8a8a] max-md:text-[5vw]">GitHub</p>
-                            <p className="text-[1.5vw] max-md:text-[4vw] px-[1vw] hover:bg-black hover:text-white rounded-full transition duration-300 ease"><Link href={'https://github.com/Bunk-Mate/.github'}>Bunk-Mate</Link></p>
-                            <p className="text-[1.5vw] max-md:text-[4vw] px-[1vw] hover:bg-black hover:text-white rounded-full transition duration-300 ease"><Link href={'https://github.com/Bunk-Mate/Mobile-App'}>Mobile App</Link></p>
+                            <p className="text-[1.5vw] max-md:text-[4vw] px-[1vw] hover:bg-black hover:text-white rounded-full transition duration-300 ease flex">
+                                <Link href={'https://github.com/Bunk-Mate/.github'} className="flex-1">Bunk-Mate</Link>
+                            </p>
+                            <p className="text-[1.5vw] max-md:text-[4vw] px-[1vw] hover:bg-black hover:text-white rounded-full transition duration-300 ease flex">
+                                <Link href={'https://github.com/Bunk-Mate/Mobile-App'} className="flex-1">Mobile App</Link>
+                            </p>
                         </div>
                     </div>
                     <div id="end" className="text-[#8a8a8a] text-[1vw] max-md:text-[3vw] w-full p-[1vw]">&copy;2024, Bunk-Mate. All Rights Probably NOT Reserved</div>
@@ -38,9 +49,9 @@ export default function ContactFooter(){
                 <div className="h-[12vh] ml-[18vh] flex max-md:-ml-[10vw]">
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-                    <button className="rounded-full min-w-[15vw] max-md:min-w-[40vw] flex justify-center items-center mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-[#ff61ff]">
-                        <Link href={'/login'} className="flex-1 text-[1.25vw] max-md:text-[4vw]">Get started now?</Link>
-                    </button>
+                    <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] flex">
+                        <PopOutButton href={'/registration'} mssg={"Get started now?"}/>
+                    </div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
@@ -54,9 +65,9 @@ export default function ContactFooter(){
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black max-md:hidden"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black max-md:hidden"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-                    <button className="rounded-full min-w-[20vw] max-md:min-w-[45vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-[#ff61ff] flex justify-center items-center">
-                        <Link href={'https://github.com/Bunk-Mate/Mobile-App'} className="flex-1 text-[1.25vw] max-md:text-[4vw]">We also have an app</Link>
-                    </button>
+                    <div className="rounded-full min-w-[20vw] max-md:min-w-[45vw] flex">
+                        <PopOutButton href={'https://github.com/Bunk-Mate/Mobile-App'} mssg={"We also have an app"}/>
+                    </div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
@@ -65,9 +76,9 @@ export default function ContactFooter(){
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black max-md:hidden"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-                    <button className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-[#ff61ff] flex justify-center items-center">
-                        <Link href={'https://github.com/Bunk-Mate/Website/issues'} className="flex-1 text-[1.25vw] max-md:text-[4vw]">Found any bugs?</Link>
-                    </button>
+                    <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] flex">
+                        <PopOutButton href={'https://github.com/Bunk-Mate/Website/issues'} mssg={"Found any bugs?"}/>
+                    </div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
                     <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
@@ -86,15 +97,9 @@ export default function ContactFooter(){
 function Insider(){
     return(
         <>
-        <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-        <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-        <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-        <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-        <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-        <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-        <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-        <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
-        <div className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
+        {[1,2,3,4,5,6,7,8,9].map(iter=>
+            <div key={iter.id} className="rounded-full min-w-[15vw] max-md:min-w-[40vw] mt-[0.1vh] ml-[0.1vh] border-black border-solid border-[0.5vh] bg-black"></div>
+        )}
         </>
     )
 }
