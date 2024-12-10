@@ -34,15 +34,18 @@ export default function Statusman({setRefreshCont, refreshCont}){
     },[dateCurr])
 
     function renderSwitch(param) {
-        switch(param) {
-          case 1:
-            return 'st';
-          case 2:
-            return 'nd';
-          case 3:
-            return 'rd';
-          default:
-            return 'th';
+        if (Math.floor(param/10)==1) return 'th';
+        else{
+            switch(param%10) {
+            case 1:
+                return 'st';
+            case 2:
+                return 'nd';
+            case 3:
+                return 'rd';
+            default:
+                return 'th';
+            }
         }
     }
 
@@ -50,7 +53,7 @@ export default function Statusman({setRefreshCont, refreshCont}){
         if (dateCurr.format("DD-MM-YYYY")!==dayjs().format("DD-MM-YYYY")){
             return  <>
                       {dateCurr.date()}
-                      <span className="font-extralight text-[rgba(125,125,125,1)]">{renderSwitch(dateCurr.date()%10)} {month}</span>
+                      <span className="font-extralight text-[rgba(125,125,125,1)]">{renderSwitch(dateCurr.date()%100)} {month}</span>
                     </>
         }else{
             return "Today"
