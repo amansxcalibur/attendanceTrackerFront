@@ -1,7 +1,5 @@
 'use client'
 
-import { API_BASE_URL, ACCESS_TOKEN_NAME } from "@/app/_utils/apiConstants"
-import axios from "axios";
 import { useState, useEffect } from "react"
 import dayjs from "dayjs";
 import BasicDatePicker from "./rewind";
@@ -15,35 +13,11 @@ export default function Statusman({setRefreshCont, refreshCont}){
     const smRatio=258.1;
     const lgRatio=0.13;
     const router = useRouter()
-    const [dateQuer, setDateQuer]=useState([
-        // {
-        //     "name": "history",
-        //     "status": "present",
-        //     "session_url": "http://127.0.0.1:8000/session/63171"
-        // },
-    ]);
+    
 
-    const header={
-        'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
-      }
-    useEffect(()=>{
-        axios.get(API_BASE_URL + '/datequery?date='+dateCurr.format("YYYY-MM-DD"), {headers:header})
-        .then(function (response) {
-            if(response.status === 200){
-                setDateQuer(response.data)
-            }
-            else{
-                //console.log(response.data)
-            }
-        })
-        .catch(function (error) {
-            if (error.response.status==401){
-                router.push('/login')
-            }
-            //console.log(JSON.stringify(error));
-        });
-        //console.log("after useEffect",dateQuer)
-    },[dateCurr, refreshCont])
+    // useEffect(()=>{
+    //     console.log("Here is datequer ", dateQuer)
+    // },[dateQuer])
 
     useEffect(()=>{
         HeightLimit({setHw, smRatio, lgRatio})
@@ -72,7 +46,7 @@ export default function Statusman({setRefreshCont, refreshCont}){
         }
     }
 
-    function handleCond(){
+    function handleDateDisp(){
         if (dateCurr.format("DD-MM-YYYY")!==dayjs().format("DD-MM-YYYY")){
             return  <>
                       {dateCurr.date()}
@@ -87,7 +61,7 @@ export default function Statusman({setRefreshCont, refreshCont}){
             <div className="flex justify-center items-center max-sm:mb-3">
                 <div className="flex-1">
                     <span className="text-[4vw] font-light max-sm:text-6xl">
-                        {handleCond()}
+                        {handleDateDisp()}
                     </span>
                 </div>
                 <div className="flex justify-end items-center">
@@ -95,9 +69,9 @@ export default function Statusman({setRefreshCont, refreshCont}){
                 </div>
             </div>
             <div className="flex flex-1 pt-[0.5px]" id='victim'>
-            {dateQuer===null || dateQuer==[]?<></>:
-                <Status dateQuer={dateQuer} setDateQuer={setDateQuer} dateCurr={dateCurr} setDateCurr={setDateCurr} refreshCont={refreshCont} setRefreshCont={setRefreshCont} hw={hw}/>
-            }
+            
+                <Status dateCurr={dateCurr} refreshCont={refreshCont} setRefreshCont={setRefreshCont} hw={hw}/>
+            
             </div>
         </div>
     )

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { API_BASE_URL, ACCESS_TOKEN_NAME, ACCESS_TIMETABLE_NAME } from "@/app/_utils/apiConstants";
 import SlideInNotifications from "../notifications/side_notification";
 
-export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setRefreshCont}){
+export default function AddNewSubs({dateCurr, dateQuery, refreshCont, setRefreshCont}){
     const [addNewSub, setAddNewSub] = useState("");
     const [newSub, setNewSub] = useState('');
     const [optionList, setOptionList] = useState([])
@@ -18,7 +18,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
     const notificationRef = useRef(null)
 
     useEffect(()=>{
-        if (dateQuerForDisp.length==0){
+        if (dateQuery.length==0){
             setOptionList([
                 {label:'Monday', value:1},
                 {label:'Tuesday', value:2},
@@ -34,7 +34,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
             }
             setMessage("Add another subject")
           }
-    },[dateQuerForDisp])
+    },[dateQuery])
 
     useEffect(()=>{
         if (addNewSub == 'Save'){
@@ -46,7 +46,7 @@ export default function AddNewSubs({dateCurr, dateQuerForDisp, refreshCont, setR
                 const header={
                     'Authorization':'Token '+JSON.parse(localStorage.getItem(ACCESS_TOKEN_NAME))
                 }
-                if (dateQuerForDisp.length==0){
+                if (dateQuery.length==0){
                     payload = {
                         "day_of_week":newSub,
                         "date": dateCurr.format("YYYY-MM-DD")
