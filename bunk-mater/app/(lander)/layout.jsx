@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import ReactLenis from "lenis/react";
-import Logo from "@/app/_assets/logo.png"
+import Logo from "@/public/assets/logo.png"
 import Image from "next/image";
 
 export default function RootLayout({ children }) {

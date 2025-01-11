@@ -4,7 +4,7 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../_utils/apiConstants';
 import { useRouter } from 'next/navigation';
-import Google from '../../_assets/google.png'
+import Google from '@/public/assets/google.png'
 import Image from 'next/image';
 import Carousel from '@/components/carousels/carousel';
 import Link from 'next/link';

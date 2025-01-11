@@ -2,18 +2,33 @@
 const nextConfig = {
     async redirects() {
         return [
+        // {
+        //     source: '/',
+        //     destination: '/lander',
+        //     permanent: true,
+        // },
+        // {
+        //     source: '/lander/test',
+        //     destination: '/404',
+        //     permanent: true,
+        // },
+        // {
+        //     source: '/lander/zindex',
+        //     destination: '/404',
+        //     permanent: true,
+        // },
         {
-            source: '/',
-            destination: '/lander',
-            permanent: true,
+            source: '/lander',
+            destination: '/',
+            permanent: false,
         },
         {
-            source: '/lander/test',
+            source: '/test',
             destination: '/404',
             permanent: true,
         },
         {
-            source: '/lander/zindex',
+            source: '/zindex',
             destination: '/404',
             permanent: true,
         },

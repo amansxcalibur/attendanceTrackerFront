@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import Dashboard from "@/app/_assets/dashboard.png"
-import EditTable from "@/app/_assets/edit_timetable.png"
+import Dashboard from "@/public/assets/dashboard.png"
+import EditTable from "@/public/assets/edit_timetable.png"
 import CircleScale from "@/components/scroll_shenanigans/circle_scale";
 import HorizontalScrollCarousel from "@/components/scroll_shenanigans/dependent_horizontal_scroll";
 import ContactFooter from "@/components/contact_us/contact_footer";

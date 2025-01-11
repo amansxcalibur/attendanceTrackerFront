@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import Strip from "@/app/_assets/name_strip.png"
+import Strip from "@/public/assets/name_strip.png"
 import Image from "next/image";
 import {
   motion,

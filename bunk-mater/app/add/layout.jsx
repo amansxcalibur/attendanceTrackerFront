@@ -4,7 +4,7 @@ import { options } from "../_utils/navbarConstants";
 import NavMapped from "@/components/nav_select/nav_mapped";
 import { usePathname } from "next/navigation";
 import SideMenu from "@/components/nav_select/side_menu";
-import Logo from "../_assets/logo.png"
+import Logo from "@/public/assets/logo.png"
 import Image from "next/image";
 
 export default function Layout({children}){

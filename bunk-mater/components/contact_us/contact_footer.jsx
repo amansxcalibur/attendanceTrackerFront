@@ -1,5 +1,4 @@
-import Logo from "@/app/_assets/logo.png"
-import Tape from "@/app/_assets/name_strip.png"
+import Logo from "@/public/assets/logo.png"
 import Image from "next/image"
 import Link from "next/link"
 import BackToTop from "../svg/back_to_top"

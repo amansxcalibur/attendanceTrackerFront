@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Chinchilla from "../../_assets/chinchilla.gif"
+import Chinchilla from "@/public/assets/chinchilla.gif"
 import Link from "next/link";
 
 export default function TermsAndCond(){
